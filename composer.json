@@ -1,21 +1,22 @@
 {
     "name": "mailodds/mailodds-php",
-    "description": "MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description",
+    "description": "Official PHP client for the MailOdds Email Validation API",
     "keywords": [
-        "openapitools",
-        "openapi-generator",
-        "openapi",
-        "php",
+        "email",
+        "validation",
+        "verification",
+        "mailodds",
+        "api",
         "sdk",
-        "rest",
-        "api"
+        "php"
     ],
-    "homepage": "https://openapi-generator.tech",
-    "license": "unlicense",
+    "homepage": "https://mailodds.com",
+    "license": "MIT",
     "authors": [
         {
-            "name": "OpenAPI",
-            "homepage": "https://openapi-generator.tech"
+            "name": "MailOdds",
+            "email": "support@mailodds.com",
+            "homepage": "https://mailodds.com"
         }
     ],
     "require": {
@@ -31,9 +32,13 @@
         "friendsofphp/php-cs-fixer": "^3.5"
     },
     "autoload": {
-        "psr-4": { "MailOdds\\" : "lib/" }
+        "psr-4": { "MailOdds\\": "lib/" }
     },
     "autoload-dev": {
-        "psr-4": { "MailOdds\\Test\\" : "test/" }
+        "psr-4": { "MailOdds\\Test\\": "test/" }
+    },
+    "support": {
+        "source": "https://github.com/mailodds/php-sdk",
+        "docs": "https://mailodds.com/docs"
     }
 }
