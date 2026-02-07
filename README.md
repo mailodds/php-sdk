@@ -1,5 +1,7 @@
 # MailOdds SDK for PHP
 
+[![Packagist](https://img.shields.io/packagist/v/mailodds/mailodds-php)](https://packagist.org/packages/mailodds/mailodds-php)
+
 Enterprise-ready PHP client for the [MailOdds Email Validation API](https://mailodds.com/docs).
 
 ## Installation
