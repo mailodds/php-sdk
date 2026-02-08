@@ -71,7 +71,7 @@ curl_setopt_array($ch, [
 ]);
 curl_exec($ch);
 $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-curl_close($ch);
+unset($ch);
 if ($code === 400 || $code === 422) { $passed++; }
 else { $failed++; echo "  FAIL: error.400 expected=400|422 got=$code\n"; }
 
