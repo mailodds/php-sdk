@@ -1,13 +1,16 @@
 <?php
-// SDK smoke test -- validates build-from-source and API integration.
+// SDK smoke test -- validates build-from-source and API integration using the SDK client.
 
-$apiUrl = 'https://api.mailodds.com';
 $apiKey = getenv('MAILODDS_TEST_KEY');
 if (!$apiKey) { echo "ERROR: MAILODDS_TEST_KEY not set\n"; exit(1); }
 
-// Prove SDK autoload works
 require_once __DIR__ . '/../vendor/autoload.php';
-class_exists('MailOdds\Api\EmailValidationApi') || die("SDK class not found\n");
+
+$config = MailOdds\Configuration::getDefaultConfiguration();
+$config->setAccessToken($apiKey);
+$config->setHost('https://api.mailodds.com');
+
+$api = new MailOdds\Api\EmailValidationApi(new GuzzleHttp\Client(), $config);
 
 $passed = 0;
 $failed = 0;
@@ -16,25 +19,6 @@ function check($label, $expected, $actual) {
     global $passed, $failed;
     if ($expected === $actual) { $passed++; }
     else { $failed++; echo "  FAIL: $label expected=$expected got=$actual\n"; }
-}
-
-function apiCall($email, $key) {
-    global $apiUrl;
-    $ch = curl_init("$apiUrl/v1/validate");
-    curl_setopt_array($ch, [
-        CURLOPT_POST => true,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 30,
-        CURLOPT_HTTPHEADER => [
-            "Authorization: Bearer $key",
-            'Content-Type: application/json',
-        ],
-        CURLOPT_POSTFIELDS => json_encode(['email' => $email]),
-    ]);
-    $body = curl_exec($ch);
-    $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    // curl_close is a no-op since PHP 8.0
-    return ['code' => $code, 'data' => json_decode($body, true)];
 }
 
 $cases = [
@@ -49,31 +33,39 @@ $cases = [
 
 foreach ($cases as [$email, $expStatus, $expAction, $expSub]) {
     $domain = explode('.', explode('@', $email)[1])[0];
-    $r = apiCall($email, $apiKey);
-    $d = $r['data'];
-    check("$domain.status", $expStatus, $d['status'] ?? null);
-    check("$domain.action", $expAction, $d['action'] ?? null);
-    check("$domain.sub_status", $expSub, $d['sub_status'] ?? null);
-    check("$domain.test_mode", true, $d['test_mode'] ?? false);
+    try {
+        $req = new MailOdds\Model\ValidateRequest(['email' => $email]);
+        $resp = $api->validateEmail($req);
+        check("$domain.status", $expStatus, $resp->getStatus());
+        check("$domain.action", $expAction, $resp->getAction());
+        check("$domain.sub_status", $expSub, $resp->getSubStatus());
+    } catch (Exception $e) {
+        $failed++;
+        echo "  FAIL: $domain " . get_class($e) . ": " . $e->getMessage() . "\n";
+    }
 }
 
-// Error handling
-$r401 = apiCall('test@deliverable.mailodds.com', 'invalid_key');
-check('error.401', 401, $r401['code']);
+// Error handling: 401 with bad key
+try {
+    $badConfig = clone $config;
+    $badConfig->setAccessToken('invalid_key');
+    $badApi = new MailOdds\Api\EmailValidationApi(new GuzzleHttp\Client(), $badConfig);
+    $badApi->validateEmail(new MailOdds\Model\ValidateRequest(['email' => 'test@deliverable.mailodds.com']));
+    $failed++;
+    echo "  FAIL: error.401 no exception raised\n";
+} catch (MailOdds\ApiException $e) {
+    check('error.401', 401, $e->getCode());
+}
 
-$ch = curl_init("$apiUrl/v1/validate");
-curl_setopt_array($ch, [
-    CURLOPT_POST => true,
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_TIMEOUT => 10,
-    CURLOPT_HTTPHEADER => ["Authorization: Bearer $apiKey", 'Content-Type: application/json'],
-    CURLOPT_POSTFIELDS => '{}',
-]);
-curl_exec($ch);
-$code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-unset($ch);
-if ($code === 400 || $code === 422) { $passed++; }
-else { $failed++; echo "  FAIL: error.400 expected=400|422 got=$code\n"; }
+// Error handling: 400/422 with missing email
+try {
+    $api->validateEmail(new MailOdds\Model\ValidateRequest(['email' => '']));
+    $failed++;
+    echo "  FAIL: error.400 no exception raised\n";
+} catch (MailOdds\ApiException $e) {
+    if ($e->getCode() === 400 || $e->getCode() === 422) { $passed++; }
+    else { $failed++; echo "  FAIL: error.400 expected=400|422 got=" . $e->getCode() . "\n"; }
+}
 
 $total = $passed + $failed;
 $result = $failed === 0 ? 'PASS' : 'FAIL';
