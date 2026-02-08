@@ -22,16 +22,16 @@ function check($label, $expected, $actual) {
 }
 
 $cases = [
-    ['test@deliverable.mailodds.com', 'valid', 'accept', null],
-    ['test@invalid.mailodds.com', 'invalid', 'reject', 'smtp_rejected'],
-    ['test@risky.mailodds.com', 'catch_all', 'accept_with_caution', 'catch_all_detected'],
-    ['test@disposable.mailodds.com', 'do_not_mail', 'reject', 'disposable'],
-    ['test@role.mailodds.com', 'do_not_mail', 'reject', 'role_account'],
-    ['test@timeout.mailodds.com', 'unknown', 'retry_later', 'smtp_unreachable'],
-    ['test@freeprovider.mailodds.com', 'valid', 'accept', null],
+    ['test@deliverable.mailodds.com', 'valid', 'accept', null, false, false, false, true, 'enhanced'],
+    ['test@invalid.mailodds.com', 'invalid', 'reject', 'smtp_rejected', false, false, false, true, 'enhanced'],
+    ['test@risky.mailodds.com', 'catch_all', 'accept_with_caution', 'catch_all_detected', false, false, false, true, 'enhanced'],
+    ['test@disposable.mailodds.com', 'do_not_mail', 'reject', 'disposable', false, true, false, true, 'enhanced'],
+    ['test@role.mailodds.com', 'do_not_mail', 'reject', 'role_account', false, false, true, true, 'enhanced'],
+    ['test@timeout.mailodds.com', 'unknown', 'retry_later', 'smtp_unreachable', false, false, false, true, 'enhanced'],
+    ['test@freeprovider.mailodds.com', 'valid', 'accept', null, true, false, false, true, 'enhanced'],
 ];
 
-foreach ($cases as [$email, $expStatus, $expAction, $expSub]) {
+foreach ($cases as [$email, $expStatus, $expAction, $expSub, $expFree, $expDisp, $expRole, $expMx, $expDepth]) {
     $domain = explode('.', explode('@', $email)[1])[0];
     try {
         $req = new MailOdds\Model\ValidateRequest(['email' => $email]);
@@ -39,6 +39,17 @@ foreach ($cases as [$email, $expStatus, $expAction, $expSub]) {
         check("$domain.status", $expStatus, $resp->getStatus());
         check("$domain.action", $expAction, $resp->getAction());
         check("$domain.sub_status", $expSub, $resp->getSubStatus());
+        check("$domain.free_provider", $expFree, $resp->getFreeProvider());
+        check("$domain.disposable", $expDisp, $resp->getDisposable());
+        check("$domain.role_account", $expRole, $resp->getRoleAccount());
+        check("$domain.mx_found", $expMx, $resp->getMxFound());
+        check("$domain.depth", $expDepth, $resp->getDepth());
+        if (!$resp->getProcessedAt()) {
+            $failed++;
+            echo "  FAIL: $domain.processed_at is empty\n";
+        } else {
+            $passed++;
+        }
     } catch (Exception $e) {
         $failed++;
         echo "  FAIL: $domain " . get_class($e) . ": " . $e->getMessage() . "\n";
