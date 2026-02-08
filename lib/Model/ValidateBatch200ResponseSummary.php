@@ -1,6 +1,6 @@
 <?php
 /**
- * ErrorResponse
+ * ValidateBatch200ResponseSummary
  *
  * PHP version 8.1
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * ErrorResponse Class Doc Comment
+ * ValidateBatch200ResponseSummary Class Doc Comment
  *
  * @category Class
  * @package  MailOdds
@@ -41,7 +41,7 @@ use \MailOdds\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class ValidateBatch200ResponseSummary implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ErrorResponse';
+    protected static $openAPIModelName = 'validateBatch_200_response_summary';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,9 +58,11 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'schema_version' => 'string',
-        'error' => 'string',
-        'message' => 'string'
+        'valid' => 'int',
+        'invalid' => 'int',
+        'catch_all' => 'int',
+        'unknown' => 'int',
+        'do_not_mail' => 'int'
     ];
 
     /**
@@ -71,9 +73,11 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'schema_version' => null,
-        'error' => null,
-        'message' => null
+        'valid' => null,
+        'invalid' => null,
+        'catch_all' => null,
+        'unknown' => null,
+        'do_not_mail' => null
     ];
 
     /**
@@ -82,9 +86,11 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'schema_version' => false,
-        'error' => false,
-        'message' => false
+        'valid' => false,
+        'invalid' => false,
+        'catch_all' => false,
+        'unknown' => false,
+        'do_not_mail' => false
     ];
 
     /**
@@ -173,9 +179,11 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'schema_version' => 'schema_version',
-        'error' => 'error',
-        'message' => 'message'
+        'valid' => 'valid',
+        'invalid' => 'invalid',
+        'catch_all' => 'catch_all',
+        'unknown' => 'unknown',
+        'do_not_mail' => 'do_not_mail'
     ];
 
     /**
@@ -184,9 +192,11 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'schema_version' => 'setSchemaVersion',
-        'error' => 'setError',
-        'message' => 'setMessage'
+        'valid' => 'setValid',
+        'invalid' => 'setInvalid',
+        'catch_all' => 'setCatchAll',
+        'unknown' => 'setUnknown',
+        'do_not_mail' => 'setDoNotMail'
     ];
 
     /**
@@ -195,9 +205,11 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'schema_version' => 'getSchemaVersion',
-        'error' => 'getError',
-        'message' => 'getMessage'
+        'valid' => 'getValid',
+        'invalid' => 'getInvalid',
+        'catch_all' => 'getCatchAll',
+        'unknown' => 'getUnknown',
+        'do_not_mail' => 'getDoNotMail'
     ];
 
     /**
@@ -257,9 +269,11 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('schema_version', $data ?? [], null);
-        $this->setIfExists('error', $data ?? [], null);
-        $this->setIfExists('message', $data ?? [], null);
+        $this->setIfExists('valid', $data ?? [], null);
+        $this->setIfExists('invalid', $data ?? [], null);
+        $this->setIfExists('catch_all', $data ?? [], null);
+        $this->setIfExists('unknown', $data ?? [], null);
+        $this->setIfExists('do_not_mail', $data ?? [], null);
     }
 
     /**
@@ -289,9 +303,6 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['error'] === null) {
-            $invalidProperties[] = "'error' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -308,82 +319,136 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets schema_version
+     * Gets valid
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getSchemaVersion()
+    public function getValid()
     {
-        return $this->container['schema_version'];
+        return $this->container['valid'];
     }
 
     /**
-     * Sets schema_version
+     * Sets valid
      *
-     * @param string|null $schema_version schema_version
+     * @param int|null $valid valid
      *
      * @return self
      */
-    public function setSchemaVersion($schema_version)
+    public function setValid($valid)
     {
-        if (is_null($schema_version)) {
-            throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
+        if (is_null($valid)) {
+            throw new \InvalidArgumentException('non-nullable valid cannot be null');
         }
-        $this->container['schema_version'] = $schema_version;
+        $this->container['valid'] = $valid;
 
         return $this;
     }
 
     /**
-     * Gets error
+     * Gets invalid
      *
-     * @return string
+     * @return int|null
      */
-    public function getError()
+    public function getInvalid()
     {
-        return $this->container['error'];
+        return $this->container['invalid'];
     }
 
     /**
-     * Sets error
+     * Sets invalid
      *
-     * @param string $error Machine-readable error code
+     * @param int|null $invalid invalid
      *
      * @return self
      */
-    public function setError($error)
+    public function setInvalid($invalid)
     {
-        if (is_null($error)) {
-            throw new \InvalidArgumentException('non-nullable error cannot be null');
+        if (is_null($invalid)) {
+            throw new \InvalidArgumentException('non-nullable invalid cannot be null');
         }
-        $this->container['error'] = $error;
+        $this->container['invalid'] = $invalid;
 
         return $this;
     }
 
     /**
-     * Gets message
+     * Gets catch_all
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getMessage()
+    public function getCatchAll()
     {
-        return $this->container['message'];
+        return $this->container['catch_all'];
     }
 
     /**
-     * Sets message
+     * Sets catch_all
      *
-     * @param string|null $message Human-readable error message
+     * @param int|null $catch_all catch_all
      *
      * @return self
      */
-    public function setMessage($message)
+    public function setCatchAll($catch_all)
     {
-        if (is_null($message)) {
-            throw new \InvalidArgumentException('non-nullable message cannot be null');
+        if (is_null($catch_all)) {
+            throw new \InvalidArgumentException('non-nullable catch_all cannot be null');
         }
-        $this->container['message'] = $message;
+        $this->container['catch_all'] = $catch_all;
+
+        return $this;
+    }
+
+    /**
+     * Gets unknown
+     *
+     * @return int|null
+     */
+    public function getUnknown()
+    {
+        return $this->container['unknown'];
+    }
+
+    /**
+     * Sets unknown
+     *
+     * @param int|null $unknown unknown
+     *
+     * @return self
+     */
+    public function setUnknown($unknown)
+    {
+        if (is_null($unknown)) {
+            throw new \InvalidArgumentException('non-nullable unknown cannot be null');
+        }
+        $this->container['unknown'] = $unknown;
+
+        return $this;
+    }
+
+    /**
+     * Gets do_not_mail
+     *
+     * @return int|null
+     */
+    public function getDoNotMail()
+    {
+        return $this->container['do_not_mail'];
+    }
+
+    /**
+     * Sets do_not_mail
+     *
+     * @param int|null $do_not_mail do_not_mail
+     *
+     * @return self
+     */
+    public function setDoNotMail($do_not_mail)
+    {
+        if (is_null($do_not_mail)) {
+            throw new \InvalidArgumentException('non-nullable do_not_mail cannot be null');
+        }
+        $this->container['do_not_mail'] = $do_not_mail;
 
         return $this;
     }

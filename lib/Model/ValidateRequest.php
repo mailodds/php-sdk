@@ -59,6 +59,7 @@ class ValidateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'email' => 'string',
+        'depth' => 'string',
         'policy_id' => 'int'
     ];
 
@@ -71,6 +72,7 @@ class ValidateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'email' => 'email',
+        'depth' => null,
         'policy_id' => null
     ];
 
@@ -81,6 +83,7 @@ class ValidateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'email' => false,
+        'depth' => false,
         'policy_id' => false
     ];
 
@@ -171,6 +174,7 @@ class ValidateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'email' => 'email',
+        'depth' => 'depth',
         'policy_id' => 'policy_id'
     ];
 
@@ -181,6 +185,7 @@ class ValidateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'email' => 'setEmail',
+        'depth' => 'setDepth',
         'policy_id' => 'setPolicyId'
     ];
 
@@ -191,6 +196,7 @@ class ValidateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'email' => 'getEmail',
+        'depth' => 'getDepth',
         'policy_id' => 'getPolicyId'
     ];
 
@@ -235,6 +241,21 @@ class ValidateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const DEPTH_STANDARD = 'standard';
+    public const DEPTH_ENHANCED = 'enhanced';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getDepthAllowableValues()
+    {
+        return [
+            self::DEPTH_STANDARD,
+            self::DEPTH_ENHANCED,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -252,6 +273,7 @@ class ValidateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('email', $data ?? [], null);
+        $this->setIfExists('depth', $data ?? [], 'enhanced');
         $this->setIfExists('policy_id', $data ?? [], null);
     }
 
@@ -285,6 +307,15 @@ class ValidateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['email'] === null) {
             $invalidProperties[] = "'email' can't be null";
         }
+        $allowedValues = $this->getDepthAllowableValues();
+        if (!is_null($this->container['depth']) && !in_array($this->container['depth'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'depth', must be one of '%s'",
+                $this->container['depth'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         return $invalidProperties;
     }
 
@@ -323,6 +354,43 @@ class ValidateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable email cannot be null');
         }
         $this->container['email'] = $email;
+
+        return $this;
+    }
+
+    /**
+     * Gets depth
+     *
+     * @return string|null
+     */
+    public function getDepth()
+    {
+        return $this->container['depth'];
+    }
+
+    /**
+     * Sets depth
+     *
+     * @param string|null $depth Validation depth. 'standard' skips SMTP verification.
+     *
+     * @return self
+     */
+    public function setDepth($depth)
+    {
+        if (is_null($depth)) {
+            throw new \InvalidArgumentException('non-nullable depth cannot be null');
+        }
+        $allowedValues = $this->getDepthAllowableValues();
+        if (!in_array($depth, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'depth', must be one of '%s'",
+                    $depth,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['depth'] = $depth;
 
         return $this;
     }

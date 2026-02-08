@@ -36,6 +36,7 @@ use \MailOdds\ObjectSerializer;
  * ValidationResponse Class Doc Comment
  *
  * @category Class
+ * @description Flat validation response. Conditional fields are omitted (not null) when not applicable.
  * @package  MailOdds
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -61,15 +62,22 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'schema_version' => 'string',
         'email' => 'string',
         'status' => 'string',
-        'sub_status' => 'string',
         'action' => 'string',
+        'sub_status' => 'string',
         'domain' => 'string',
         'mx_found' => 'bool',
+        'mx_host' => 'string',
         'smtp_check' => 'bool',
+        'catch_all' => 'bool',
         'disposable' => 'bool',
         'role_account' => 'bool',
         'free_provider' => 'bool',
-        'suppression_match' => '\MailOdds\Model\ValidationResponseSuppressionMatch'
+        'depth' => 'string',
+        'processed_at' => '\DateTime',
+        'suggested_email' => 'string',
+        'retry_after_ms' => 'int',
+        'suppression_match' => '\MailOdds\Model\ValidationResponseSuppressionMatch',
+        'policy_applied' => '\MailOdds\Model\ValidationResponsePolicyApplied'
     ];
 
     /**
@@ -83,15 +91,22 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'schema_version' => null,
         'email' => null,
         'status' => null,
-        'sub_status' => null,
         'action' => null,
+        'sub_status' => null,
         'domain' => null,
         'mx_found' => null,
+        'mx_host' => null,
         'smtp_check' => null,
+        'catch_all' => null,
         'disposable' => null,
         'role_account' => null,
         'free_provider' => null,
-        'suppression_match' => null
+        'depth' => null,
+        'processed_at' => 'date-time',
+        'suggested_email' => null,
+        'retry_after_ms' => null,
+        'suppression_match' => null,
+        'policy_applied' => null
     ];
 
     /**
@@ -103,15 +118,22 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'schema_version' => false,
         'email' => false,
         'status' => false,
-        'sub_status' => false,
         'action' => false,
+        'sub_status' => false,
         'domain' => false,
         'mx_found' => false,
+        'mx_host' => false,
         'smtp_check' => false,
+        'catch_all' => false,
         'disposable' => false,
         'role_account' => false,
         'free_provider' => false,
-        'suppression_match' => false
+        'depth' => false,
+        'processed_at' => false,
+        'suggested_email' => false,
+        'retry_after_ms' => false,
+        'suppression_match' => false,
+        'policy_applied' => false
     ];
 
     /**
@@ -203,15 +225,22 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'schema_version' => 'schema_version',
         'email' => 'email',
         'status' => 'status',
-        'sub_status' => 'sub_status',
         'action' => 'action',
+        'sub_status' => 'sub_status',
         'domain' => 'domain',
         'mx_found' => 'mx_found',
+        'mx_host' => 'mx_host',
         'smtp_check' => 'smtp_check',
+        'catch_all' => 'catch_all',
         'disposable' => 'disposable',
         'role_account' => 'role_account',
         'free_provider' => 'free_provider',
-        'suppression_match' => 'suppression_match'
+        'depth' => 'depth',
+        'processed_at' => 'processed_at',
+        'suggested_email' => 'suggested_email',
+        'retry_after_ms' => 'retry_after_ms',
+        'suppression_match' => 'suppression_match',
+        'policy_applied' => 'policy_applied'
     ];
 
     /**
@@ -223,15 +252,22 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'schema_version' => 'setSchemaVersion',
         'email' => 'setEmail',
         'status' => 'setStatus',
-        'sub_status' => 'setSubStatus',
         'action' => 'setAction',
+        'sub_status' => 'setSubStatus',
         'domain' => 'setDomain',
         'mx_found' => 'setMxFound',
+        'mx_host' => 'setMxHost',
         'smtp_check' => 'setSmtpCheck',
+        'catch_all' => 'setCatchAll',
         'disposable' => 'setDisposable',
         'role_account' => 'setRoleAccount',
         'free_provider' => 'setFreeProvider',
-        'suppression_match' => 'setSuppressionMatch'
+        'depth' => 'setDepth',
+        'processed_at' => 'setProcessedAt',
+        'suggested_email' => 'setSuggestedEmail',
+        'retry_after_ms' => 'setRetryAfterMs',
+        'suppression_match' => 'setSuppressionMatch',
+        'policy_applied' => 'setPolicyApplied'
     ];
 
     /**
@@ -243,15 +279,22 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'schema_version' => 'getSchemaVersion',
         'email' => 'getEmail',
         'status' => 'getStatus',
-        'sub_status' => 'getSubStatus',
         'action' => 'getAction',
+        'sub_status' => 'getSubStatus',
         'domain' => 'getDomain',
         'mx_found' => 'getMxFound',
+        'mx_host' => 'getMxHost',
         'smtp_check' => 'getSmtpCheck',
+        'catch_all' => 'getCatchAll',
         'disposable' => 'getDisposable',
         'role_account' => 'getRoleAccount',
         'free_provider' => 'getFreeProvider',
-        'suppression_match' => 'getSuppressionMatch'
+        'depth' => 'getDepth',
+        'processed_at' => 'getProcessedAt',
+        'suggested_email' => 'getSuggestedEmail',
+        'retry_after_ms' => 'getRetryAfterMs',
+        'suppression_match' => 'getSuppressionMatch',
+        'policy_applied' => 'getPolicyApplied'
     ];
 
     /**
@@ -304,6 +347,18 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     public const ACTION_ACCEPT_WITH_CAUTION = 'accept_with_caution';
     public const ACTION_REJECT = 'reject';
     public const ACTION_RETRY_LATER = 'retry_later';
+    public const SUB_STATUS_FORMAT_INVALID = 'format_invalid';
+    public const SUB_STATUS_MX_MISSING = 'mx_missing';
+    public const SUB_STATUS_MX_TIMEOUT = 'mx_timeout';
+    public const SUB_STATUS_SMTP_UNREACHABLE = 'smtp_unreachable';
+    public const SUB_STATUS_SMTP_REJECTED = 'smtp_rejected';
+    public const SUB_STATUS_DISPOSABLE = 'disposable';
+    public const SUB_STATUS_ROLE_ACCOUNT = 'role_account';
+    public const SUB_STATUS_GREYLISTED = 'greylisted';
+    public const SUB_STATUS_CATCH_ALL_DETECTED = 'catch_all_detected';
+    public const SUB_STATUS_SUPPRESSION_MATCH = 'suppression_match';
+    public const DEPTH_STANDARD = 'standard';
+    public const DEPTH_ENHANCED = 'enhanced';
 
     /**
      * Gets allowable values of the enum
@@ -337,6 +392,40 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     }
 
     /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getSubStatusAllowableValues()
+    {
+        return [
+            self::SUB_STATUS_FORMAT_INVALID,
+            self::SUB_STATUS_MX_MISSING,
+            self::SUB_STATUS_MX_TIMEOUT,
+            self::SUB_STATUS_SMTP_UNREACHABLE,
+            self::SUB_STATUS_SMTP_REJECTED,
+            self::SUB_STATUS_DISPOSABLE,
+            self::SUB_STATUS_ROLE_ACCOUNT,
+            self::SUB_STATUS_GREYLISTED,
+            self::SUB_STATUS_CATCH_ALL_DETECTED,
+            self::SUB_STATUS_SUPPRESSION_MATCH,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getDepthAllowableValues()
+    {
+        return [
+            self::DEPTH_STANDARD,
+            self::DEPTH_ENHANCED,
+        ];
+    }
+
+    /**
      * Associative array for storing property values
      *
      * @var mixed[]
@@ -354,15 +443,22 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->setIfExists('schema_version', $data ?? [], null);
         $this->setIfExists('email', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('sub_status', $data ?? [], null);
         $this->setIfExists('action', $data ?? [], null);
+        $this->setIfExists('sub_status', $data ?? [], null);
         $this->setIfExists('domain', $data ?? [], null);
         $this->setIfExists('mx_found', $data ?? [], null);
+        $this->setIfExists('mx_host', $data ?? [], null);
         $this->setIfExists('smtp_check', $data ?? [], null);
+        $this->setIfExists('catch_all', $data ?? [], null);
         $this->setIfExists('disposable', $data ?? [], null);
         $this->setIfExists('role_account', $data ?? [], null);
         $this->setIfExists('free_provider', $data ?? [], null);
+        $this->setIfExists('depth', $data ?? [], null);
+        $this->setIfExists('processed_at', $data ?? [], null);
+        $this->setIfExists('suggested_email', $data ?? [], null);
+        $this->setIfExists('retry_after_ms', $data ?? [], null);
         $this->setIfExists('suppression_match', $data ?? [], null);
+        $this->setIfExists('policy_applied', $data ?? [], null);
     }
 
     /**
@@ -392,6 +488,9 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     {
         $invalidProperties = [];
 
+        if ($this->container['schema_version'] === null) {
+            $invalidProperties[] = "'schema_version' can't be null";
+        }
         if ($this->container['email'] === null) {
             $invalidProperties[] = "'email' can't be null";
         }
@@ -419,6 +518,45 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
             );
         }
 
+        $allowedValues = $this->getSubStatusAllowableValues();
+        if (!is_null($this->container['sub_status']) && !in_array($this->container['sub_status'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'sub_status', must be one of '%s'",
+                $this->container['sub_status'],
+                implode("', '", $allowedValues)
+            );
+        }
+
+        if ($this->container['domain'] === null) {
+            $invalidProperties[] = "'domain' can't be null";
+        }
+        if ($this->container['mx_found'] === null) {
+            $invalidProperties[] = "'mx_found' can't be null";
+        }
+        if ($this->container['disposable'] === null) {
+            $invalidProperties[] = "'disposable' can't be null";
+        }
+        if ($this->container['role_account'] === null) {
+            $invalidProperties[] = "'role_account' can't be null";
+        }
+        if ($this->container['free_provider'] === null) {
+            $invalidProperties[] = "'free_provider' can't be null";
+        }
+        if ($this->container['depth'] === null) {
+            $invalidProperties[] = "'depth' can't be null";
+        }
+        $allowedValues = $this->getDepthAllowableValues();
+        if (!is_null($this->container['depth']) && !in_array($this->container['depth'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'depth', must be one of '%s'",
+                $this->container['depth'],
+                implode("', '", $allowedValues)
+            );
+        }
+
+        if ($this->container['processed_at'] === null) {
+            $invalidProperties[] = "'processed_at' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -437,7 +575,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets schema_version
      *
-     * @return string|null
+     * @return string
      */
     public function getSchemaVersion()
     {
@@ -447,7 +585,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets schema_version
      *
-     * @param string|null $schema_version schema_version
+     * @param string $schema_version schema_version
      *
      * @return self
      */
@@ -526,33 +664,6 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     }
 
     /**
-     * Gets sub_status
-     *
-     * @return string|null
-     */
-    public function getSubStatus()
-    {
-        return $this->container['sub_status'];
-    }
-
-    /**
-     * Sets sub_status
-     *
-     * @param string|null $sub_status Detailed status reason
-     *
-     * @return self
-     */
-    public function setSubStatus($sub_status)
-    {
-        if (is_null($sub_status)) {
-            throw new \InvalidArgumentException('non-nullable sub_status cannot be null');
-        }
-        $this->container['sub_status'] = $sub_status;
-
-        return $this;
-    }
-
-    /**
      * Gets action
      *
      * @return string
@@ -590,9 +701,46 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     }
 
     /**
-     * Gets domain
+     * Gets sub_status
      *
      * @return string|null
+     */
+    public function getSubStatus()
+    {
+        return $this->container['sub_status'];
+    }
+
+    /**
+     * Sets sub_status
+     *
+     * @param string|null $sub_status Detailed status reason. Omitted when none.
+     *
+     * @return self
+     */
+    public function setSubStatus($sub_status)
+    {
+        if (is_null($sub_status)) {
+            throw new \InvalidArgumentException('non-nullable sub_status cannot be null');
+        }
+        $allowedValues = $this->getSubStatusAllowableValues();
+        if (!in_array($sub_status, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'sub_status', must be one of '%s'",
+                    $sub_status,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['sub_status'] = $sub_status;
+
+        return $this;
+    }
+
+    /**
+     * Gets domain
+     *
+     * @return string
      */
     public function getDomain()
     {
@@ -602,7 +750,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets domain
      *
-     * @param string|null $domain domain
+     * @param string $domain domain
      *
      * @return self
      */
@@ -619,7 +767,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets mx_found
      *
-     * @return bool|null
+     * @return bool
      */
     public function getMxFound()
     {
@@ -629,7 +777,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets mx_found
      *
-     * @param bool|null $mx_found mx_found
+     * @param bool $mx_found Whether MX records were found for the domain
      *
      * @return self
      */
@@ -639,6 +787,33 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable mx_found cannot be null');
         }
         $this->container['mx_found'] = $mx_found;
+
+        return $this;
+    }
+
+    /**
+     * Gets mx_host
+     *
+     * @return string|null
+     */
+    public function getMxHost()
+    {
+        return $this->container['mx_host'];
+    }
+
+    /**
+     * Sets mx_host
+     *
+     * @param string|null $mx_host Primary MX hostname. Omitted when MX not resolved.
+     *
+     * @return self
+     */
+    public function setMxHost($mx_host)
+    {
+        if (is_null($mx_host)) {
+            throw new \InvalidArgumentException('non-nullable mx_host cannot be null');
+        }
+        $this->container['mx_host'] = $mx_host;
 
         return $this;
     }
@@ -656,7 +831,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets smtp_check
      *
-     * @param bool|null $smtp_check smtp_check
+     * @param bool|null $smtp_check Whether SMTP verification passed. Omitted when SMTP not checked.
      *
      * @return self
      */
@@ -671,9 +846,36 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     }
 
     /**
-     * Gets disposable
+     * Gets catch_all
      *
      * @return bool|null
+     */
+    public function getCatchAll()
+    {
+        return $this->container['catch_all'];
+    }
+
+    /**
+     * Sets catch_all
+     *
+     * @param bool|null $catch_all Whether domain is catch-all. Omitted when SMTP not checked.
+     *
+     * @return self
+     */
+    public function setCatchAll($catch_all)
+    {
+        if (is_null($catch_all)) {
+            throw new \InvalidArgumentException('non-nullable catch_all cannot be null');
+        }
+        $this->container['catch_all'] = $catch_all;
+
+        return $this;
+    }
+
+    /**
+     * Gets disposable
+     *
+     * @return bool
      */
     public function getDisposable()
     {
@@ -683,7 +885,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets disposable
      *
-     * @param bool|null $disposable disposable
+     * @param bool $disposable Whether domain is a known disposable email provider
      *
      * @return self
      */
@@ -700,7 +902,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets role_account
      *
-     * @return bool|null
+     * @return bool
      */
     public function getRoleAccount()
     {
@@ -710,7 +912,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets role_account
      *
-     * @param bool|null $role_account role_account
+     * @param bool $role_account Whether address is a role account (e.g., info@, admin@)
      *
      * @return self
      */
@@ -727,7 +929,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Gets free_provider
      *
-     * @return bool|null
+     * @return bool
      */
     public function getFreeProvider()
     {
@@ -737,7 +939,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     /**
      * Sets free_provider
      *
-     * @param bool|null $free_provider free_provider
+     * @param bool $free_provider Whether domain is a known free email provider (e.g., gmail.com)
      *
      * @return self
      */
@@ -747,6 +949,124 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable free_provider cannot be null');
         }
         $this->container['free_provider'] = $free_provider;
+
+        return $this;
+    }
+
+    /**
+     * Gets depth
+     *
+     * @return string
+     */
+    public function getDepth()
+    {
+        return $this->container['depth'];
+    }
+
+    /**
+     * Sets depth
+     *
+     * @param string $depth Validation depth used for this check
+     *
+     * @return self
+     */
+    public function setDepth($depth)
+    {
+        if (is_null($depth)) {
+            throw new \InvalidArgumentException('non-nullable depth cannot be null');
+        }
+        $allowedValues = $this->getDepthAllowableValues();
+        if (!in_array($depth, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'depth', must be one of '%s'",
+                    $depth,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['depth'] = $depth;
+
+        return $this;
+    }
+
+    /**
+     * Gets processed_at
+     *
+     * @return \DateTime
+     */
+    public function getProcessedAt()
+    {
+        return $this->container['processed_at'];
+    }
+
+    /**
+     * Sets processed_at
+     *
+     * @param \DateTime $processed_at ISO 8601 timestamp of validation
+     *
+     * @return self
+     */
+    public function setProcessedAt($processed_at)
+    {
+        if (is_null($processed_at)) {
+            throw new \InvalidArgumentException('non-nullable processed_at cannot be null');
+        }
+        $this->container['processed_at'] = $processed_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets suggested_email
+     *
+     * @return string|null
+     */
+    public function getSuggestedEmail()
+    {
+        return $this->container['suggested_email'];
+    }
+
+    /**
+     * Sets suggested_email
+     *
+     * @param string|null $suggested_email Typo correction suggestion. Omitted when no typo detected.
+     *
+     * @return self
+     */
+    public function setSuggestedEmail($suggested_email)
+    {
+        if (is_null($suggested_email)) {
+            throw new \InvalidArgumentException('non-nullable suggested_email cannot be null');
+        }
+        $this->container['suggested_email'] = $suggested_email;
+
+        return $this;
+    }
+
+    /**
+     * Gets retry_after_ms
+     *
+     * @return int|null
+     */
+    public function getRetryAfterMs()
+    {
+        return $this->container['retry_after_ms'];
+    }
+
+    /**
+     * Sets retry_after_ms
+     *
+     * @param int|null $retry_after_ms Suggested retry delay in milliseconds. Present only for retry_later action.
+     *
+     * @return self
+     */
+    public function setRetryAfterMs($retry_after_ms)
+    {
+        if (is_null($retry_after_ms)) {
+            throw new \InvalidArgumentException('non-nullable retry_after_ms cannot be null');
+        }
+        $this->container['retry_after_ms'] = $retry_after_ms;
 
         return $this;
     }
@@ -774,6 +1094,33 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable suppression_match cannot be null');
         }
         $this->container['suppression_match'] = $suppression_match;
+
+        return $this;
+    }
+
+    /**
+     * Gets policy_applied
+     *
+     * @return \MailOdds\Model\ValidationResponsePolicyApplied|null
+     */
+    public function getPolicyApplied()
+    {
+        return $this->container['policy_applied'];
+    }
+
+    /**
+     * Sets policy_applied
+     *
+     * @param \MailOdds\Model\ValidationResponsePolicyApplied|null $policy_applied policy_applied
+     *
+     * @return self
+     */
+    public function setPolicyApplied($policy_applied)
+    {
+        if (is_null($policy_applied)) {
+            throw new \InvalidArgumentException('non-nullable policy_applied cannot be null');
+        }
+        $this->container['policy_applied'] = $policy_applied;
 
         return $this;
     }

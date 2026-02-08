@@ -1,6 +1,6 @@
 <?php
 /**
- * ErrorResponse
+ * ValidationResponsePolicyApplied
  *
  * PHP version 8.1
  *
@@ -33,15 +33,16 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * ErrorResponse Class Doc Comment
+ * ValidationResponsePolicyApplied Class Doc Comment
  *
  * @category Class
+ * @description Present when a validation policy modified the result.
  * @package  MailOdds
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class ValidationResponsePolicyApplied implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +51,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ErrorResponse';
+    protected static $openAPIModelName = 'ValidationResponse_policy_applied';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,9 +59,10 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'schema_version' => 'string',
-        'error' => 'string',
-        'message' => 'string'
+        'policy_id' => 'int',
+        'policy_name' => 'string',
+        'rule_id' => 'int',
+        'rule_type' => 'string'
     ];
 
     /**
@@ -71,9 +73,10 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'schema_version' => null,
-        'error' => null,
-        'message' => null
+        'policy_id' => null,
+        'policy_name' => null,
+        'rule_id' => null,
+        'rule_type' => null
     ];
 
     /**
@@ -82,9 +85,10 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'schema_version' => false,
-        'error' => false,
-        'message' => false
+        'policy_id' => false,
+        'policy_name' => false,
+        'rule_id' => false,
+        'rule_type' => false
     ];
 
     /**
@@ -173,9 +177,10 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'schema_version' => 'schema_version',
-        'error' => 'error',
-        'message' => 'message'
+        'policy_id' => 'policy_id',
+        'policy_name' => 'policy_name',
+        'rule_id' => 'rule_id',
+        'rule_type' => 'rule_type'
     ];
 
     /**
@@ -184,9 +189,10 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'schema_version' => 'setSchemaVersion',
-        'error' => 'setError',
-        'message' => 'setMessage'
+        'policy_id' => 'setPolicyId',
+        'policy_name' => 'setPolicyName',
+        'rule_id' => 'setRuleId',
+        'rule_type' => 'setRuleType'
     ];
 
     /**
@@ -195,9 +201,10 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'schema_version' => 'getSchemaVersion',
-        'error' => 'getError',
-        'message' => 'getMessage'
+        'policy_id' => 'getPolicyId',
+        'policy_name' => 'getPolicyName',
+        'rule_id' => 'getRuleId',
+        'rule_type' => 'getRuleType'
     ];
 
     /**
@@ -257,9 +264,10 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('schema_version', $data ?? [], null);
-        $this->setIfExists('error', $data ?? [], null);
-        $this->setIfExists('message', $data ?? [], null);
+        $this->setIfExists('policy_id', $data ?? [], null);
+        $this->setIfExists('policy_name', $data ?? [], null);
+        $this->setIfExists('rule_id', $data ?? [], null);
+        $this->setIfExists('rule_type', $data ?? [], null);
     }
 
     /**
@@ -289,9 +297,6 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['error'] === null) {
-            $invalidProperties[] = "'error' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -308,82 +313,109 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets schema_version
+     * Gets policy_id
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getSchemaVersion()
+    public function getPolicyId()
     {
-        return $this->container['schema_version'];
+        return $this->container['policy_id'];
     }
 
     /**
-     * Sets schema_version
+     * Sets policy_id
      *
-     * @param string|null $schema_version schema_version
+     * @param int|null $policy_id policy_id
      *
      * @return self
      */
-    public function setSchemaVersion($schema_version)
+    public function setPolicyId($policy_id)
     {
-        if (is_null($schema_version)) {
-            throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
+        if (is_null($policy_id)) {
+            throw new \InvalidArgumentException('non-nullable policy_id cannot be null');
         }
-        $this->container['schema_version'] = $schema_version;
+        $this->container['policy_id'] = $policy_id;
 
         return $this;
     }
 
     /**
-     * Gets error
+     * Gets policy_name
      *
-     * @return string
+     * @return string|null
      */
-    public function getError()
+    public function getPolicyName()
     {
-        return $this->container['error'];
+        return $this->container['policy_name'];
     }
 
     /**
-     * Sets error
+     * Sets policy_name
      *
-     * @param string $error Machine-readable error code
+     * @param string|null $policy_name policy_name
      *
      * @return self
      */
-    public function setError($error)
+    public function setPolicyName($policy_name)
     {
-        if (is_null($error)) {
-            throw new \InvalidArgumentException('non-nullable error cannot be null');
+        if (is_null($policy_name)) {
+            throw new \InvalidArgumentException('non-nullable policy_name cannot be null');
         }
-        $this->container['error'] = $error;
+        $this->container['policy_name'] = $policy_name;
 
         return $this;
     }
 
     /**
-     * Gets message
+     * Gets rule_id
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getMessage()
+    public function getRuleId()
     {
-        return $this->container['message'];
+        return $this->container['rule_id'];
     }
 
     /**
-     * Sets message
+     * Sets rule_id
      *
-     * @param string|null $message Human-readable error message
+     * @param int|null $rule_id rule_id
      *
      * @return self
      */
-    public function setMessage($message)
+    public function setRuleId($rule_id)
     {
-        if (is_null($message)) {
-            throw new \InvalidArgumentException('non-nullable message cannot be null');
+        if (is_null($rule_id)) {
+            throw new \InvalidArgumentException('non-nullable rule_id cannot be null');
         }
-        $this->container['message'] = $message;
+        $this->container['rule_id'] = $rule_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets rule_type
+     *
+     * @return string|null
+     */
+    public function getRuleType()
+    {
+        return $this->container['rule_type'];
+    }
+
+    /**
+     * Sets rule_type
+     *
+     * @param string|null $rule_type rule_type
+     *
+     * @return self
+     */
+    public function setRuleType($rule_type)
+    {
+        if (is_null($rule_type)) {
+            throw new \InvalidArgumentException('non-nullable rule_type cannot be null');
+        }
+        $this->container['rule_type'] = $rule_type;
 
         return $this;
     }

@@ -36,6 +36,7 @@ use \MailOdds\ObjectSerializer;
  * ValidationResponseSuppressionMatch Class Doc Comment
  *
  * @category Class
+ * @description Present only when email matched a suppression list entry.
  * @package  MailOdds
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -58,9 +59,9 @@ class ValidationResponseSuppressionMatch implements ModelInterface, ArrayAccess,
       * @var string[]
       */
     protected static $openAPITypes = [
-        'matched' => 'bool',
         'match_type' => 'string',
-        'match_value' => 'string'
+        'match_value' => 'string',
+        'reason' => 'string'
     ];
 
     /**
@@ -71,9 +72,9 @@ class ValidationResponseSuppressionMatch implements ModelInterface, ArrayAccess,
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'matched' => null,
         'match_type' => null,
-        'match_value' => null
+        'match_value' => null,
+        'reason' => null
     ];
 
     /**
@@ -82,9 +83,9 @@ class ValidationResponseSuppressionMatch implements ModelInterface, ArrayAccess,
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'matched' => false,
         'match_type' => false,
-        'match_value' => false
+        'match_value' => false,
+        'reason' => false
     ];
 
     /**
@@ -173,9 +174,9 @@ class ValidationResponseSuppressionMatch implements ModelInterface, ArrayAccess,
      * @var string[]
      */
     protected static $attributeMap = [
-        'matched' => 'matched',
         'match_type' => 'match_type',
-        'match_value' => 'match_value'
+        'match_value' => 'match_value',
+        'reason' => 'reason'
     ];
 
     /**
@@ -184,9 +185,9 @@ class ValidationResponseSuppressionMatch implements ModelInterface, ArrayAccess,
      * @var string[]
      */
     protected static $setters = [
-        'matched' => 'setMatched',
         'match_type' => 'setMatchType',
-        'match_value' => 'setMatchValue'
+        'match_value' => 'setMatchValue',
+        'reason' => 'setReason'
     ];
 
     /**
@@ -195,9 +196,9 @@ class ValidationResponseSuppressionMatch implements ModelInterface, ArrayAccess,
      * @var string[]
      */
     protected static $getters = [
-        'matched' => 'getMatched',
         'match_type' => 'getMatchType',
-        'match_value' => 'getMatchValue'
+        'match_value' => 'getMatchValue',
+        'reason' => 'getReason'
     ];
 
     /**
@@ -272,9 +273,9 @@ class ValidationResponseSuppressionMatch implements ModelInterface, ArrayAccess,
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('matched', $data ?? [], null);
         $this->setIfExists('match_type', $data ?? [], null);
         $this->setIfExists('match_value', $data ?? [], null);
+        $this->setIfExists('reason', $data ?? [], null);
     }
 
     /**
@@ -327,33 +328,6 @@ class ValidationResponseSuppressionMatch implements ModelInterface, ArrayAccess,
         return count($this->listInvalidProperties()) === 0;
     }
 
-
-    /**
-     * Gets matched
-     *
-     * @return bool|null
-     */
-    public function getMatched()
-    {
-        return $this->container['matched'];
-    }
-
-    /**
-     * Sets matched
-     *
-     * @param bool|null $matched matched
-     *
-     * @return self
-     */
-    public function setMatched($matched)
-    {
-        if (is_null($matched)) {
-            throw new \InvalidArgumentException('non-nullable matched cannot be null');
-        }
-        $this->container['matched'] = $matched;
-
-        return $this;
-    }
 
     /**
      * Gets match_type
@@ -415,6 +389,33 @@ class ValidationResponseSuppressionMatch implements ModelInterface, ArrayAccess,
             throw new \InvalidArgumentException('non-nullable match_value cannot be null');
         }
         $this->container['match_value'] = $match_value;
+
+        return $this;
+    }
+
+    /**
+     * Gets reason
+     *
+     * @return string|null
+     */
+    public function getReason()
+    {
+        return $this->container['reason'];
+    }
+
+    /**
+     * Sets reason
+     *
+     * @param string|null $reason reason
+     *
+     * @return self
+     */
+    public function setReason($reason)
+    {
+        if (is_null($reason)) {
+            throw new \InvalidArgumentException('non-nullable reason cannot be null');
+        }
+        $this->container['reason'] = $reason;
 
         return $this;
     }

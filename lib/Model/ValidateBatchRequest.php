@@ -1,6 +1,6 @@
 <?php
 /**
- * ErrorResponse
+ * ValidateBatchRequest
  *
  * PHP version 8.1
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * ErrorResponse Class Doc Comment
+ * ValidateBatchRequest Class Doc Comment
  *
  * @category Class
  * @package  MailOdds
@@ -41,7 +41,7 @@ use \MailOdds\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class ValidateBatchRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ErrorResponse';
+    protected static $openAPIModelName = 'validateBatch_request';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,9 +58,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'schema_version' => 'string',
-        'error' => 'string',
-        'message' => 'string'
+        'emails' => 'string[]',
+        'depth' => 'string',
+        'policy_id' => 'int'
     ];
 
     /**
@@ -71,9 +71,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'schema_version' => null,
-        'error' => null,
-        'message' => null
+        'emails' => 'email',
+        'depth' => null,
+        'policy_id' => null
     ];
 
     /**
@@ -82,9 +82,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'schema_version' => false,
-        'error' => false,
-        'message' => false
+        'emails' => false,
+        'depth' => false,
+        'policy_id' => false
     ];
 
     /**
@@ -173,9 +173,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'schema_version' => 'schema_version',
-        'error' => 'error',
-        'message' => 'message'
+        'emails' => 'emails',
+        'depth' => 'depth',
+        'policy_id' => 'policy_id'
     ];
 
     /**
@@ -184,9 +184,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'schema_version' => 'setSchemaVersion',
-        'error' => 'setError',
-        'message' => 'setMessage'
+        'emails' => 'setEmails',
+        'depth' => 'setDepth',
+        'policy_id' => 'setPolicyId'
     ];
 
     /**
@@ -195,9 +195,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'schema_version' => 'getSchemaVersion',
-        'error' => 'getError',
-        'message' => 'getMessage'
+        'emails' => 'getEmails',
+        'depth' => 'getDepth',
+        'policy_id' => 'getPolicyId'
     ];
 
     /**
@@ -241,6 +241,21 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const DEPTH_STANDARD = 'standard';
+    public const DEPTH_ENHANCED = 'enhanced';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getDepthAllowableValues()
+    {
+        return [
+            self::DEPTH_STANDARD,
+            self::DEPTH_ENHANCED,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -257,9 +272,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('schema_version', $data ?? [], null);
-        $this->setIfExists('error', $data ?? [], null);
-        $this->setIfExists('message', $data ?? [], null);
+        $this->setIfExists('emails', $data ?? [], null);
+        $this->setIfExists('depth', $data ?? [], 'enhanced');
+        $this->setIfExists('policy_id', $data ?? [], null);
     }
 
     /**
@@ -289,9 +304,22 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['error'] === null) {
-            $invalidProperties[] = "'error' can't be null";
+        if ($this->container['emails'] === null) {
+            $invalidProperties[] = "'emails' can't be null";
         }
+        if ((count($this->container['emails']) > 100)) {
+            $invalidProperties[] = "invalid value for 'emails', number of items must be less than or equal to 100.";
+        }
+
+        $allowedValues = $this->getDepthAllowableValues();
+        if (!is_null($this->container['depth']) && !in_array($this->container['depth'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'depth', must be one of '%s'",
+                $this->container['depth'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         return $invalidProperties;
     }
 
@@ -308,82 +336,96 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets schema_version
+     * Gets emails
      *
-     * @return string|null
+     * @return string[]
      */
-    public function getSchemaVersion()
+    public function getEmails()
     {
-        return $this->container['schema_version'];
+        return $this->container['emails'];
     }
 
     /**
-     * Sets schema_version
+     * Sets emails
      *
-     * @param string|null $schema_version schema_version
+     * @param string[] $emails List of emails to validate
      *
      * @return self
      */
-    public function setSchemaVersion($schema_version)
+    public function setEmails($emails)
     {
-        if (is_null($schema_version)) {
-            throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
+        if (is_null($emails)) {
+            throw new \InvalidArgumentException('non-nullable emails cannot be null');
         }
-        $this->container['schema_version'] = $schema_version;
+
+        if ((count($emails) > 100)) {
+            throw new \InvalidArgumentException('invalid value for $emails when calling ValidateBatchRequest., number of items must be less than or equal to 100.');
+        }
+        $this->container['emails'] = $emails;
 
         return $this;
     }
 
     /**
-     * Gets error
+     * Gets depth
      *
-     * @return string
+     * @return string|null
      */
-    public function getError()
+    public function getDepth()
     {
-        return $this->container['error'];
+        return $this->container['depth'];
     }
 
     /**
-     * Sets error
+     * Sets depth
      *
-     * @param string $error Machine-readable error code
+     * @param string|null $depth depth
      *
      * @return self
      */
-    public function setError($error)
+    public function setDepth($depth)
     {
-        if (is_null($error)) {
-            throw new \InvalidArgumentException('non-nullable error cannot be null');
+        if (is_null($depth)) {
+            throw new \InvalidArgumentException('non-nullable depth cannot be null');
         }
-        $this->container['error'] = $error;
+        $allowedValues = $this->getDepthAllowableValues();
+        if (!in_array($depth, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'depth', must be one of '%s'",
+                    $depth,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['depth'] = $depth;
 
         return $this;
     }
 
     /**
-     * Gets message
+     * Gets policy_id
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getMessage()
+    public function getPolicyId()
     {
-        return $this->container['message'];
+        return $this->container['policy_id'];
     }
 
     /**
-     * Sets message
+     * Sets policy_id
      *
-     * @param string|null $message Human-readable error message
+     * @param int|null $policy_id Optional policy ID
      *
      * @return self
      */
-    public function setMessage($message)
+    public function setPolicyId($policy_id)
     {
-        if (is_null($message)) {
-            throw new \InvalidArgumentException('non-nullable message cannot be null');
+        if (is_null($policy_id)) {
+            throw new \InvalidArgumentException('non-nullable policy_id cannot be null');
         }
-        $this->container['message'] = $message;
+        $this->container['policy_id'] = $policy_id;
 
         return $this;
     }

@@ -1,6 +1,6 @@
 <?php
 /**
- * ErrorResponse
+ * ValidateBatch200Response
  *
  * PHP version 8.1
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * ErrorResponse Class Doc Comment
+ * ValidateBatch200Response Class Doc Comment
  *
  * @category Class
  * @package  MailOdds
@@ -41,7 +41,7 @@ use \MailOdds\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
+class ValidateBatch200Response implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ErrorResponse';
+    protected static $openAPIModelName = 'validateBatch_200_response';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -59,8 +59,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
-        'error' => 'string',
-        'message' => 'string'
+        'total' => 'int',
+        'summary' => '\MailOdds\Model\ValidateBatch200ResponseSummary',
+        'results' => '\MailOdds\Model\ValidationResponse[]'
     ];
 
     /**
@@ -72,8 +73,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
-        'error' => null,
-        'message' => null
+        'total' => null,
+        'summary' => null,
+        'results' => null
     ];
 
     /**
@@ -83,8 +85,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
-        'error' => false,
-        'message' => false
+        'total' => false,
+        'summary' => false,
+        'results' => false
     ];
 
     /**
@@ -174,8 +177,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
-        'error' => 'error',
-        'message' => 'message'
+        'total' => 'total',
+        'summary' => 'summary',
+        'results' => 'results'
     ];
 
     /**
@@ -185,8 +189,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
-        'error' => 'setError',
-        'message' => 'setMessage'
+        'total' => 'setTotal',
+        'summary' => 'setSummary',
+        'results' => 'setResults'
     ];
 
     /**
@@ -196,8 +201,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
-        'error' => 'getError',
-        'message' => 'getMessage'
+        'total' => 'getTotal',
+        'summary' => 'getSummary',
+        'results' => 'getResults'
     ];
 
     /**
@@ -258,8 +264,9 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
-        $this->setIfExists('error', $data ?? [], null);
-        $this->setIfExists('message', $data ?? [], null);
+        $this->setIfExists('total', $data ?? [], null);
+        $this->setIfExists('summary', $data ?? [], null);
+        $this->setIfExists('results', $data ?? [], null);
     }
 
     /**
@@ -289,9 +296,6 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['error'] === null) {
-            $invalidProperties[] = "'error' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -335,55 +339,82 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets error
+     * Gets total
      *
-     * @return string
+     * @return int|null
      */
-    public function getError()
+    public function getTotal()
     {
-        return $this->container['error'];
+        return $this->container['total'];
     }
 
     /**
-     * Sets error
+     * Sets total
      *
-     * @param string $error Machine-readable error code
+     * @param int|null $total total
      *
      * @return self
      */
-    public function setError($error)
+    public function setTotal($total)
     {
-        if (is_null($error)) {
-            throw new \InvalidArgumentException('non-nullable error cannot be null');
+        if (is_null($total)) {
+            throw new \InvalidArgumentException('non-nullable total cannot be null');
         }
-        $this->container['error'] = $error;
+        $this->container['total'] = $total;
 
         return $this;
     }
 
     /**
-     * Gets message
+     * Gets summary
      *
-     * @return string|null
+     * @return \MailOdds\Model\ValidateBatch200ResponseSummary|null
      */
-    public function getMessage()
+    public function getSummary()
     {
-        return $this->container['message'];
+        return $this->container['summary'];
     }
 
     /**
-     * Sets message
+     * Sets summary
      *
-     * @param string|null $message Human-readable error message
+     * @param \MailOdds\Model\ValidateBatch200ResponseSummary|null $summary summary
      *
      * @return self
      */
-    public function setMessage($message)
+    public function setSummary($summary)
     {
-        if (is_null($message)) {
-            throw new \InvalidArgumentException('non-nullable message cannot be null');
+        if (is_null($summary)) {
+            throw new \InvalidArgumentException('non-nullable summary cannot be null');
         }
-        $this->container['message'] = $message;
+        $this->container['summary'] = $summary;
+
+        return $this;
+    }
+
+    /**
+     * Gets results
+     *
+     * @return \MailOdds\Model\ValidationResponse[]|null
+     */
+    public function getResults()
+    {
+        return $this->container['results'];
+    }
+
+    /**
+     * Sets results
+     *
+     * @param \MailOdds\Model\ValidationResponse[]|null $results results
+     *
+     * @return self
+     */
+    public function setResults($results)
+    {
+        if (is_null($results)) {
+            throw new \InvalidArgumentException('non-nullable results cannot be null');
+        }
+        $this->container['results'] = $results;
 
         return $this;
     }
