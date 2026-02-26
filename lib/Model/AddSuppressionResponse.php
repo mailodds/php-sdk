@@ -59,8 +59,11 @@ class AddSuppressionResponse implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
+        'request_id' => 'string',
         'added' => 'int',
-        'skipped' => 'int'
+        'duplicates' => 'int',
+        'invalid' => 'int',
+        'total' => 'int'
     ];
 
     /**
@@ -72,8 +75,11 @@ class AddSuppressionResponse implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
+        'request_id' => null,
         'added' => null,
-        'skipped' => null
+        'duplicates' => null,
+        'invalid' => null,
+        'total' => null
     ];
 
     /**
@@ -83,8 +89,11 @@ class AddSuppressionResponse implements ModelInterface, ArrayAccess, \JsonSerial
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
+        'request_id' => false,
         'added' => false,
-        'skipped' => false
+        'duplicates' => false,
+        'invalid' => false,
+        'total' => false
     ];
 
     /**
@@ -174,8 +183,11 @@ class AddSuppressionResponse implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
+        'request_id' => 'request_id',
         'added' => 'added',
-        'skipped' => 'skipped'
+        'duplicates' => 'duplicates',
+        'invalid' => 'invalid',
+        'total' => 'total'
     ];
 
     /**
@@ -185,8 +197,11 @@ class AddSuppressionResponse implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
+        'request_id' => 'setRequestId',
         'added' => 'setAdded',
-        'skipped' => 'setSkipped'
+        'duplicates' => 'setDuplicates',
+        'invalid' => 'setInvalid',
+        'total' => 'setTotal'
     ];
 
     /**
@@ -196,8 +211,11 @@ class AddSuppressionResponse implements ModelInterface, ArrayAccess, \JsonSerial
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
+        'request_id' => 'getRequestId',
         'added' => 'getAdded',
-        'skipped' => 'getSkipped'
+        'duplicates' => 'getDuplicates',
+        'invalid' => 'getInvalid',
+        'total' => 'getTotal'
     ];
 
     /**
@@ -258,8 +276,11 @@ class AddSuppressionResponse implements ModelInterface, ArrayAccess, \JsonSerial
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
         $this->setIfExists('added', $data ?? [], null);
-        $this->setIfExists('skipped', $data ?? [], null);
+        $this->setIfExists('duplicates', $data ?? [], null);
+        $this->setIfExists('invalid', $data ?? [], null);
+        $this->setIfExists('total', $data ?? [], null);
     }
 
     /**
@@ -332,6 +353,33 @@ class AddSuppressionResponse implements ModelInterface, ArrayAccess, \JsonSerial
     }
 
     /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Unique request identifier
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
+
+        return $this;
+    }
+
+    /**
      * Gets added
      *
      * @return int|null
@@ -344,7 +392,7 @@ class AddSuppressionResponse implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets added
      *
-     * @param int|null $added added
+     * @param int|null $added Number of entries successfully added
      *
      * @return self
      */
@@ -359,28 +407,82 @@ class AddSuppressionResponse implements ModelInterface, ArrayAccess, \JsonSerial
     }
 
     /**
-     * Gets skipped
+     * Gets duplicates
      *
      * @return int|null
      */
-    public function getSkipped()
+    public function getDuplicates()
     {
-        return $this->container['skipped'];
+        return $this->container['duplicates'];
     }
 
     /**
-     * Sets skipped
+     * Sets duplicates
      *
-     * @param int|null $skipped skipped
+     * @param int|null $duplicates Number of duplicate entries skipped
      *
      * @return self
      */
-    public function setSkipped($skipped)
+    public function setDuplicates($duplicates)
     {
-        if (is_null($skipped)) {
-            throw new \InvalidArgumentException('non-nullable skipped cannot be null');
+        if (is_null($duplicates)) {
+            throw new \InvalidArgumentException('non-nullable duplicates cannot be null');
         }
-        $this->container['skipped'] = $skipped;
+        $this->container['duplicates'] = $duplicates;
+
+        return $this;
+    }
+
+    /**
+     * Gets invalid
+     *
+     * @return int|null
+     */
+    public function getInvalid()
+    {
+        return $this->container['invalid'];
+    }
+
+    /**
+     * Sets invalid
+     *
+     * @param int|null $invalid Number of invalid entries rejected
+     *
+     * @return self
+     */
+    public function setInvalid($invalid)
+    {
+        if (is_null($invalid)) {
+            throw new \InvalidArgumentException('non-nullable invalid cannot be null');
+        }
+        $this->container['invalid'] = $invalid;
+
+        return $this;
+    }
+
+    /**
+     * Gets total
+     *
+     * @return int|null
+     */
+    public function getTotal()
+    {
+        return $this->container['total'];
+    }
+
+    /**
+     * Sets total
+     *
+     * @param int|null $total Total entries in the request
+     *
+     * @return self
+     */
+    public function setTotal($total)
+    {
+        if (is_null($total)) {
+            throw new \InvalidArgumentException('non-nullable total cannot be null');
+        }
+        $this->container['total'] = $total;
 
         return $this;
     }

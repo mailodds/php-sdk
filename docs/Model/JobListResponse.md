@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **schema_version** | **string** |  | [optional]
+**request_id** | **string** | Unique request identifier | [optional]
 **jobs** | [**\MailOdds\Model\Job[]**](Job.md) |  | [optional]
 **pagination** | [**\MailOdds\Model\Pagination**](Pagination.md) |  | [optional]
 

@@ -59,6 +59,7 @@ class PolicyListResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
+        'request_id' => 'string',
         'policies' => '\MailOdds\Model\Policy[]',
         'limits' => '\MailOdds\Model\PolicyListResponseLimits'
     ];
@@ -72,6 +73,7 @@ class PolicyListResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
+        'request_id' => null,
         'policies' => null,
         'limits' => null
     ];
@@ -83,6 +85,7 @@ class PolicyListResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
+        'request_id' => false,
         'policies' => false,
         'limits' => false
     ];
@@ -174,6 +177,7 @@ class PolicyListResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
+        'request_id' => 'request_id',
         'policies' => 'policies',
         'limits' => 'limits'
     ];
@@ -185,6 +189,7 @@ class PolicyListResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
+        'request_id' => 'setRequestId',
         'policies' => 'setPolicies',
         'limits' => 'setLimits'
     ];
@@ -196,6 +201,7 @@ class PolicyListResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
+        'request_id' => 'getRequestId',
         'policies' => 'getPolicies',
         'limits' => 'getLimits'
     ];
@@ -258,6 +264,7 @@ class PolicyListResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
         $this->setIfExists('policies', $data ?? [], null);
         $this->setIfExists('limits', $data ?? [], null);
     }
@@ -327,6 +334,33 @@ class PolicyListResponse implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
         }
         $this->container['schema_version'] = $schema_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Unique request identifier
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }

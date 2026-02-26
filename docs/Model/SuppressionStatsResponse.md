@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **schema_version** | **string** |  | [optional]
+**request_id** | **string** | Unique request identifier | [optional]
 **total** | **int** |  | [optional]
 **by_type** | [**\MailOdds\Model\SuppressionStatsResponseByType**](SuppressionStatsResponseByType.md) |  | [optional]
 

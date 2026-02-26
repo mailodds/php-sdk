@@ -59,6 +59,7 @@ class PolicyTestResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
+        'request_id' => 'string',
         'original' => 'object',
         'modified' => 'object',
         'matched_rule' => 'object',
@@ -74,6 +75,7 @@ class PolicyTestResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
+        'request_id' => null,
         'original' => null,
         'modified' => null,
         'matched_rule' => null,
@@ -87,6 +89,7 @@ class PolicyTestResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
+        'request_id' => false,
         'original' => false,
         'modified' => false,
         'matched_rule' => true,
@@ -180,6 +183,7 @@ class PolicyTestResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
+        'request_id' => 'request_id',
         'original' => 'original',
         'modified' => 'modified',
         'matched_rule' => 'matched_rule',
@@ -193,6 +197,7 @@ class PolicyTestResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
+        'request_id' => 'setRequestId',
         'original' => 'setOriginal',
         'modified' => 'setModified',
         'matched_rule' => 'setMatchedRule',
@@ -206,6 +211,7 @@ class PolicyTestResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
+        'request_id' => 'getRequestId',
         'original' => 'getOriginal',
         'modified' => 'getModified',
         'matched_rule' => 'getMatchedRule',
@@ -270,6 +276,7 @@ class PolicyTestResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
         $this->setIfExists('original', $data ?? [], null);
         $this->setIfExists('modified', $data ?? [], null);
         $this->setIfExists('matched_rule', $data ?? [], null);
@@ -341,6 +348,33 @@ class PolicyTestResponse implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
         }
         $this->container['schema_version'] = $schema_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Unique request identifier
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }

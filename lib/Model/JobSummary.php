@@ -60,6 +60,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'valid' => 'int',
         'invalid' => 'int',
+        'catch_all' => 'int',
         'do_not_mail' => 'int',
         'unknown' => 'int',
         'cancelled_pending' => 'int'
@@ -75,6 +76,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'valid' => null,
         'invalid' => null,
+        'catch_all' => null,
         'do_not_mail' => null,
         'unknown' => null,
         'cancelled_pending' => null
@@ -88,6 +90,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'valid' => false,
         'invalid' => false,
+        'catch_all' => false,
         'do_not_mail' => false,
         'unknown' => false,
         'cancelled_pending' => false
@@ -181,6 +184,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'valid' => 'valid',
         'invalid' => 'invalid',
+        'catch_all' => 'catch_all',
         'do_not_mail' => 'do_not_mail',
         'unknown' => 'unknown',
         'cancelled_pending' => 'cancelled_pending'
@@ -194,6 +198,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'valid' => 'setValid',
         'invalid' => 'setInvalid',
+        'catch_all' => 'setCatchAll',
         'do_not_mail' => 'setDoNotMail',
         'unknown' => 'setUnknown',
         'cancelled_pending' => 'setCancelledPending'
@@ -207,6 +212,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'valid' => 'getValid',
         'invalid' => 'getInvalid',
+        'catch_all' => 'getCatchAll',
         'do_not_mail' => 'getDoNotMail',
         'unknown' => 'getUnknown',
         'cancelled_pending' => 'getCancelledPending'
@@ -271,6 +277,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('valid', $data ?? [], null);
         $this->setIfExists('invalid', $data ?? [], null);
+        $this->setIfExists('catch_all', $data ?? [], null);
         $this->setIfExists('do_not_mail', $data ?? [], null);
         $this->setIfExists('unknown', $data ?? [], null);
         $this->setIfExists('cancelled_pending', $data ?? [], null);
@@ -368,6 +375,33 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable invalid cannot be null');
         }
         $this->container['invalid'] = $invalid;
+
+        return $this;
+    }
+
+    /**
+     * Gets catch_all
+     *
+     * @return int|null
+     */
+    public function getCatchAll()
+    {
+        return $this->container['catch_all'];
+    }
+
+    /**
+     * Sets catch_all
+     *
+     * @param int|null $catch_all catch_all
+     *
+     * @return self
+     */
+    public function setCatchAll($catch_all)
+    {
+        if (is_null($catch_all)) {
+            throw new \InvalidArgumentException('non-nullable catch_all cannot be null');
+        }
+        $this->container['catch_all'] = $catch_all;
 
         return $this;
     }

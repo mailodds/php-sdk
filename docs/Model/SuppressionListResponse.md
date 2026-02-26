@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **schema_version** | **string** |  | [optional]
+**request_id** | **string** | Unique request identifier | [optional]
 **entries** | [**\MailOdds\Model\SuppressionEntry[]**](SuppressionEntry.md) |  | [optional]
 **pagination** | [**\MailOdds\Model\Pagination**](Pagination.md) |  | [optional]
 

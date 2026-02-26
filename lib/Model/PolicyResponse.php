@@ -59,6 +59,7 @@ class PolicyResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
+        'request_id' => 'string',
         'policy' => '\MailOdds\Model\Policy'
     ];
 
@@ -71,6 +72,7 @@ class PolicyResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
+        'request_id' => null,
         'policy' => null
     ];
 
@@ -81,6 +83,7 @@ class PolicyResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
+        'request_id' => false,
         'policy' => false
     ];
 
@@ -171,6 +174,7 @@ class PolicyResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
+        'request_id' => 'request_id',
         'policy' => 'policy'
     ];
 
@@ -181,6 +185,7 @@ class PolicyResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
+        'request_id' => 'setRequestId',
         'policy' => 'setPolicy'
     ];
 
@@ -191,6 +196,7 @@ class PolicyResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
+        'request_id' => 'getRequestId',
         'policy' => 'getPolicy'
     ];
 
@@ -252,6 +258,7 @@ class PolicyResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
         $this->setIfExists('policy', $data ?? [], null);
     }
 
@@ -320,6 +327,33 @@ class PolicyResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
         }
         $this->container['schema_version'] = $schema_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Unique request identifier
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }

@@ -59,6 +59,7 @@ class RemoveSuppression200Response implements ModelInterface, ArrayAccess, \Json
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
+        'request_id' => 'string',
         'removed' => 'int'
     ];
 
@@ -71,6 +72,7 @@ class RemoveSuppression200Response implements ModelInterface, ArrayAccess, \Json
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
+        'request_id' => null,
         'removed' => null
     ];
 
@@ -81,6 +83,7 @@ class RemoveSuppression200Response implements ModelInterface, ArrayAccess, \Json
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
+        'request_id' => false,
         'removed' => false
     ];
 
@@ -171,6 +174,7 @@ class RemoveSuppression200Response implements ModelInterface, ArrayAccess, \Json
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
+        'request_id' => 'request_id',
         'removed' => 'removed'
     ];
 
@@ -181,6 +185,7 @@ class RemoveSuppression200Response implements ModelInterface, ArrayAccess, \Json
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
+        'request_id' => 'setRequestId',
         'removed' => 'setRemoved'
     ];
 
@@ -191,6 +196,7 @@ class RemoveSuppression200Response implements ModelInterface, ArrayAccess, \Json
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
+        'request_id' => 'getRequestId',
         'removed' => 'getRemoved'
     ];
 
@@ -252,6 +258,7 @@ class RemoveSuppression200Response implements ModelInterface, ArrayAccess, \Json
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
         $this->setIfExists('removed', $data ?? [], null);
     }
 
@@ -320,6 +327,33 @@ class RemoveSuppression200Response implements ModelInterface, ArrayAccess, \Json
             throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
         }
         $this->container['schema_version'] = $schema_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Unique request identifier
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }

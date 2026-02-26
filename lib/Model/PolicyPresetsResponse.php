@@ -59,6 +59,7 @@ class PolicyPresetsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
+        'request_id' => 'string',
         'presets' => '\MailOdds\Model\PolicyPresetsResponsePresetsInner[]'
     ];
 
@@ -71,6 +72,7 @@ class PolicyPresetsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
+        'request_id' => null,
         'presets' => null
     ];
 
@@ -81,6 +83,7 @@ class PolicyPresetsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
+        'request_id' => false,
         'presets' => false
     ];
 
@@ -171,6 +174,7 @@ class PolicyPresetsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
+        'request_id' => 'request_id',
         'presets' => 'presets'
     ];
 
@@ -181,6 +185,7 @@ class PolicyPresetsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
+        'request_id' => 'setRequestId',
         'presets' => 'setPresets'
     ];
 
@@ -191,6 +196,7 @@ class PolicyPresetsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
+        'request_id' => 'getRequestId',
         'presets' => 'getPresets'
     ];
 
@@ -252,6 +258,7 @@ class PolicyPresetsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
         $this->setIfExists('presets', $data ?? [], null);
     }
 
@@ -320,6 +327,33 @@ class PolicyPresetsResponse implements ModelInterface, ArrayAccess, \JsonSeriali
             throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
         }
         $this->container['schema_version'] = $schema_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Unique request identifier
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }

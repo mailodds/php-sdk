@@ -59,6 +59,7 @@ class SuppressionStatsResponse implements ModelInterface, ArrayAccess, \JsonSeri
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
+        'request_id' => 'string',
         'total' => 'int',
         'by_type' => '\MailOdds\Model\SuppressionStatsResponseByType'
     ];
@@ -72,6 +73,7 @@ class SuppressionStatsResponse implements ModelInterface, ArrayAccess, \JsonSeri
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
+        'request_id' => null,
         'total' => null,
         'by_type' => null
     ];
@@ -83,6 +85,7 @@ class SuppressionStatsResponse implements ModelInterface, ArrayAccess, \JsonSeri
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
+        'request_id' => false,
         'total' => false,
         'by_type' => false
     ];
@@ -174,6 +177,7 @@ class SuppressionStatsResponse implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
+        'request_id' => 'request_id',
         'total' => 'total',
         'by_type' => 'by_type'
     ];
@@ -185,6 +189,7 @@ class SuppressionStatsResponse implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
+        'request_id' => 'setRequestId',
         'total' => 'setTotal',
         'by_type' => 'setByType'
     ];
@@ -196,6 +201,7 @@ class SuppressionStatsResponse implements ModelInterface, ArrayAccess, \JsonSeri
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
+        'request_id' => 'getRequestId',
         'total' => 'getTotal',
         'by_type' => 'getByType'
     ];
@@ -258,6 +264,7 @@ class SuppressionStatsResponse implements ModelInterface, ArrayAccess, \JsonSeri
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
         $this->setIfExists('total', $data ?? [], null);
         $this->setIfExists('by_type', $data ?? [], null);
     }
@@ -327,6 +334,33 @@ class SuppressionStatsResponse implements ModelInterface, ArrayAccess, \JsonSeri
             throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
         }
         $this->container['schema_version'] = $schema_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Unique request identifier
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }

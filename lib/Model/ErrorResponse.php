@@ -59,6 +59,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
+        'request_id' => 'string',
         'error' => 'string',
         'message' => 'string'
     ];
@@ -72,6 +73,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
+        'request_id' => null,
         'error' => null,
         'message' => null
     ];
@@ -83,6 +85,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
+        'request_id' => false,
         'error' => false,
         'message' => false
     ];
@@ -174,6 +177,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
+        'request_id' => 'request_id',
         'error' => 'error',
         'message' => 'message'
     ];
@@ -185,6 +189,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
+        'request_id' => 'setRequestId',
         'error' => 'setError',
         'message' => 'setMessage'
     ];
@@ -196,6 +201,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
+        'request_id' => 'getRequestId',
         'error' => 'getError',
         'message' => 'getMessage'
     ];
@@ -258,6 +264,7 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
         $this->setIfExists('error', $data ?? [], null);
         $this->setIfExists('message', $data ?? [], null);
     }
@@ -330,6 +337,33 @@ class ErrorResponse implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
         }
         $this->container['schema_version'] = $schema_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Unique request identifier
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }

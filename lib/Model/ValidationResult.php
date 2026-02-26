@@ -253,6 +253,46 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const STATUS_VALID = 'valid';
+    public const STATUS_INVALID = 'invalid';
+    public const STATUS_CATCH_ALL = 'catch_all';
+    public const STATUS_DO_NOT_MAIL = 'do_not_mail';
+    public const STATUS_UNKNOWN = 'unknown';
+    public const ACTION_ACCEPT = 'accept';
+    public const ACTION_ACCEPT_WITH_CAUTION = 'accept_with_caution';
+    public const ACTION_REJECT = 'reject';
+    public const ACTION_RETRY_LATER = 'retry_later';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getStatusAllowableValues()
+    {
+        return [
+            self::STATUS_VALID,
+            self::STATUS_INVALID,
+            self::STATUS_CATCH_ALL,
+            self::STATUS_DO_NOT_MAIL,
+            self::STATUS_UNKNOWN,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getActionAllowableValues()
+    {
+        return [
+            self::ACTION_ACCEPT,
+            self::ACTION_ACCEPT_WITH_CAUTION,
+            self::ACTION_REJECT,
+            self::ACTION_RETRY_LATER,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -302,6 +342,24 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        $allowedValues = $this->getStatusAllowableValues();
+        if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'status', must be one of '%s'",
+                $this->container['status'],
+                implode("', '", $allowedValues)
+            );
+        }
+
+        $allowedValues = $this->getActionAllowableValues();
+        if (!is_null($this->container['action']) && !in_array($this->container['action'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'action', must be one of '%s'",
+                $this->container['action'],
+                implode("', '", $allowedValues)
+            );
+        }
 
         return $invalidProperties;
     }
@@ -367,6 +425,16 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
         if (is_null($status)) {
             throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
+        $allowedValues = $this->getStatusAllowableValues();
+        if (!in_array($status, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'status', must be one of '%s'",
+                    $status,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
         $this->container['status'] = $status;
 
         return $this;
@@ -420,6 +488,16 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         if (is_null($action)) {
             throw new \InvalidArgumentException('non-nullable action cannot be null');
+        }
+        $allowedValues = $this->getActionAllowableValues();
+        if (!in_array($action, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'action', must be one of '%s'",
+                    $action,
+                    implode("', '", $allowedValues)
+                )
+            );
         }
         $this->container['action'] = $action;
 

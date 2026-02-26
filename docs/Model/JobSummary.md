@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **valid** | **int** |  | [optional]
 **invalid** | **int** |  | [optional]
+**catch_all** | **int** |  | [optional]
 **do_not_mail** | **int** |  | [optional]
 **unknown** | **int** |  | [optional]
 **cancelled_pending** | **int** |  | [optional]

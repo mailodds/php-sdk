@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **schema_version** | **string** |  | [optional]
+**request_id** | **string** | Unique request identifier | [optional]
 **policies** | [**\MailOdds\Model\Policy[]**](Policy.md) |  | [optional]
 **limits** | [**\MailOdds\Model\PolicyListResponseLimits**](PolicyListResponseLimits.md) |  | [optional]
 

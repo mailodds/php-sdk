@@ -59,6 +59,7 @@ class SuppressionListResponse implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
+        'request_id' => 'string',
         'entries' => '\MailOdds\Model\SuppressionEntry[]',
         'pagination' => '\MailOdds\Model\Pagination'
     ];
@@ -72,6 +73,7 @@ class SuppressionListResponse implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
+        'request_id' => null,
         'entries' => null,
         'pagination' => null
     ];
@@ -83,6 +85,7 @@ class SuppressionListResponse implements ModelInterface, ArrayAccess, \JsonSeria
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
+        'request_id' => false,
         'entries' => false,
         'pagination' => false
     ];
@@ -174,6 +177,7 @@ class SuppressionListResponse implements ModelInterface, ArrayAccess, \JsonSeria
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
+        'request_id' => 'request_id',
         'entries' => 'entries',
         'pagination' => 'pagination'
     ];
@@ -185,6 +189,7 @@ class SuppressionListResponse implements ModelInterface, ArrayAccess, \JsonSeria
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
+        'request_id' => 'setRequestId',
         'entries' => 'setEntries',
         'pagination' => 'setPagination'
     ];
@@ -196,6 +201,7 @@ class SuppressionListResponse implements ModelInterface, ArrayAccess, \JsonSeria
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
+        'request_id' => 'getRequestId',
         'entries' => 'getEntries',
         'pagination' => 'getPagination'
     ];
@@ -258,6 +264,7 @@ class SuppressionListResponse implements ModelInterface, ArrayAccess, \JsonSeria
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
         $this->setIfExists('entries', $data ?? [], null);
         $this->setIfExists('pagination', $data ?? [], null);
     }
@@ -327,6 +334,33 @@ class SuppressionListResponse implements ModelInterface, ArrayAccess, \JsonSeria
             throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
         }
         $this->container['schema_version'] = $schema_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Unique request identifier
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }

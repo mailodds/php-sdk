@@ -60,6 +60,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPITypes = [
         'schema_version' => 'string',
+        'request_id' => 'string',
         'email' => 'string',
         'status' => 'string',
         'action' => 'string',
@@ -76,6 +77,10 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'processed_at' => '\DateTime',
         'suggested_email' => 'string',
         'retry_after_ms' => 'int',
+        'has_spf' => 'bool',
+        'has_dmarc' => 'bool',
+        'dmarc_policy' => 'string',
+        'dnsbl_listed' => 'bool',
         'suppression_match' => '\MailOdds\Model\ValidationResponseSuppressionMatch',
         'policy_applied' => '\MailOdds\Model\ValidationResponsePolicyApplied'
     ];
@@ -89,6 +94,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static $openAPIFormats = [
         'schema_version' => null,
+        'request_id' => null,
         'email' => null,
         'status' => null,
         'action' => null,
@@ -105,6 +111,10 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'processed_at' => 'date-time',
         'suggested_email' => null,
         'retry_after_ms' => null,
+        'has_spf' => null,
+        'has_dmarc' => null,
+        'dmarc_policy' => null,
+        'dnsbl_listed' => null,
         'suppression_match' => null,
         'policy_applied' => null
     ];
@@ -116,6 +126,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
       */
     protected static array $openAPINullables = [
         'schema_version' => false,
+        'request_id' => false,
         'email' => false,
         'status' => false,
         'action' => false,
@@ -132,6 +143,10 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'processed_at' => false,
         'suggested_email' => false,
         'retry_after_ms' => false,
+        'has_spf' => false,
+        'has_dmarc' => false,
+        'dmarc_policy' => false,
+        'dnsbl_listed' => false,
         'suppression_match' => false,
         'policy_applied' => false
     ];
@@ -223,6 +238,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
+        'request_id' => 'request_id',
         'email' => 'email',
         'status' => 'status',
         'action' => 'action',
@@ -239,6 +255,10 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'processed_at' => 'processed_at',
         'suggested_email' => 'suggested_email',
         'retry_after_ms' => 'retry_after_ms',
+        'has_spf' => 'has_spf',
+        'has_dmarc' => 'has_dmarc',
+        'dmarc_policy' => 'dmarc_policy',
+        'dnsbl_listed' => 'dnsbl_listed',
         'suppression_match' => 'suppression_match',
         'policy_applied' => 'policy_applied'
     ];
@@ -250,6 +270,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
+        'request_id' => 'setRequestId',
         'email' => 'setEmail',
         'status' => 'setStatus',
         'action' => 'setAction',
@@ -266,6 +287,10 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'processed_at' => 'setProcessedAt',
         'suggested_email' => 'setSuggestedEmail',
         'retry_after_ms' => 'setRetryAfterMs',
+        'has_spf' => 'setHasSpf',
+        'has_dmarc' => 'setHasDmarc',
+        'dmarc_policy' => 'setDmarcPolicy',
+        'dnsbl_listed' => 'setDnsblListed',
         'suppression_match' => 'setSuppressionMatch',
         'policy_applied' => 'setPolicyApplied'
     ];
@@ -277,6 +302,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
      */
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
+        'request_id' => 'getRequestId',
         'email' => 'getEmail',
         'status' => 'getStatus',
         'action' => 'getAction',
@@ -293,6 +319,10 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'processed_at' => 'getProcessedAt',
         'suggested_email' => 'getSuggestedEmail',
         'retry_after_ms' => 'getRetryAfterMs',
+        'has_spf' => 'getHasSpf',
+        'has_dmarc' => 'getHasDmarc',
+        'dmarc_policy' => 'getDmarcPolicy',
+        'dnsbl_listed' => 'getDnsblListed',
         'suppression_match' => 'getSuppressionMatch',
         'policy_applied' => 'getPolicyApplied'
     ];
@@ -356,9 +386,15 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     public const SUB_STATUS_ROLE_ACCOUNT = 'role_account';
     public const SUB_STATUS_GREYLISTED = 'greylisted';
     public const SUB_STATUS_CATCH_ALL_DETECTED = 'catch_all_detected';
+    public const SUB_STATUS_DOMAIN_NOT_FOUND = 'domain_not_found';
     public const SUB_STATUS_SUPPRESSION_MATCH = 'suppression_match';
+    public const SUB_STATUS_RESTRICTED_MILITARY = 'restricted_military';
+    public const SUB_STATUS_RESTRICTED_SANCTIONED = 'restricted_sanctioned';
     public const DEPTH_STANDARD = 'standard';
     public const DEPTH_ENHANCED = 'enhanced';
+    public const DMARC_POLICY_NONE = 'none';
+    public const DMARC_POLICY_QUARANTINE = 'quarantine';
+    public const DMARC_POLICY_REJECT = 'reject';
 
     /**
      * Gets allowable values of the enum
@@ -408,7 +444,10 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
             self::SUB_STATUS_ROLE_ACCOUNT,
             self::SUB_STATUS_GREYLISTED,
             self::SUB_STATUS_CATCH_ALL_DETECTED,
+            self::SUB_STATUS_DOMAIN_NOT_FOUND,
             self::SUB_STATUS_SUPPRESSION_MATCH,
+            self::SUB_STATUS_RESTRICTED_MILITARY,
+            self::SUB_STATUS_RESTRICTED_SANCTIONED,
         ];
     }
 
@@ -422,6 +461,20 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         return [
             self::DEPTH_STANDARD,
             self::DEPTH_ENHANCED,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getDmarcPolicyAllowableValues()
+    {
+        return [
+            self::DMARC_POLICY_NONE,
+            self::DMARC_POLICY_QUARANTINE,
+            self::DMARC_POLICY_REJECT,
         ];
     }
 
@@ -441,6 +494,7 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     public function __construct(?array $data = null)
     {
         $this->setIfExists('schema_version', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
         $this->setIfExists('email', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('action', $data ?? [], null);
@@ -457,6 +511,10 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         $this->setIfExists('processed_at', $data ?? [], null);
         $this->setIfExists('suggested_email', $data ?? [], null);
         $this->setIfExists('retry_after_ms', $data ?? [], null);
+        $this->setIfExists('has_spf', $data ?? [], null);
+        $this->setIfExists('has_dmarc', $data ?? [], null);
+        $this->setIfExists('dmarc_policy', $data ?? [], null);
+        $this->setIfExists('dnsbl_listed', $data ?? [], null);
         $this->setIfExists('suppression_match', $data ?? [], null);
         $this->setIfExists('policy_applied', $data ?? [], null);
     }
@@ -557,6 +615,15 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         if ($this->container['processed_at'] === null) {
             $invalidProperties[] = "'processed_at' can't be null";
         }
+        $allowedValues = $this->getDmarcPolicyAllowableValues();
+        if (!is_null($this->container['dmarc_policy']) && !in_array($this->container['dmarc_policy'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'dmarc_policy', must be one of '%s'",
+                $this->container['dmarc_policy'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         return $invalidProperties;
     }
 
@@ -595,6 +662,33 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
         }
         $this->container['schema_version'] = $schema_version;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Unique request identifier
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
 
         return $this;
     }
@@ -1067,6 +1161,124 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
             throw new \InvalidArgumentException('non-nullable retry_after_ms cannot be null');
         }
         $this->container['retry_after_ms'] = $retry_after_ms;
+
+        return $this;
+    }
+
+    /**
+     * Gets has_spf
+     *
+     * @return bool|null
+     */
+    public function getHasSpf()
+    {
+        return $this->container['has_spf'];
+    }
+
+    /**
+     * Sets has_spf
+     *
+     * @param bool|null $has_spf Whether the domain has an SPF record. Omitted for standard depth.
+     *
+     * @return self
+     */
+    public function setHasSpf($has_spf)
+    {
+        if (is_null($has_spf)) {
+            throw new \InvalidArgumentException('non-nullable has_spf cannot be null');
+        }
+        $this->container['has_spf'] = $has_spf;
+
+        return $this;
+    }
+
+    /**
+     * Gets has_dmarc
+     *
+     * @return bool|null
+     */
+    public function getHasDmarc()
+    {
+        return $this->container['has_dmarc'];
+    }
+
+    /**
+     * Sets has_dmarc
+     *
+     * @param bool|null $has_dmarc Whether the domain has a DMARC record. Omitted for standard depth.
+     *
+     * @return self
+     */
+    public function setHasDmarc($has_dmarc)
+    {
+        if (is_null($has_dmarc)) {
+            throw new \InvalidArgumentException('non-nullable has_dmarc cannot be null');
+        }
+        $this->container['has_dmarc'] = $has_dmarc;
+
+        return $this;
+    }
+
+    /**
+     * Gets dmarc_policy
+     *
+     * @return string|null
+     */
+    public function getDmarcPolicy()
+    {
+        return $this->container['dmarc_policy'];
+    }
+
+    /**
+     * Sets dmarc_policy
+     *
+     * @param string|null $dmarc_policy The domain's DMARC policy. Omitted when no DMARC record found.
+     *
+     * @return self
+     */
+    public function setDmarcPolicy($dmarc_policy)
+    {
+        if (is_null($dmarc_policy)) {
+            throw new \InvalidArgumentException('non-nullable dmarc_policy cannot be null');
+        }
+        $allowedValues = $this->getDmarcPolicyAllowableValues();
+        if (!in_array($dmarc_policy, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'dmarc_policy', must be one of '%s'",
+                    $dmarc_policy,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['dmarc_policy'] = $dmarc_policy;
+
+        return $this;
+    }
+
+    /**
+     * Gets dnsbl_listed
+     *
+     * @return bool|null
+     */
+    public function getDnsblListed()
+    {
+        return $this->container['dnsbl_listed'];
+    }
+
+    /**
+     * Sets dnsbl_listed
+     *
+     * @param bool|null $dnsbl_listed Whether the domain's MX IP is on a DNS blocklist (Spamhaus ZEN). Omitted for standard depth.
+     *
+     * @return self
+     */
+    public function setDnsblListed($dnsbl_listed)
+    {
+        if (is_null($dnsbl_listed)) {
+            throw new \InvalidArgumentException('non-nullable dnsbl_listed cannot be null');
+        }
+        $this->container['dnsbl_listed'] = $dnsbl_listed;
 
         return $this;
     }
