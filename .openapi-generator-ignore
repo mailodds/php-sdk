@@ -26,3 +26,5 @@
 ci/**
 # Preserve GitHub Actions workflows
 .github/**
+# Preserve package metadata
+composer.json
