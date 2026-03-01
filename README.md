@@ -34,6 +34,61 @@ Error responses include:
 - `error`: Machine-readable error code
 - `message`: Human-readable error description
 
+## Webhooks
+
+MailOdds can send webhook notifications for job completion and email delivery events.
+Configure webhooks in the dashboard or per-job via the `webhook_url` field.
+
+### Event Types
+
+| Event | Description |
+|-------|-------------|
+| `job.completed` | Validation job finished processing |
+| `job.failed` | Validation job failed |
+| `message.queued` | Email queued for delivery |
+| `message.delivered` | Email delivered to recipient |
+| `message.bounced` | Email bounced |
+| `message.deferred` | Email delivery deferred |
+| `message.failed` | Email delivery failed |
+| `message.opened` | Recipient opened the email |
+| `message.clicked` | Recipient clicked a link |
+
+### Payload Format
+
+```json
+{
+  \"event\": \"job.completed\",
+  \"job\": { ... },
+  \"timestamp\": \"2026-01-15T10:30:00Z\"
+}
+```
+
+### Webhook Signing
+
+If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header
+containing an HMAC-SHA256 hex digest of the request body.
+
+**Verification pseudocode:**
+```
+expected = HMAC-SHA256(webhook_secret, request_body)
+valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected))
+```
+
+The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.
+
+### Headers
+
+All webhook requests include:
+- `Content-Type: application/json`
+- `User-Agent: MailOdds-Webhook/1.0`
+- `X-MailOdds-Event: {event_type}`
+- `X-Request-Id: {uuid}`
+- `X-MailOdds-Signature: {hmac}` (when secret is configured)
+
+### Retry Policy
+
+Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
+
 
 For more information, please visit [https://mailodds.com/contact](https://mailodds.com/contact).
 
@@ -103,55 +158,6 @@ try {
 
 ```
 
-## Sending Email
-
-### Send a Single Email
-
-```php
-$sendingApi = new MailOdds\Api\EmailSendingApi(
-    new GuzzleHttp\Client(),
-    $config
-);
-
-$request = new MailOdds\Model\DeliverRequest([
-    'to' => [['email' => 'recipient@example.com', 'name' => 'Jane']],
-    'from' => 'you@yourdomain.com',
-    'subject' => 'Hello from MailOdds',
-    'html' => '<h1>Welcome!</h1><p>Your order has been confirmed.</p>',
-    'domain_id' => 'your-domain-uuid',
-]);
-
-try {
-    $result = $sendingApi->deliverEmail($request);
-    echo $result->getDelivery()->getMessageId();
-} catch (Exception $e) {
-    echo 'Exception: ', $e->getMessage(), PHP_EOL;
-}
-```
-
-### Managing Sending Domains
-
-```php
-$domainsApi = new MailOdds\Api\SendingDomainsApi(
-    new GuzzleHttp\Client(),
-    $config
-);
-
-// List sending domains
-$domains = $domainsApi->listSendingDomains();
-foreach ($domains->getDomains() as $domain) {
-    echo $domain->getDomain() . ': ' . $domain->getStatus() . PHP_EOL;
-}
-
-// Add a new sending domain
-$newDomain = $domainsApi->createSendingDomain(
-    new MailOdds\Model\CreateSendingDomainRequest(['domain' => 'yourdomain.com'])
-);
-print_r($newDomain->getDnsRecords()); // DKIM records to add
-```
-
-For batch sending, scheduled delivery, and campaign management, see the [API documentation](https://mailodds.com/docs).
-
 ## API Endpoints
 
 All URIs are relative to *https://api.mailodds.com/v1*
@@ -188,6 +194,7 @@ Class | Method | HTTP request | Description
 *SubscriberListsApi* | [**unsubscribeSubscriber**](docs/Api/SubscriberListsApi.md#unsubscribesubscriber) | **DELETE** /v1/lists/{list_id}/subscribers/{subscriber_id} | Unsubscribe a subscriber
 *SuppressionListsApi* | [**addSuppression**](docs/Api/SuppressionListsApi.md#addsuppression) | **POST** /v1/suppression | Add suppression entries
 *SuppressionListsApi* | [**checkSuppression**](docs/Api/SuppressionListsApi.md#checksuppression) | **POST** /v1/suppression/check | Check suppression status
+*SuppressionListsApi* | [**getSuppressionAuditLog**](docs/Api/SuppressionListsApi.md#getsuppressionauditlog) | **GET** /v1/suppression/audit | Get suppression audit log
 *SuppressionListsApi* | [**getSuppressionStats**](docs/Api/SuppressionListsApi.md#getsuppressionstats) | **GET** /v1/suppression/stats | Get suppression statistics
 *SuppressionListsApi* | [**listSuppression**](docs/Api/SuppressionListsApi.md#listsuppression) | **GET** /v1/suppression | List suppression entries
 *SuppressionListsApi* | [**removeSuppression**](docs/Api/SuppressionListsApi.md#removesuppression) | **DELETE** /v1/suppression | Remove suppression entries
@@ -242,7 +249,9 @@ Class | Method | HTTP request | Description
 - [GetSendingStats200ResponseStats](docs/Model/GetSendingStats200ResponseStats.md)
 - [GetSubscribers200Response](docs/Model/GetSubscribers200Response.md)
 - [HealthCheck200Response](docs/Model/HealthCheck200Response.md)
+- [IdentityScoreCheck](docs/Model/IdentityScoreCheck.md)
 - [Job](docs/Model/Job.md)
+- [JobArtifacts](docs/Model/JobArtifacts.md)
 - [JobListResponse](docs/Model/JobListResponse.md)
 - [JobResponse](docs/Model/JobResponse.md)
 - [JobSummary](docs/Model/JobSummary.md)
@@ -266,12 +275,12 @@ Class | Method | HTTP request | Description
 - [SendingDomainDnsRecords](docs/Model/SendingDomainDnsRecords.md)
 - [SendingDomainDnsRecordsNs](docs/Model/SendingDomainDnsRecordsNs.md)
 - [SendingDomainIdentityScore](docs/Model/SendingDomainIdentityScore.md)
-- [SendingDomainIdentityScoreChecks](docs/Model/SendingDomainIdentityScoreChecks.md)
-- [SendingDomainIdentityScoreChecksDkim](docs/Model/SendingDomainIdentityScoreChecksDkim.md)
-- [SendingDomainIdentityScoreChecksDmarc](docs/Model/SendingDomainIdentityScoreChecksDmarc.md)
+- [SendingDomainIdentityScoreBreakdown](docs/Model/SendingDomainIdentityScoreBreakdown.md)
 - [SubscribeRequest](docs/Model/SubscribeRequest.md)
 - [Subscriber](docs/Model/Subscriber.md)
 - [SubscriberList](docs/Model/SubscriberList.md)
+- [SuppressionAuditResponse](docs/Model/SuppressionAuditResponse.md)
+- [SuppressionAuditResponseEntriesInner](docs/Model/SuppressionAuditResponseEntriesInner.md)
 - [SuppressionCheckResponse](docs/Model/SuppressionCheckResponse.md)
 - [SuppressionEntry](docs/Model/SuppressionEntry.md)
 - [SuppressionListResponse](docs/Model/SuppressionListResponse.md)
@@ -294,6 +303,8 @@ Class | Method | HTTP request | Description
 - [ValidationResponsePolicyApplied](docs/Model/ValidationResponsePolicyApplied.md)
 - [ValidationResponseSuppressionMatch](docs/Model/ValidationResponseSuppressionMatch.md)
 - [ValidationResult](docs/Model/ValidationResult.md)
+- [ValidationResultSuppression](docs/Model/ValidationResultSuppression.md)
+- [WebhookEvent](docs/Model/WebhookEvent.md)
 
 ## Authorization
 

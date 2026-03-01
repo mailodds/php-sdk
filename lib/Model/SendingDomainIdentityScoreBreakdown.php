@@ -1,6 +1,6 @@
 <?php
 /**
- * SendingDomainIdentityScoreChecks
+ * SendingDomainIdentityScoreBreakdown
  *
  * PHP version 8.1
  *
@@ -13,7 +13,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -33,16 +33,16 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * SendingDomainIdentityScoreChecks Class Doc Comment
+ * SendingDomainIdentityScoreBreakdown Class Doc Comment
  *
  * @category Class
- * @description Individual check results
+ * @description Per-check scoring breakdown
  * @package  MailOdds
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \JsonSerializable
+class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -51,7 +51,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
       *
       * @var string
       */
-    protected static $openAPIModelName = 'SendingDomainIdentityScore_checks';
+    protected static $openAPIModelName = 'SendingDomainIdentityScore_breakdown';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -59,11 +59,12 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
       * @var string[]
       */
     protected static $openAPITypes = [
-        'dkim' => '\MailOdds\Model\SendingDomainIdentityScoreChecksDkim',
-        'spf' => '\MailOdds\Model\SendingDomainIdentityScoreChecksDkim',
-        'dmarc' => '\MailOdds\Model\SendingDomainIdentityScoreChecksDmarc',
-        'mx' => '\MailOdds\Model\SendingDomainIdentityScoreChecksDkim',
-        'return_path' => '\MailOdds\Model\SendingDomainIdentityScoreChecksDkim'
+        'dkim' => '\MailOdds\Model\IdentityScoreCheck',
+        'spf' => '\MailOdds\Model\IdentityScoreCheck',
+        'dmarc' => '\MailOdds\Model\IdentityScoreCheck',
+        'mx' => '\MailOdds\Model\IdentityScoreCheck',
+        'return_path' => '\MailOdds\Model\IdentityScoreCheck',
+        'bimi' => '\MailOdds\Model\IdentityScoreCheck'
     ];
 
     /**
@@ -78,7 +79,8 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
         'spf' => null,
         'dmarc' => null,
         'mx' => null,
-        'return_path' => null
+        'return_path' => null,
+        'bimi' => null
     ];
 
     /**
@@ -91,7 +93,8 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
         'spf' => false,
         'dmarc' => false,
         'mx' => false,
-        'return_path' => false
+        'return_path' => false,
+        'bimi' => false
     ];
 
     /**
@@ -184,7 +187,8 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
         'spf' => 'spf',
         'dmarc' => 'dmarc',
         'mx' => 'mx',
-        'return_path' => 'return_path'
+        'return_path' => 'return_path',
+        'bimi' => 'bimi'
     ];
 
     /**
@@ -197,7 +201,8 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
         'spf' => 'setSpf',
         'dmarc' => 'setDmarc',
         'mx' => 'setMx',
-        'return_path' => 'setReturnPath'
+        'return_path' => 'setReturnPath',
+        'bimi' => 'setBimi'
     ];
 
     /**
@@ -210,7 +215,8 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
         'spf' => 'getSpf',
         'dmarc' => 'getDmarc',
         'mx' => 'getMx',
-        'return_path' => 'getReturnPath'
+        'return_path' => 'getReturnPath',
+        'bimi' => 'getBimi'
     ];
 
     /**
@@ -275,6 +281,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
         $this->setIfExists('dmarc', $data ?? [], null);
         $this->setIfExists('mx', $data ?? [], null);
         $this->setIfExists('return_path', $data ?? [], null);
+        $this->setIfExists('bimi', $data ?? [], null);
     }
 
     /**
@@ -322,7 +329,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
     /**
      * Gets dkim
      *
-     * @return \MailOdds\Model\SendingDomainIdentityScoreChecksDkim|null
+     * @return \MailOdds\Model\IdentityScoreCheck|null
      */
     public function getDkim()
     {
@@ -332,7 +339,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
     /**
      * Sets dkim
      *
-     * @param \MailOdds\Model\SendingDomainIdentityScoreChecksDkim|null $dkim dkim
+     * @param \MailOdds\Model\IdentityScoreCheck|null $dkim dkim
      *
      * @return self
      */
@@ -349,7 +356,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
     /**
      * Gets spf
      *
-     * @return \MailOdds\Model\SendingDomainIdentityScoreChecksDkim|null
+     * @return \MailOdds\Model\IdentityScoreCheck|null
      */
     public function getSpf()
     {
@@ -359,7 +366,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
     /**
      * Sets spf
      *
-     * @param \MailOdds\Model\SendingDomainIdentityScoreChecksDkim|null $spf spf
+     * @param \MailOdds\Model\IdentityScoreCheck|null $spf spf
      *
      * @return self
      */
@@ -376,7 +383,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
     /**
      * Gets dmarc
      *
-     * @return \MailOdds\Model\SendingDomainIdentityScoreChecksDmarc|null
+     * @return \MailOdds\Model\IdentityScoreCheck|null
      */
     public function getDmarc()
     {
@@ -386,7 +393,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
     /**
      * Sets dmarc
      *
-     * @param \MailOdds\Model\SendingDomainIdentityScoreChecksDmarc|null $dmarc dmarc
+     * @param \MailOdds\Model\IdentityScoreCheck|null $dmarc dmarc
      *
      * @return self
      */
@@ -403,7 +410,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
     /**
      * Gets mx
      *
-     * @return \MailOdds\Model\SendingDomainIdentityScoreChecksDkim|null
+     * @return \MailOdds\Model\IdentityScoreCheck|null
      */
     public function getMx()
     {
@@ -413,7 +420,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
     /**
      * Sets mx
      *
-     * @param \MailOdds\Model\SendingDomainIdentityScoreChecksDkim|null $mx mx
+     * @param \MailOdds\Model\IdentityScoreCheck|null $mx mx
      *
      * @return self
      */
@@ -430,7 +437,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
     /**
      * Gets return_path
      *
-     * @return \MailOdds\Model\SendingDomainIdentityScoreChecksDkim|null
+     * @return \MailOdds\Model\IdentityScoreCheck|null
      */
     public function getReturnPath()
     {
@@ -440,7 +447,7 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
     /**
      * Sets return_path
      *
-     * @param \MailOdds\Model\SendingDomainIdentityScoreChecksDkim|null $return_path return_path
+     * @param \MailOdds\Model\IdentityScoreCheck|null $return_path return_path
      *
      * @return self
      */
@@ -450,6 +457,33 @@ class SendingDomainIdentityScoreChecks implements ModelInterface, ArrayAccess, \
             throw new \InvalidArgumentException('non-nullable return_path cannot be null');
         }
         $this->container['return_path'] = $return_path;
+
+        return $this;
+    }
+
+    /**
+     * Gets bimi
+     *
+     * @return \MailOdds\Model\IdentityScoreCheck|null
+     */
+    public function getBimi()
+    {
+        return $this->container['bimi'];
+    }
+
+    /**
+     * Sets bimi
+     *
+     * @param \MailOdds\Model\IdentityScoreCheck|null $bimi bimi
+     *
+     * @return self
+     */
+    public function setBimi($bimi)
+    {
+        if (is_null($bimi)) {
+            throw new \InvalidArgumentException('non-nullable bimi cannot be null');
+        }
+        $this->container['bimi'] = $bimi;
 
         return $this;
     }

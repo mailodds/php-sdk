@@ -13,7 +13,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -69,6 +69,9 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'tags' => 'string[]',
         'campaign_type' => 'string',
         'structured_data' => '\MailOdds\Model\DeliverRequestStructuredData',
+        'schema_data' => 'array<string,string>',
+        'auto_detect_schema' => 'bool',
+        'ai_summary' => 'string',
         'options' => '\MailOdds\Model\DeliverRequestOptions'
     ];
 
@@ -91,6 +94,9 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'tags' => null,
         'campaign_type' => null,
         'structured_data' => null,
+        'schema_data' => null,
+        'auto_detect_schema' => null,
+        'ai_summary' => null,
         'options' => null
     ];
 
@@ -111,6 +117,9 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'tags' => false,
         'campaign_type' => false,
         'structured_data' => false,
+        'schema_data' => false,
+        'auto_detect_schema' => false,
+        'ai_summary' => false,
         'options' => false
     ];
 
@@ -211,6 +220,9 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'tags' => 'tags',
         'campaign_type' => 'campaign_type',
         'structured_data' => 'structured_data',
+        'schema_data' => 'schema_data',
+        'auto_detect_schema' => 'auto_detect_schema',
+        'ai_summary' => 'ai_summary',
         'options' => 'options'
     ];
 
@@ -231,6 +243,9 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'tags' => 'setTags',
         'campaign_type' => 'setCampaignType',
         'structured_data' => 'setStructuredData',
+        'schema_data' => 'setSchemaData',
+        'auto_detect_schema' => 'setAutoDetectSchema',
+        'ai_summary' => 'setAiSummary',
         'options' => 'setOptions'
     ];
 
@@ -251,6 +266,9 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         'tags' => 'getTags',
         'campaign_type' => 'getCampaignType',
         'structured_data' => 'getStructuredData',
+        'schema_data' => 'getSchemaData',
+        'auto_detect_schema' => 'getAutoDetectSchema',
+        'ai_summary' => 'getAiSummary',
         'options' => 'getOptions'
     ];
 
@@ -353,6 +371,9 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('tags', $data ?? [], null);
         $this->setIfExists('campaign_type', $data ?? [], null);
         $this->setIfExists('structured_data', $data ?? [], null);
+        $this->setIfExists('schema_data', $data ?? [], null);
+        $this->setIfExists('auto_detect_schema', $data ?? [], false);
+        $this->setIfExists('ai_summary', $data ?? [], null);
         $this->setIfExists('options', $data ?? [], null);
     }
 
@@ -402,6 +423,10 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
                 $this->container['campaign_type'],
                 implode("', '", $allowedValues)
             );
+        }
+
+        if (!is_null($this->container['ai_summary']) && (mb_strlen($this->container['ai_summary']) > 500)) {
+            $invalidProperties[] = "invalid value for 'ai_summary', the character length must be smaller than or equal to 500.";
         }
 
         return $invalidProperties;
@@ -722,6 +747,91 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable structured_data cannot be null');
         }
         $this->container['structured_data'] = $structured_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets schema_data
+     *
+     * @return array<string,string>|null
+     */
+    public function getSchemaData()
+    {
+        return $this->container['schema_data'];
+    }
+
+    /**
+     * Sets schema_data
+     *
+     * @param array<string,string>|null $schema_data Key-value pairs for campaign_type JSON-LD resolution (e.g., order_number, tracking_url)
+     *
+     * @return self
+     */
+    public function setSchemaData($schema_data)
+    {
+        if (is_null($schema_data)) {
+            throw new \InvalidArgumentException('non-nullable schema_data cannot be null');
+        }
+        $this->container['schema_data'] = $schema_data;
+
+        return $this;
+    }
+
+    /**
+     * Gets auto_detect_schema
+     *
+     * @return bool|null
+     */
+    public function getAutoDetectSchema()
+    {
+        return $this->container['auto_detect_schema'];
+    }
+
+    /**
+     * Sets auto_detect_schema
+     *
+     * @param bool|null $auto_detect_schema Auto-detect JSON-LD structured data type from subject line
+     *
+     * @return self
+     */
+    public function setAutoDetectSchema($auto_detect_schema)
+    {
+        if (is_null($auto_detect_schema)) {
+            throw new \InvalidArgumentException('non-nullable auto_detect_schema cannot be null');
+        }
+        $this->container['auto_detect_schema'] = $auto_detect_schema;
+
+        return $this;
+    }
+
+    /**
+     * Gets ai_summary
+     *
+     * @return string|null
+     */
+    public function getAiSummary()
+    {
+        return $this->container['ai_summary'];
+    }
+
+    /**
+     * Sets ai_summary
+     *
+     * @param string|null $ai_summary Hidden text summary for AI email assistants (max 500 characters)
+     *
+     * @return self
+     */
+    public function setAiSummary($ai_summary)
+    {
+        if (is_null($ai_summary)) {
+            throw new \InvalidArgumentException('non-nullable ai_summary cannot be null');
+        }
+        if ((mb_strlen($ai_summary) > 500)) {
+            throw new \InvalidArgumentException('invalid length for $ai_summary when calling DeliverRequest., must be smaller than or equal to 500.');
+        }
+
+        $this->container['ai_summary'] = $ai_summary;
 
         return $this;
     }

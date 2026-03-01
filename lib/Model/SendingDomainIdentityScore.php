@@ -13,7 +13,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -58,8 +58,11 @@ class SendingDomainIdentityScore implements ModelInterface, ArrayAccess, \JsonSe
       * @var string[]
       */
     protected static $openAPITypes = [
-        'overall_score' => 'float',
-        'checks' => '\MailOdds\Model\SendingDomainIdentityScoreChecks'
+        'score' => 'int',
+        'max_score' => 'int',
+        'percentage' => 'int',
+        'breakdown' => '\MailOdds\Model\SendingDomainIdentityScoreBreakdown',
+        'grade' => 'string'
     ];
 
     /**
@@ -70,8 +73,11 @@ class SendingDomainIdentityScore implements ModelInterface, ArrayAccess, \JsonSe
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'overall_score' => null,
-        'checks' => null
+        'score' => null,
+        'max_score' => null,
+        'percentage' => null,
+        'breakdown' => null,
+        'grade' => null
     ];
 
     /**
@@ -80,8 +86,11 @@ class SendingDomainIdentityScore implements ModelInterface, ArrayAccess, \JsonSe
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'overall_score' => false,
-        'checks' => false
+        'score' => false,
+        'max_score' => false,
+        'percentage' => false,
+        'breakdown' => false,
+        'grade' => false
     ];
 
     /**
@@ -170,8 +179,11 @@ class SendingDomainIdentityScore implements ModelInterface, ArrayAccess, \JsonSe
      * @var string[]
      */
     protected static $attributeMap = [
-        'overall_score' => 'overall_score',
-        'checks' => 'checks'
+        'score' => 'score',
+        'max_score' => 'max_score',
+        'percentage' => 'percentage',
+        'breakdown' => 'breakdown',
+        'grade' => 'grade'
     ];
 
     /**
@@ -180,8 +192,11 @@ class SendingDomainIdentityScore implements ModelInterface, ArrayAccess, \JsonSe
      * @var string[]
      */
     protected static $setters = [
-        'overall_score' => 'setOverallScore',
-        'checks' => 'setChecks'
+        'score' => 'setScore',
+        'max_score' => 'setMaxScore',
+        'percentage' => 'setPercentage',
+        'breakdown' => 'setBreakdown',
+        'grade' => 'setGrade'
     ];
 
     /**
@@ -190,8 +205,11 @@ class SendingDomainIdentityScore implements ModelInterface, ArrayAccess, \JsonSe
      * @var string[]
      */
     protected static $getters = [
-        'overall_score' => 'getOverallScore',
-        'checks' => 'getChecks'
+        'score' => 'getScore',
+        'max_score' => 'getMaxScore',
+        'percentage' => 'getPercentage',
+        'breakdown' => 'getBreakdown',
+        'grade' => 'getGrade'
     ];
 
     /**
@@ -235,6 +253,29 @@ class SendingDomainIdentityScore implements ModelInterface, ArrayAccess, \JsonSe
         return self::$openAPIModelName;
     }
 
+    public const GRADE_A = 'A+';
+    public const GRADE_A2 = 'A';
+    public const GRADE_B = 'B';
+    public const GRADE_C = 'C';
+    public const GRADE_D = 'D';
+    public const GRADE_F = 'F';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getGradeAllowableValues()
+    {
+        return [
+            self::GRADE_A,
+            self::GRADE_A2,
+            self::GRADE_B,
+            self::GRADE_C,
+            self::GRADE_D,
+            self::GRADE_F,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -251,8 +292,11 @@ class SendingDomainIdentityScore implements ModelInterface, ArrayAccess, \JsonSe
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('overall_score', $data ?? [], null);
-        $this->setIfExists('checks', $data ?? [], null);
+        $this->setIfExists('score', $data ?? [], null);
+        $this->setIfExists('max_score', $data ?? [], null);
+        $this->setIfExists('percentage', $data ?? [], null);
+        $this->setIfExists('breakdown', $data ?? [], null);
+        $this->setIfExists('grade', $data ?? [], null);
     }
 
     /**
@@ -282,6 +326,30 @@ class SendingDomainIdentityScore implements ModelInterface, ArrayAccess, \JsonSe
     {
         $invalidProperties = [];
 
+        if ($this->container['score'] === null) {
+            $invalidProperties[] = "'score' can't be null";
+        }
+        if ($this->container['max_score'] === null) {
+            $invalidProperties[] = "'max_score' can't be null";
+        }
+        if ($this->container['percentage'] === null) {
+            $invalidProperties[] = "'percentage' can't be null";
+        }
+        if ($this->container['breakdown'] === null) {
+            $invalidProperties[] = "'breakdown' can't be null";
+        }
+        if ($this->container['grade'] === null) {
+            $invalidProperties[] = "'grade' can't be null";
+        }
+        $allowedValues = $this->getGradeAllowableValues();
+        if (!is_null($this->container['grade']) && !in_array($this->container['grade'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'grade', must be one of '%s'",
+                $this->container['grade'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         return $invalidProperties;
     }
 
@@ -298,55 +366,146 @@ class SendingDomainIdentityScore implements ModelInterface, ArrayAccess, \JsonSe
 
 
     /**
-     * Gets overall_score
+     * Gets score
      *
-     * @return float|null
+     * @return int
      */
-    public function getOverallScore()
+    public function getScore()
     {
-        return $this->container['overall_score'];
+        return $this->container['score'];
     }
 
     /**
-     * Sets overall_score
+     * Sets score
      *
-     * @param float|null $overall_score Composite score 0-100
+     * @param int $score Total points earned across all checks
      *
      * @return self
      */
-    public function setOverallScore($overall_score)
+    public function setScore($score)
     {
-        if (is_null($overall_score)) {
-            throw new \InvalidArgumentException('non-nullable overall_score cannot be null');
+        if (is_null($score)) {
+            throw new \InvalidArgumentException('non-nullable score cannot be null');
         }
-        $this->container['overall_score'] = $overall_score;
+        $this->container['score'] = $score;
 
         return $this;
     }
 
     /**
-     * Gets checks
+     * Gets max_score
      *
-     * @return \MailOdds\Model\SendingDomainIdentityScoreChecks|null
+     * @return int
      */
-    public function getChecks()
+    public function getMaxScore()
     {
-        return $this->container['checks'];
+        return $this->container['max_score'];
     }
 
     /**
-     * Sets checks
+     * Sets max_score
      *
-     * @param \MailOdds\Model\SendingDomainIdentityScoreChecks|null $checks checks
+     * @param int $max_score Maximum possible score (100)
      *
      * @return self
      */
-    public function setChecks($checks)
+    public function setMaxScore($max_score)
     {
-        if (is_null($checks)) {
-            throw new \InvalidArgumentException('non-nullable checks cannot be null');
+        if (is_null($max_score)) {
+            throw new \InvalidArgumentException('non-nullable max_score cannot be null');
         }
-        $this->container['checks'] = $checks;
+        $this->container['max_score'] = $max_score;
+
+        return $this;
+    }
+
+    /**
+     * Gets percentage
+     *
+     * @return int
+     */
+    public function getPercentage()
+    {
+        return $this->container['percentage'];
+    }
+
+    /**
+     * Sets percentage
+     *
+     * @param int $percentage Score as percentage (same as score since max is 100)
+     *
+     * @return self
+     */
+    public function setPercentage($percentage)
+    {
+        if (is_null($percentage)) {
+            throw new \InvalidArgumentException('non-nullable percentage cannot be null');
+        }
+        $this->container['percentage'] = $percentage;
+
+        return $this;
+    }
+
+    /**
+     * Gets breakdown
+     *
+     * @return \MailOdds\Model\SendingDomainIdentityScoreBreakdown
+     */
+    public function getBreakdown()
+    {
+        return $this->container['breakdown'];
+    }
+
+    /**
+     * Sets breakdown
+     *
+     * @param \MailOdds\Model\SendingDomainIdentityScoreBreakdown $breakdown breakdown
+     *
+     * @return self
+     */
+    public function setBreakdown($breakdown)
+    {
+        if (is_null($breakdown)) {
+            throw new \InvalidArgumentException('non-nullable breakdown cannot be null');
+        }
+        $this->container['breakdown'] = $breakdown;
+
+        return $this;
+    }
+
+    /**
+     * Gets grade
+     *
+     * @return string
+     */
+    public function getGrade()
+    {
+        return $this->container['grade'];
+    }
+
+    /**
+     * Sets grade
+     *
+     * @param string $grade Letter grade (A+, A, B, C, D, F)
+     *
+     * @return self
+     */
+    public function setGrade($grade)
+    {
+        if (is_null($grade)) {
+            throw new \InvalidArgumentException('non-nullable grade cannot be null');
+        }
+        $allowedValues = $this->getGradeAllowableValues();
+        if (!in_array($grade, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'grade', must be one of '%s'",
+                    $grade,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['grade'] = $grade;
 
         return $this;
     }

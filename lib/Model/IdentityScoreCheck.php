@@ -1,6 +1,6 @@
 <?php
 /**
- * SendingDomainIdentityScoreChecksDkim
+ * IdentityScoreCheck
  *
  * PHP version 8.1
  *
@@ -13,7 +13,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * SendingDomainIdentityScoreChecksDkim Class Doc Comment
+ * IdentityScoreCheck Class Doc Comment
  *
  * @category Class
  * @package  MailOdds
@@ -41,7 +41,7 @@ use \MailOdds\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAccess, \JsonSerializable
+class IdentityScoreCheck implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
       *
       * @var string
       */
-    protected static $openAPIModelName = 'SendingDomainIdentityScore_checks_dkim';
+    protected static $openAPIModelName = 'IdentityScoreCheck';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -59,7 +59,9 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
       */
     protected static $openAPITypes = [
         'status' => 'string',
-        'score' => 'float'
+        'points' => 'int',
+        'max_points' => 'int',
+        'verified_at' => '\DateTime'
     ];
 
     /**
@@ -71,7 +73,9 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
       */
     protected static $openAPIFormats = [
         'status' => null,
-        'score' => null
+        'points' => null,
+        'max_points' => null,
+        'verified_at' => 'date-time'
     ];
 
     /**
@@ -81,7 +85,9 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
       */
     protected static array $openAPINullables = [
         'status' => false,
-        'score' => false
+        'points' => false,
+        'max_points' => false,
+        'verified_at' => true
     ];
 
     /**
@@ -171,7 +177,9 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
      */
     protected static $attributeMap = [
         'status' => 'status',
-        'score' => 'score'
+        'points' => 'points',
+        'max_points' => 'max_points',
+        'verified_at' => 'verified_at'
     ];
 
     /**
@@ -181,7 +189,9 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
      */
     protected static $setters = [
         'status' => 'setStatus',
-        'score' => 'setScore'
+        'points' => 'setPoints',
+        'max_points' => 'setMaxPoints',
+        'verified_at' => 'setVerifiedAt'
     ];
 
     /**
@@ -191,7 +201,9 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
      */
     protected static $getters = [
         'status' => 'getStatus',
-        'score' => 'getScore'
+        'points' => 'getPoints',
+        'max_points' => 'getMaxPoints',
+        'verified_at' => 'getVerifiedAt'
     ];
 
     /**
@@ -252,7 +264,9 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
     public function __construct(?array $data = null)
     {
         $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('score', $data ?? [], null);
+        $this->setIfExists('points', $data ?? [], null);
+        $this->setIfExists('max_points', $data ?? [], null);
+        $this->setIfExists('verified_at', $data ?? [], null);
     }
 
     /**
@@ -282,6 +296,15 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
     {
         $invalidProperties = [];
 
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
+        if ($this->container['points'] === null) {
+            $invalidProperties[] = "'points' can't be null";
+        }
+        if ($this->container['max_points'] === null) {
+            $invalidProperties[] = "'max_points' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -300,7 +323,7 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
     /**
      * Gets status
      *
-     * @return string|null
+     * @return string
      */
     public function getStatus()
     {
@@ -310,7 +333,7 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
     /**
      * Sets status
      *
-     * @param string|null $status status
+     * @param string $status Check status (e.g. verified, pending, missing)
      *
      * @return self
      */
@@ -325,28 +348,89 @@ class SendingDomainIdentityScoreChecksDkim implements ModelInterface, ArrayAcces
     }
 
     /**
-     * Gets score
+     * Gets points
      *
-     * @return float|null
+     * @return int
      */
-    public function getScore()
+    public function getPoints()
     {
-        return $this->container['score'];
+        return $this->container['points'];
     }
 
     /**
-     * Sets score
+     * Sets points
      *
-     * @param float|null $score score
+     * @param int $points Points earned for this check
      *
      * @return self
      */
-    public function setScore($score)
+    public function setPoints($points)
     {
-        if (is_null($score)) {
-            throw new \InvalidArgumentException('non-nullable score cannot be null');
+        if (is_null($points)) {
+            throw new \InvalidArgumentException('non-nullable points cannot be null');
         }
-        $this->container['score'] = $score;
+        $this->container['points'] = $points;
+
+        return $this;
+    }
+
+    /**
+     * Gets max_points
+     *
+     * @return int
+     */
+    public function getMaxPoints()
+    {
+        return $this->container['max_points'];
+    }
+
+    /**
+     * Sets max_points
+     *
+     * @param int $max_points Maximum points available for this check
+     *
+     * @return self
+     */
+    public function setMaxPoints($max_points)
+    {
+        if (is_null($max_points)) {
+            throw new \InvalidArgumentException('non-nullable max_points cannot be null');
+        }
+        $this->container['max_points'] = $max_points;
+
+        return $this;
+    }
+
+    /**
+     * Gets verified_at
+     *
+     * @return \DateTime|null
+     */
+    public function getVerifiedAt()
+    {
+        return $this->container['verified_at'];
+    }
+
+    /**
+     * Sets verified_at
+     *
+     * @param \DateTime|null $verified_at When the check was last verified
+     *
+     * @return self
+     */
+    public function setVerifiedAt($verified_at)
+    {
+        if (is_null($verified_at)) {
+            array_push($this->openAPINullablesSetToNull, 'verified_at');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('verified_at', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['verified_at'] = $verified_at;
 
         return $this;
     }

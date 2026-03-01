@@ -512,7 +512,7 @@ try {
 ## `listJobs()`
 
 ```php
-listJobs($page, $per_page, $status): \MailOdds\Model\JobListResponse
+listJobs($cursor, $limit, $status): \MailOdds\Model\JobListResponse
 ```
 
 List validation jobs
@@ -536,12 +536,12 @@ $apiInstance = new MailOdds\Api\BulkValidationApi(
     new GuzzleHttp\Client(),
     $config
 );
-$page = 1; // int
-$per_page = 20; // int
+$cursor = 'cursor_example'; // string | Pagination cursor (ISO timestamp from previous response)
+$limit = 50; // int | Results per page
 $status = 'status_example'; // string
 
 try {
-    $result = $apiInstance->listJobs($page, $per_page, $status);
+    $result = $apiInstance->listJobs($cursor, $limit, $status);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling BulkValidationApi->listJobs: ', $e->getMessage(), PHP_EOL;
@@ -552,8 +552,8 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **page** | **int**|  | [optional] [default to 1] |
-| **per_page** | **int**|  | [optional] [default to 20] |
+| **cursor** | **string**| Pagination cursor (ISO timestamp from previous response) | [optional] |
+| **limit** | **int**| Results per page | [optional] [default to 50] |
 | **status** | **string**|  | [optional] |
 
 ### Return type

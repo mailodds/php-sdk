@@ -13,7 +13,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -59,14 +59,19 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'string',
+        'name' => 'string',
         'status' => 'string',
         'total_count' => 'int',
         'processed_count' => 'int',
-        'progress_percent' => 'int',
         'summary' => '\MailOdds\Model\JobSummary',
         'created_at' => '\DateTime',
+        'started_at' => '\DateTime',
         'completed_at' => '\DateTime',
-        'metadata' => 'object'
+        'results_expire_at' => '\DateTime',
+        'metadata' => 'object',
+        'error_message' => 'string',
+        'request_id' => 'string',
+        'artifacts' => '\MailOdds\Model\JobArtifacts'
     ];
 
     /**
@@ -78,14 +83,19 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => null,
+        'name' => null,
         'status' => null,
         'total_count' => null,
         'processed_count' => null,
-        'progress_percent' => null,
         'summary' => null,
         'created_at' => 'date-time',
+        'started_at' => 'date-time',
         'completed_at' => 'date-time',
-        'metadata' => null
+        'results_expire_at' => 'date-time',
+        'metadata' => null,
+        'error_message' => null,
+        'request_id' => null,
+        'artifacts' => null
     ];
 
     /**
@@ -95,14 +105,19 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'id' => false,
+        'name' => false,
         'status' => false,
         'total_count' => false,
         'processed_count' => false,
-        'progress_percent' => false,
         'summary' => false,
         'created_at' => false,
+        'started_at' => false,
         'completed_at' => false,
-        'metadata' => false
+        'results_expire_at' => false,
+        'metadata' => false,
+        'error_message' => false,
+        'request_id' => false,
+        'artifacts' => false
     ];
 
     /**
@@ -192,14 +207,19 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
+        'name' => 'name',
         'status' => 'status',
         'total_count' => 'total_count',
         'processed_count' => 'processed_count',
-        'progress_percent' => 'progress_percent',
         'summary' => 'summary',
         'created_at' => 'created_at',
+        'started_at' => 'started_at',
         'completed_at' => 'completed_at',
-        'metadata' => 'metadata'
+        'results_expire_at' => 'results_expire_at',
+        'metadata' => 'metadata',
+        'error_message' => 'error_message',
+        'request_id' => 'request_id',
+        'artifacts' => 'artifacts'
     ];
 
     /**
@@ -209,14 +229,19 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
+        'name' => 'setName',
         'status' => 'setStatus',
         'total_count' => 'setTotalCount',
         'processed_count' => 'setProcessedCount',
-        'progress_percent' => 'setProgressPercent',
         'summary' => 'setSummary',
         'created_at' => 'setCreatedAt',
+        'started_at' => 'setStartedAt',
         'completed_at' => 'setCompletedAt',
-        'metadata' => 'setMetadata'
+        'results_expire_at' => 'setResultsExpireAt',
+        'metadata' => 'setMetadata',
+        'error_message' => 'setErrorMessage',
+        'request_id' => 'setRequestId',
+        'artifacts' => 'setArtifacts'
     ];
 
     /**
@@ -226,14 +251,19 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
+        'name' => 'getName',
         'status' => 'getStatus',
         'total_count' => 'getTotalCount',
         'processed_count' => 'getProcessedCount',
-        'progress_percent' => 'getProgressPercent',
         'summary' => 'getSummary',
         'created_at' => 'getCreatedAt',
+        'started_at' => 'getStartedAt',
         'completed_at' => 'getCompletedAt',
-        'metadata' => 'getMetadata'
+        'results_expire_at' => 'getResultsExpireAt',
+        'metadata' => 'getMetadata',
+        'error_message' => 'getErrorMessage',
+        'request_id' => 'getRequestId',
+        'artifacts' => 'getArtifacts'
     ];
 
     /**
@@ -315,14 +345,19 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('total_count', $data ?? [], null);
         $this->setIfExists('processed_count', $data ?? [], null);
-        $this->setIfExists('progress_percent', $data ?? [], null);
         $this->setIfExists('summary', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
+        $this->setIfExists('started_at', $data ?? [], null);
         $this->setIfExists('completed_at', $data ?? [], null);
+        $this->setIfExists('results_expire_at', $data ?? [], null);
         $this->setIfExists('metadata', $data ?? [], null);
+        $this->setIfExists('error_message', $data ?? [], null);
+        $this->setIfExists('request_id', $data ?? [], null);
+        $this->setIfExists('artifacts', $data ?? [], null);
     }
 
     /**
@@ -352,6 +387,15 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['id'] === null) {
+            $invalidProperties[] = "'id' can't be null";
+        }
+        if ($this->container['name'] === null) {
+            $invalidProperties[] = "'name' can't be null";
+        }
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
         $allowedValues = $this->getStatusAllowableValues();
         if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -361,14 +405,18 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if (!is_null($this->container['progress_percent']) && ($this->container['progress_percent'] > 100)) {
-            $invalidProperties[] = "invalid value for 'progress_percent', must be smaller than or equal to 100.";
+        if ($this->container['total_count'] === null) {
+            $invalidProperties[] = "'total_count' can't be null";
         }
-
-        if (!is_null($this->container['progress_percent']) && ($this->container['progress_percent'] < 0)) {
-            $invalidProperties[] = "invalid value for 'progress_percent', must be bigger than or equal to 0.";
+        if ($this->container['processed_count'] === null) {
+            $invalidProperties[] = "'processed_count' can't be null";
         }
-
+        if ($this->container['created_at'] === null) {
+            $invalidProperties[] = "'created_at' can't be null";
+        }
+        if ($this->container['results_expire_at'] === null) {
+            $invalidProperties[] = "'results_expire_at' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -387,7 +435,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets id
      *
-     * @return string|null
+     * @return string
      */
     public function getId()
     {
@@ -397,7 +445,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets id
      *
-     * @param string|null $id id
+     * @param string $id id
      *
      * @return self
      */
@@ -412,9 +460,36 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->container['name'];
+    }
+
+    /**
+     * Sets name
+     *
+     * @param string $name Job name (from metadata or auto-generated)
+     *
+     * @return self
+     */
+    public function setName($name)
+    {
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
+        }
+        $this->container['name'] = $name;
+
+        return $this;
+    }
+
+    /**
      * Gets status
      *
-     * @return string|null
+     * @return string
      */
     public function getStatus()
     {
@@ -424,7 +499,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string|null $status status
+     * @param string $status status
      *
      * @return self
      */
@@ -451,7 +526,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets total_count
      *
-     * @return int|null
+     * @return int
      */
     public function getTotalCount()
     {
@@ -461,7 +536,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets total_count
      *
-     * @param int|null $total_count total_count
+     * @param int $total_count total_count
      *
      * @return self
      */
@@ -478,7 +553,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets processed_count
      *
-     * @return int|null
+     * @return int
      */
     public function getProcessedCount()
     {
@@ -488,7 +563,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets processed_count
      *
-     * @param int|null $processed_count processed_count
+     * @param int $processed_count processed_count
      *
      * @return self
      */
@@ -498,41 +573,6 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable processed_count cannot be null');
         }
         $this->container['processed_count'] = $processed_count;
-
-        return $this;
-    }
-
-    /**
-     * Gets progress_percent
-     *
-     * @return int|null
-     */
-    public function getProgressPercent()
-    {
-        return $this->container['progress_percent'];
-    }
-
-    /**
-     * Sets progress_percent
-     *
-     * @param int|null $progress_percent progress_percent
-     *
-     * @return self
-     */
-    public function setProgressPercent($progress_percent)
-    {
-        if (is_null($progress_percent)) {
-            throw new \InvalidArgumentException('non-nullable progress_percent cannot be null');
-        }
-
-        if (($progress_percent > 100)) {
-            throw new \InvalidArgumentException('invalid value for $progress_percent when calling Job., must be smaller than or equal to 100.');
-        }
-        if (($progress_percent < 0)) {
-            throw new \InvalidArgumentException('invalid value for $progress_percent when calling Job., must be bigger than or equal to 0.');
-        }
-
-        $this->container['progress_percent'] = $progress_percent;
 
         return $this;
     }
@@ -567,7 +607,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets created_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getCreatedAt()
     {
@@ -577,7 +617,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets created_at
      *
-     * @param \DateTime|null $created_at created_at
+     * @param \DateTime $created_at created_at
      *
      * @return self
      */
@@ -587,6 +627,33 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable created_at cannot be null');
         }
         $this->container['created_at'] = $created_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets started_at
+     *
+     * @return \DateTime|null
+     */
+    public function getStartedAt()
+    {
+        return $this->container['started_at'];
+    }
+
+    /**
+     * Sets started_at
+     *
+     * @param \DateTime|null $started_at When processing began. Omitted if not yet started.
+     *
+     * @return self
+     */
+    public function setStartedAt($started_at)
+    {
+        if (is_null($started_at)) {
+            throw new \InvalidArgumentException('non-nullable started_at cannot be null');
+        }
+        $this->container['started_at'] = $started_at;
 
         return $this;
     }
@@ -604,7 +671,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets completed_at
      *
-     * @param \DateTime|null $completed_at completed_at
+     * @param \DateTime|null $completed_at Omitted if not yet completed.
      *
      * @return self
      */
@@ -614,6 +681,33 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable completed_at cannot be null');
         }
         $this->container['completed_at'] = $completed_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets results_expire_at
+     *
+     * @return \DateTime
+     */
+    public function getResultsExpireAt()
+    {
+        return $this->container['results_expire_at'];
+    }
+
+    /**
+     * Sets results_expire_at
+     *
+     * @param \DateTime $results_expire_at When job results will be purged
+     *
+     * @return self
+     */
+    public function setResultsExpireAt($results_expire_at)
+    {
+        if (is_null($results_expire_at)) {
+            throw new \InvalidArgumentException('non-nullable results_expire_at cannot be null');
+        }
+        $this->container['results_expire_at'] = $results_expire_at;
 
         return $this;
     }
@@ -631,7 +725,7 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets metadata
      *
-     * @param object|null $metadata metadata
+     * @param object|null $metadata Custom metadata attached at creation
      *
      * @return self
      */
@@ -641,6 +735,87 @@ class Job implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable metadata cannot be null');
         }
         $this->container['metadata'] = $metadata;
+
+        return $this;
+    }
+
+    /**
+     * Gets error_message
+     *
+     * @return string|null
+     */
+    public function getErrorMessage()
+    {
+        return $this->container['error_message'];
+    }
+
+    /**
+     * Sets error_message
+     *
+     * @param string|null $error_message Error details. Present only for failed jobs.
+     *
+     * @return self
+     */
+    public function setErrorMessage($error_message)
+    {
+        if (is_null($error_message)) {
+            throw new \InvalidArgumentException('non-nullable error_message cannot be null');
+        }
+        $this->container['error_message'] = $error_message;
+
+        return $this;
+    }
+
+    /**
+     * Gets request_id
+     *
+     * @return string|null
+     */
+    public function getRequestId()
+    {
+        return $this->container['request_id'];
+    }
+
+    /**
+     * Sets request_id
+     *
+     * @param string|null $request_id Request ID from the job creation request
+     *
+     * @return self
+     */
+    public function setRequestId($request_id)
+    {
+        if (is_null($request_id)) {
+            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        }
+        $this->container['request_id'] = $request_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets artifacts
+     *
+     * @return \MailOdds\Model\JobArtifacts|null
+     */
+    public function getArtifacts()
+    {
+        return $this->container['artifacts'];
+    }
+
+    /**
+     * Sets artifacts
+     *
+     * @param \MailOdds\Model\JobArtifacts|null $artifacts artifacts
+     *
+     * @return self
+     */
+    public function setArtifacts($artifacts)
+    {
+        if (is_null($artifacts)) {
+            throw new \InvalidArgumentException('non-nullable artifacts cannot be null');
+        }
+        $this->container['artifacts'] = $artifacts;
 
         return $this;
     }

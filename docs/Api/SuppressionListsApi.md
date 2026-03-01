@@ -8,6 +8,7 @@ All URIs are relative to https://api.mailodds.com/v1, except if the operation de
 | ------------- | ------------- | ------------- |
 | [**addSuppression()**](SuppressionListsApi.md#addSuppression) | **POST** /v1/suppression | Add suppression entries |
 | [**checkSuppression()**](SuppressionListsApi.md#checkSuppression) | **POST** /v1/suppression/check | Check suppression status |
+| [**getSuppressionAuditLog()**](SuppressionListsApi.md#getSuppressionAuditLog) | **GET** /v1/suppression/audit | Get suppression audit log |
 | [**getSuppressionStats()**](SuppressionListsApi.md#getSuppressionStats) | **GET** /v1/suppression/stats | Get suppression statistics |
 | [**listSuppression()**](SuppressionListsApi.md#listSuppression) | **GET** /v1/suppression | List suppression entries |
 | [**removeSuppression()**](SuppressionListsApi.md#removeSuppression) | **DELETE** /v1/suppression | Remove suppression entries |
@@ -133,6 +134,68 @@ try {
 [[Back to Model list]](../../README.md#models)
 [[Back to README]](../../README.md)
 
+## `getSuppressionAuditLog()`
+
+```php
+getSuppressionAuditLog($page, $limit): \MailOdds\Model\SuppressionAuditResponse
+```
+
+Get suppression audit log
+
+Get a chronological log of suppression list changes (additions, removals).
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: BearerAuth
+$config = MailOdds\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new MailOdds\Api\SuppressionListsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$page = 1; // int
+$limit = 20; // int
+
+try {
+    $result = $apiInstance->getSuppressionAuditLog($page, $limit);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SuppressionListsApi->getSuppressionAuditLog: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **page** | **int**|  | [optional] [default to 1] |
+| **limit** | **int**|  | [optional] [default to 20] |
+
+### Return type
+
+[**\MailOdds\Model\SuppressionAuditResponse**](../Model/SuppressionAuditResponse.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
 ## `getSuppressionStats()`
 
 ```php
@@ -193,7 +256,7 @@ This endpoint does not need any parameter.
 ## `listSuppression()`
 
 ```php
-listSuppression($page, $per_page, $type, $search): \MailOdds\Model\SuppressionListResponse
+listSuppression($page, $per_page, $type, $search, $source): \MailOdds\Model\SuppressionListResponse
 ```
 
 List suppression entries
@@ -221,9 +284,10 @@ $page = 1; // int
 $per_page = 50; // int
 $type = 'type_example'; // string
 $search = 'search_example'; // string
+$source = 'source_example'; // string | Filter by entry source (e.g. api, bounce, complaint)
 
 try {
-    $result = $apiInstance->listSuppression($page, $per_page, $type, $search);
+    $result = $apiInstance->listSuppression($page, $per_page, $type, $search, $source);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling SuppressionListsApi->listSuppression: ', $e->getMessage(), PHP_EOL;
@@ -238,6 +302,7 @@ try {
 | **per_page** | **int**|  | [optional] [default to 50] |
 | **type** | **string**|  | [optional] |
 | **search** | **string**|  | [optional] |
+| **source** | **string**| Filter by entry source (e.g. api, bounce, complaint) | [optional] |
 
 ### Return type
 

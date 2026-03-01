@@ -13,7 +13,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -36,6 +36,7 @@ use \MailOdds\ObjectSerializer;
  * ValidationResult Class Doc Comment
  *
  * @category Class
+ * @description Individual result from a bulk validation job
  * @package  MailOdds
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -62,6 +63,10 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
         'status' => 'string',
         'sub_status' => 'string',
         'action' => 'string',
+        'domain' => 'string',
+        'mx_host' => 'string',
+        'checks' => 'array<string,mixed>',
+        'suppression' => '\MailOdds\Model\ValidationResultSuppression',
         'processed_at' => '\DateTime'
     ];
 
@@ -77,6 +82,10 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
         'status' => null,
         'sub_status' => null,
         'action' => null,
+        'domain' => null,
+        'mx_host' => null,
+        'checks' => null,
+        'suppression' => null,
         'processed_at' => 'date-time'
     ];
 
@@ -90,6 +99,10 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
         'status' => false,
         'sub_status' => false,
         'action' => false,
+        'domain' => false,
+        'mx_host' => false,
+        'checks' => false,
+        'suppression' => false,
         'processed_at' => false
     ];
 
@@ -183,6 +196,10 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
         'status' => 'status',
         'sub_status' => 'sub_status',
         'action' => 'action',
+        'domain' => 'domain',
+        'mx_host' => 'mx_host',
+        'checks' => 'checks',
+        'suppression' => 'suppression',
         'processed_at' => 'processed_at'
     ];
 
@@ -196,6 +213,10 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
         'status' => 'setStatus',
         'sub_status' => 'setSubStatus',
         'action' => 'setAction',
+        'domain' => 'setDomain',
+        'mx_host' => 'setMxHost',
+        'checks' => 'setChecks',
+        'suppression' => 'setSuppression',
         'processed_at' => 'setProcessedAt'
     ];
 
@@ -209,6 +230,10 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
         'status' => 'getStatus',
         'sub_status' => 'getSubStatus',
         'action' => 'getAction',
+        'domain' => 'getDomain',
+        'mx_host' => 'getMxHost',
+        'checks' => 'getChecks',
+        'suppression' => 'getSuppression',
         'processed_at' => 'getProcessedAt'
     ];
 
@@ -313,6 +338,10 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('status', $data ?? [], null);
         $this->setIfExists('sub_status', $data ?? [], null);
         $this->setIfExists('action', $data ?? [], null);
+        $this->setIfExists('domain', $data ?? [], null);
+        $this->setIfExists('mx_host', $data ?? [], null);
+        $this->setIfExists('checks', $data ?? [], null);
+        $this->setIfExists('suppression', $data ?? [], null);
         $this->setIfExists('processed_at', $data ?? [], null);
     }
 
@@ -343,6 +372,12 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
+        if ($this->container['email'] === null) {
+            $invalidProperties[] = "'email' can't be null";
+        }
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
+        }
         $allowedValues = $this->getStatusAllowableValues();
         if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -352,6 +387,9 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['action'] === null) {
+            $invalidProperties[] = "'action' can't be null";
+        }
         $allowedValues = $this->getActionAllowableValues();
         if (!is_null($this->container['action']) && !in_array($this->container['action'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -361,6 +399,12 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
+        if ($this->container['domain'] === null) {
+            $invalidProperties[] = "'domain' can't be null";
+        }
+        if ($this->container['processed_at'] === null) {
+            $invalidProperties[] = "'processed_at' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -379,7 +423,7 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets email
      *
-     * @return string|null
+     * @return string
      */
     public function getEmail()
     {
@@ -389,7 +433,7 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets email
      *
-     * @param string|null $email email
+     * @param string $email email
      *
      * @return self
      */
@@ -406,7 +450,7 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets status
      *
-     * @return string|null
+     * @return string
      */
     public function getStatus()
     {
@@ -416,7 +460,7 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets status
      *
-     * @param string|null $status status
+     * @param string $status status
      *
      * @return self
      */
@@ -453,7 +497,7 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets sub_status
      *
-     * @param string|null $sub_status sub_status
+     * @param string|null $sub_status Detailed reason. Omitted when none.
      *
      * @return self
      */
@@ -470,7 +514,7 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets action
      *
-     * @return string|null
+     * @return string
      */
     public function getAction()
     {
@@ -480,7 +524,7 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets action
      *
-     * @param string|null $action action
+     * @param string $action action
      *
      * @return self
      */
@@ -505,9 +549,117 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets domain
+     *
+     * @return string
+     */
+    public function getDomain()
+    {
+        return $this->container['domain'];
+    }
+
+    /**
+     * Sets domain
+     *
+     * @param string $domain Email domain
+     *
+     * @return self
+     */
+    public function setDomain($domain)
+    {
+        if (is_null($domain)) {
+            throw new \InvalidArgumentException('non-nullable domain cannot be null');
+        }
+        $this->container['domain'] = $domain;
+
+        return $this;
+    }
+
+    /**
+     * Gets mx_host
+     *
+     * @return string|null
+     */
+    public function getMxHost()
+    {
+        return $this->container['mx_host'];
+    }
+
+    /**
+     * Sets mx_host
+     *
+     * @param string|null $mx_host Primary MX hostname. Omitted when not resolved.
+     *
+     * @return self
+     */
+    public function setMxHost($mx_host)
+    {
+        if (is_null($mx_host)) {
+            throw new \InvalidArgumentException('non-nullable mx_host cannot be null');
+        }
+        $this->container['mx_host'] = $mx_host;
+
+        return $this;
+    }
+
+    /**
+     * Gets checks
+     *
+     * @return array<string,mixed>|null
+     */
+    public function getChecks()
+    {
+        return $this->container['checks'];
+    }
+
+    /**
+     * Sets checks
+     *
+     * @param array<string,mixed>|null $checks Detailed check results (JSONB). Omitted when not available.
+     *
+     * @return self
+     */
+    public function setChecks($checks)
+    {
+        if (is_null($checks)) {
+            throw new \InvalidArgumentException('non-nullable checks cannot be null');
+        }
+        $this->container['checks'] = $checks;
+
+        return $this;
+    }
+
+    /**
+     * Gets suppression
+     *
+     * @return \MailOdds\Model\ValidationResultSuppression|null
+     */
+    public function getSuppression()
+    {
+        return $this->container['suppression'];
+    }
+
+    /**
+     * Sets suppression
+     *
+     * @param \MailOdds\Model\ValidationResultSuppression|null $suppression suppression
+     *
+     * @return self
+     */
+    public function setSuppression($suppression)
+    {
+        if (is_null($suppression)) {
+            throw new \InvalidArgumentException('non-nullable suppression cannot be null');
+        }
+        $this->container['suppression'] = $suppression;
+
+        return $this;
+    }
+
+    /**
      * Gets processed_at
      *
-     * @return \DateTime|null
+     * @return \DateTime
      */
     public function getProcessedAt()
     {
@@ -517,7 +669,7 @@ class ValidationResult implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets processed_at
      *
-     * @param \DateTime|null $processed_at processed_at
+     * @param \DateTime $processed_at processed_at
      *
      * @return self
      */

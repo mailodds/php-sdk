@@ -12,7 +12,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -79,6 +79,9 @@ class SuppressionListsApi
             'application/json',
         ],
         'checkSuppression' => [
+            'application/json',
+        ],
+        'getSuppressionAuditLog' => [
             'application/json',
         ],
         'getSuppressionStats' => [
@@ -723,6 +726,305 @@ class SuppressionListsApi
     }
 
     /**
+     * Operation getSuppressionAuditLog
+     *
+     * Get suppression audit log
+     *
+     * @param  int|null $page page (optional, default to 1)
+     * @param  int|null $limit limit (optional, default to 20)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSuppressionAuditLog'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \MailOdds\Model\SuppressionAuditResponse|\MailOdds\Model\ErrorResponse
+     */
+    public function getSuppressionAuditLog($page = 1, $limit = 20, string $contentType = self::contentTypes['getSuppressionAuditLog'][0])
+    {
+        list($response) = $this->getSuppressionAuditLogWithHttpInfo($page, $limit, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation getSuppressionAuditLogWithHttpInfo
+     *
+     * Get suppression audit log
+     *
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $limit (optional, default to 20)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSuppressionAuditLog'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \MailOdds\Model\SuppressionAuditResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function getSuppressionAuditLogWithHttpInfo($page = 1, $limit = 20, string $contentType = self::contentTypes['getSuppressionAuditLog'][0])
+    {
+        $request = $this->getSuppressionAuditLogRequest($page, $limit, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\SuppressionAuditResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\MailOdds\Model\SuppressionAuditResponse',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\SuppressionAuditResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation getSuppressionAuditLogAsync
+     *
+     * Get suppression audit log
+     *
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $limit (optional, default to 20)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSuppressionAuditLog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSuppressionAuditLogAsync($page = 1, $limit = 20, string $contentType = self::contentTypes['getSuppressionAuditLog'][0])
+    {
+        return $this->getSuppressionAuditLogAsyncWithHttpInfo($page, $limit, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation getSuppressionAuditLogAsyncWithHttpInfo
+     *
+     * Get suppression audit log
+     *
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $limit (optional, default to 20)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSuppressionAuditLog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function getSuppressionAuditLogAsyncWithHttpInfo($page = 1, $limit = 20, string $contentType = self::contentTypes['getSuppressionAuditLog'][0])
+    {
+        $returnType = '\MailOdds\Model\SuppressionAuditResponse';
+        $request = $this->getSuppressionAuditLogRequest($page, $limit, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'getSuppressionAuditLog'
+     *
+     * @param  int|null $page (optional, default to 1)
+     * @param  int|null $limit (optional, default to 20)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSuppressionAuditLog'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function getSuppressionAuditLogRequest($page = 1, $limit = 20, string $contentType = self::contentTypes['getSuppressionAuditLog'][0])
+    {
+
+
+        if ($limit !== null && $limit > 100) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling SuppressionListsApi.getSuppressionAuditLog, must be smaller than or equal to 100.');
+        }
+        
+
+        $resourcePath = '/v1/suppression/audit';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $page,
+            'page', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $limit,
+            'limit', // param base name
+            'integer', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+
+
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getSuppressionStats
      *
      * Get suppression statistics
@@ -997,15 +1299,16 @@ class SuppressionListsApi
      * @param  int|null $per_page per_page (optional, default to 50)
      * @param  string|null $type type (optional)
      * @param  string|null $search search (optional)
+     * @param  string|null $source Filter by entry source (e.g. api, bounce, complaint) (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSuppression'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \MailOdds\Model\SuppressionListResponse|\MailOdds\Model\ErrorResponse
      */
-    public function listSuppression($page = 1, $per_page = 50, $type = null, $search = null, string $contentType = self::contentTypes['listSuppression'][0])
+    public function listSuppression($page = 1, $per_page = 50, $type = null, $search = null, $source = null, string $contentType = self::contentTypes['listSuppression'][0])
     {
-        list($response) = $this->listSuppressionWithHttpInfo($page, $per_page, $type, $search, $contentType);
+        list($response) = $this->listSuppressionWithHttpInfo($page, $per_page, $type, $search, $source, $contentType);
         return $response;
     }
 
@@ -1018,15 +1321,16 @@ class SuppressionListsApi
      * @param  int|null $per_page (optional, default to 50)
      * @param  string|null $type (optional)
      * @param  string|null $search (optional)
+     * @param  string|null $source Filter by entry source (e.g. api, bounce, complaint) (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSuppression'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \MailOdds\Model\SuppressionListResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listSuppressionWithHttpInfo($page = 1, $per_page = 50, $type = null, $search = null, string $contentType = self::contentTypes['listSuppression'][0])
+    public function listSuppressionWithHttpInfo($page = 1, $per_page = 50, $type = null, $search = null, $source = null, string $contentType = self::contentTypes['listSuppression'][0])
     {
-        $request = $this->listSuppressionRequest($page, $per_page, $type, $search, $contentType);
+        $request = $this->listSuppressionRequest($page, $per_page, $type, $search, $source, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1120,14 +1424,15 @@ class SuppressionListsApi
      * @param  int|null $per_page (optional, default to 50)
      * @param  string|null $type (optional)
      * @param  string|null $search (optional)
+     * @param  string|null $source Filter by entry source (e.g. api, bounce, complaint) (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSuppression'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listSuppressionAsync($page = 1, $per_page = 50, $type = null, $search = null, string $contentType = self::contentTypes['listSuppression'][0])
+    public function listSuppressionAsync($page = 1, $per_page = 50, $type = null, $search = null, $source = null, string $contentType = self::contentTypes['listSuppression'][0])
     {
-        return $this->listSuppressionAsyncWithHttpInfo($page, $per_page, $type, $search, $contentType)
+        return $this->listSuppressionAsyncWithHttpInfo($page, $per_page, $type, $search, $source, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1144,15 +1449,16 @@ class SuppressionListsApi
      * @param  int|null $per_page (optional, default to 50)
      * @param  string|null $type (optional)
      * @param  string|null $search (optional)
+     * @param  string|null $source Filter by entry source (e.g. api, bounce, complaint) (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSuppression'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listSuppressionAsyncWithHttpInfo($page = 1, $per_page = 50, $type = null, $search = null, string $contentType = self::contentTypes['listSuppression'][0])
+    public function listSuppressionAsyncWithHttpInfo($page = 1, $per_page = 50, $type = null, $search = null, $source = null, string $contentType = self::contentTypes['listSuppression'][0])
     {
         $returnType = '\MailOdds\Model\SuppressionListResponse';
-        $request = $this->listSuppressionRequest($page, $per_page, $type, $search, $contentType);
+        $request = $this->listSuppressionRequest($page, $per_page, $type, $search, $source, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1197,13 +1503,15 @@ class SuppressionListsApi
      * @param  int|null $per_page (optional, default to 50)
      * @param  string|null $type (optional)
      * @param  string|null $search (optional)
+     * @param  string|null $source Filter by entry source (e.g. api, bounce, complaint) (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSuppression'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listSuppressionRequest($page = 1, $per_page = 50, $type = null, $search = null, string $contentType = self::contentTypes['listSuppression'][0])
+    public function listSuppressionRequest($page = 1, $per_page = 50, $type = null, $search = null, $source = null, string $contentType = self::contentTypes['listSuppression'][0])
     {
+
 
 
 
@@ -1248,6 +1556,15 @@ class SuppressionListsApi
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
             $search,
             'search', // param base name
+            'string', // openApiType
+            'form', // style
+            true, // explode
+            false // required
+        ) ?? []);
+        // query params
+        $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
+            $source,
+            'source', // param base name
             'string', // openApiType
             'form', // style
             true, // explode

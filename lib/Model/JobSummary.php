@@ -13,7 +13,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -36,6 +36,7 @@ use \MailOdds\ObjectSerializer;
  * JobSummary Class Doc Comment
  *
  * @category Class
+ * @description Status breakdown. Present when processing has started.
  * @package  MailOdds
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
@@ -62,8 +63,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'invalid' => 'int',
         'catch_all' => 'int',
         'do_not_mail' => 'int',
-        'unknown' => 'int',
-        'cancelled_pending' => 'int'
+        'unknown' => 'int'
     ];
 
     /**
@@ -78,8 +78,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'invalid' => null,
         'catch_all' => null,
         'do_not_mail' => null,
-        'unknown' => null,
-        'cancelled_pending' => null
+        'unknown' => null
     ];
 
     /**
@@ -92,8 +91,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'invalid' => false,
         'catch_all' => false,
         'do_not_mail' => false,
-        'unknown' => false,
-        'cancelled_pending' => false
+        'unknown' => false
     ];
 
     /**
@@ -186,8 +184,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'invalid' => 'invalid',
         'catch_all' => 'catch_all',
         'do_not_mail' => 'do_not_mail',
-        'unknown' => 'unknown',
-        'cancelled_pending' => 'cancelled_pending'
+        'unknown' => 'unknown'
     ];
 
     /**
@@ -200,8 +197,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'invalid' => 'setInvalid',
         'catch_all' => 'setCatchAll',
         'do_not_mail' => 'setDoNotMail',
-        'unknown' => 'setUnknown',
-        'cancelled_pending' => 'setCancelledPending'
+        'unknown' => 'setUnknown'
     ];
 
     /**
@@ -214,8 +210,7 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         'invalid' => 'getInvalid',
         'catch_all' => 'getCatchAll',
         'do_not_mail' => 'getDoNotMail',
-        'unknown' => 'getUnknown',
-        'cancelled_pending' => 'getCancelledPending'
+        'unknown' => 'getUnknown'
     ];
 
     /**
@@ -280,7 +275,6 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('catch_all', $data ?? [], null);
         $this->setIfExists('do_not_mail', $data ?? [], null);
         $this->setIfExists('unknown', $data ?? [], null);
-        $this->setIfExists('cancelled_pending', $data ?? [], null);
     }
 
     /**
@@ -456,33 +450,6 @@ class JobSummary implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable unknown cannot be null');
         }
         $this->container['unknown'] = $unknown;
-
-        return $this;
-    }
-
-    /**
-     * Gets cancelled_pending
-     *
-     * @return int|null
-     */
-    public function getCancelledPending()
-    {
-        return $this->container['cancelled_pending'];
-    }
-
-    /**
-     * Sets cancelled_pending
-     *
-     * @param int|null $cancelled_pending cancelled_pending
-     *
-     * @return self
-     */
-    public function setCancelledPending($cancelled_pending)
-    {
-        if (is_null($cancelled_pending)) {
-            throw new \InvalidArgumentException('non-nullable cancelled_pending cannot be null');
-        }
-        $this->container['cancelled_pending'] = $cancelled_pending;
 
         return $this;
     }

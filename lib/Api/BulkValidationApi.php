@@ -12,7 +12,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -2645,8 +2645,8 @@ class BulkValidationApi
      *
      * List validation jobs
      *
-     * @param  int|null $page page (optional, default to 1)
-     * @param  int|null $per_page per_page (optional, default to 20)
+     * @param  string|null $cursor Pagination cursor (ISO timestamp from previous response) (optional)
+     * @param  int|null $limit Results per page (optional, default to 50)
      * @param  string|null $status status (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listJobs'] to see the possible values for this operation
      *
@@ -2654,9 +2654,9 @@ class BulkValidationApi
      * @throws \InvalidArgumentException
      * @return \MailOdds\Model\JobListResponse|\MailOdds\Model\ErrorResponse
      */
-    public function listJobs($page = 1, $per_page = 20, $status = null, string $contentType = self::contentTypes['listJobs'][0])
+    public function listJobs($cursor = null, $limit = 50, $status = null, string $contentType = self::contentTypes['listJobs'][0])
     {
-        list($response) = $this->listJobsWithHttpInfo($page, $per_page, $status, $contentType);
+        list($response) = $this->listJobsWithHttpInfo($cursor, $limit, $status, $contentType);
         return $response;
     }
 
@@ -2665,8 +2665,8 @@ class BulkValidationApi
      *
      * List validation jobs
      *
-     * @param  int|null $page (optional, default to 1)
-     * @param  int|null $per_page (optional, default to 20)
+     * @param  string|null $cursor Pagination cursor (ISO timestamp from previous response) (optional)
+     * @param  int|null $limit Results per page (optional, default to 50)
      * @param  string|null $status (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listJobs'] to see the possible values for this operation
      *
@@ -2674,9 +2674,9 @@ class BulkValidationApi
      * @throws \InvalidArgumentException
      * @return array of \MailOdds\Model\JobListResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function listJobsWithHttpInfo($page = 1, $per_page = 20, $status = null, string $contentType = self::contentTypes['listJobs'][0])
+    public function listJobsWithHttpInfo($cursor = null, $limit = 50, $status = null, string $contentType = self::contentTypes['listJobs'][0])
     {
-        $request = $this->listJobsRequest($page, $per_page, $status, $contentType);
+        $request = $this->listJobsRequest($cursor, $limit, $status, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -2766,17 +2766,17 @@ class BulkValidationApi
      *
      * List validation jobs
      *
-     * @param  int|null $page (optional, default to 1)
-     * @param  int|null $per_page (optional, default to 20)
+     * @param  string|null $cursor Pagination cursor (ISO timestamp from previous response) (optional)
+     * @param  int|null $limit Results per page (optional, default to 50)
      * @param  string|null $status (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listJobs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listJobsAsync($page = 1, $per_page = 20, $status = null, string $contentType = self::contentTypes['listJobs'][0])
+    public function listJobsAsync($cursor = null, $limit = 50, $status = null, string $contentType = self::contentTypes['listJobs'][0])
     {
-        return $this->listJobsAsyncWithHttpInfo($page, $per_page, $status, $contentType)
+        return $this->listJobsAsyncWithHttpInfo($cursor, $limit, $status, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -2789,18 +2789,18 @@ class BulkValidationApi
      *
      * List validation jobs
      *
-     * @param  int|null $page (optional, default to 1)
-     * @param  int|null $per_page (optional, default to 20)
+     * @param  string|null $cursor Pagination cursor (ISO timestamp from previous response) (optional)
+     * @param  int|null $limit Results per page (optional, default to 50)
      * @param  string|null $status (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listJobs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function listJobsAsyncWithHttpInfo($page = 1, $per_page = 20, $status = null, string $contentType = self::contentTypes['listJobs'][0])
+    public function listJobsAsyncWithHttpInfo($cursor = null, $limit = 50, $status = null, string $contentType = self::contentTypes['listJobs'][0])
     {
         $returnType = '\MailOdds\Model\JobListResponse';
-        $request = $this->listJobsRequest($page, $per_page, $status, $contentType);
+        $request = $this->listJobsRequest($cursor, $limit, $status, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -2841,20 +2841,20 @@ class BulkValidationApi
     /**
      * Create request for operation 'listJobs'
      *
-     * @param  int|null $page (optional, default to 1)
-     * @param  int|null $per_page (optional, default to 20)
+     * @param  string|null $cursor Pagination cursor (ISO timestamp from previous response) (optional)
+     * @param  int|null $limit Results per page (optional, default to 50)
      * @param  string|null $status (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listJobs'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function listJobsRequest($page = 1, $per_page = 20, $status = null, string $contentType = self::contentTypes['listJobs'][0])
+    public function listJobsRequest($cursor = null, $limit = 50, $status = null, string $contentType = self::contentTypes['listJobs'][0])
     {
 
 
-        if ($per_page !== null && $per_page > 100) {
-            throw new \InvalidArgumentException('invalid value for "$per_page" when calling BulkValidationApi.listJobs, must be smaller than or equal to 100.');
+        if ($limit !== null && $limit > 100) {
+            throw new \InvalidArgumentException('invalid value for "$limit" when calling BulkValidationApi.listJobs, must be smaller than or equal to 100.');
         }
         
 
@@ -2868,17 +2868,17 @@ class BulkValidationApi
 
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $page,
-            'page', // param base name
-            'integer', // openApiType
+            $cursor,
+            'cursor', // param base name
+            'string', // openApiType
             'form', // style
             true, // explode
             false // required
         ) ?? []);
         // query params
         $queryParams = array_merge($queryParams, ObjectSerializer::toQueryValue(
-            $per_page,
-            'per_page', // param base name
+            $limit,
+            'limit', // param base name
             'integer', // openApiType
             'form', // style
             true, // explode

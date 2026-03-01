@@ -13,7 +13,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -60,7 +60,8 @@ class ResultsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPITypes = [
         'schema_version' => 'string',
         'request_id' => 'string',
-        'results' => '\MailOdds\Model\ValidationResult[]',
+        'job' => '\MailOdds\Model\Job',
+        'data' => '\MailOdds\Model\ValidationResult[]',
         'pagination' => '\MailOdds\Model\Pagination'
     ];
 
@@ -74,7 +75,8 @@ class ResultsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $openAPIFormats = [
         'schema_version' => null,
         'request_id' => null,
-        'results' => null,
+        'job' => null,
+        'data' => null,
         'pagination' => null
     ];
 
@@ -86,7 +88,8 @@ class ResultsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static array $openAPINullables = [
         'schema_version' => false,
         'request_id' => false,
-        'results' => false,
+        'job' => false,
+        'data' => false,
         'pagination' => false
     ];
 
@@ -178,7 +181,8 @@ class ResultsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
         'request_id' => 'request_id',
-        'results' => 'results',
+        'job' => 'job',
+        'data' => 'data',
         'pagination' => 'pagination'
     ];
 
@@ -190,7 +194,8 @@ class ResultsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
         'request_id' => 'setRequestId',
-        'results' => 'setResults',
+        'job' => 'setJob',
+        'data' => 'setData',
         'pagination' => 'setPagination'
     ];
 
@@ -202,7 +207,8 @@ class ResultsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
         'request_id' => 'getRequestId',
-        'results' => 'getResults',
+        'job' => 'getJob',
+        'data' => 'getData',
         'pagination' => 'getPagination'
     ];
 
@@ -265,7 +271,8 @@ class ResultsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $this->setIfExists('schema_version', $data ?? [], null);
         $this->setIfExists('request_id', $data ?? [], null);
-        $this->setIfExists('results', $data ?? [], null);
+        $this->setIfExists('job', $data ?? [], null);
+        $this->setIfExists('data', $data ?? [], null);
         $this->setIfExists('pagination', $data ?? [], null);
     }
 
@@ -366,28 +373,55 @@ class ResultsResponse implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets results
+     * Gets job
      *
-     * @return \MailOdds\Model\ValidationResult[]|null
+     * @return \MailOdds\Model\Job|null
      */
-    public function getResults()
+    public function getJob()
     {
-        return $this->container['results'];
+        return $this->container['job'];
     }
 
     /**
-     * Sets results
+     * Sets job
      *
-     * @param \MailOdds\Model\ValidationResult[]|null $results results
+     * @param \MailOdds\Model\Job|null $job job
      *
      * @return self
      */
-    public function setResults($results)
+    public function setJob($job)
     {
-        if (is_null($results)) {
-            throw new \InvalidArgumentException('non-nullable results cannot be null');
+        if (is_null($job)) {
+            throw new \InvalidArgumentException('non-nullable job cannot be null');
         }
-        $this->container['results'] = $results;
+        $this->container['job'] = $job;
+
+        return $this;
+    }
+
+    /**
+     * Gets data
+     *
+     * @return \MailOdds\Model\ValidationResult[]|null
+     */
+    public function getData()
+    {
+        return $this->container['data'];
+    }
+
+    /**
+     * Sets data
+     *
+     * @param \MailOdds\Model\ValidationResult[]|null $data Validation results for this page
+     *
+     * @return self
+     */
+    public function setData($data)
+    {
+        if (is_null($data)) {
+            throw new \InvalidArgumentException('non-nullable data cannot be null');
+        }
+        $this->container['data'] = $data;
 
         return $this;
     }

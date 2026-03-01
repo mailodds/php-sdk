@@ -1,6 +1,6 @@
 <?php
 /**
- * SendingDomainIdentityScoreChecksDmarc
+ * SuppressionAuditResponseEntriesInner
  *
  * PHP version 8.1
  *
@@ -13,7 +13,7 @@
 /**
  * MailOdds Email Validation API
  *
- * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description
+ * MailOdds provides email validation services to help maintain clean email lists  and improve deliverability. The API performs multiple validation checks including  format verification, domain validation, MX record checking, and disposable email detection.  ## Authentication  All API requests require authentication using a Bearer token. Include your API key  in the Authorization header:  ``` Authorization: Bearer YOUR_API_KEY ```  API keys can be created in the MailOdds dashboard.  ## Rate Limits  Rate limits vary by plan: - Free: 10 requests/minute - Starter: 60 requests/minute   - Pro: 300 requests/minute - Business: 1000 requests/minute - Enterprise: Custom limits  ## Response Format  All responses include: - `schema_version`: API schema version (currently \"1.0\") - `request_id`: Unique request identifier for debugging  Error responses include: - `error`: Machine-readable error code - `message`: Human-readable error description  ## Webhooks  MailOdds can send webhook notifications for job completion and email delivery events. Configure webhooks in the dashboard or per-job via the `webhook_url` field.  ### Event Types  | Event | Description | |-------|-------------| | `job.completed` | Validation job finished processing | | `job.failed` | Validation job failed | | `message.queued` | Email queued for delivery | | `message.delivered` | Email delivered to recipient | | `message.bounced` | Email bounced | | `message.deferred` | Email delivery deferred | | `message.failed` | Email delivery failed | | `message.opened` | Recipient opened the email | | `message.clicked` | Recipient clicked a link |  ### Payload Format  ```json {   \"event\": \"job.completed\",   \"job\": { ... },   \"timestamp\": \"2026-01-15T10:30:00Z\" } ```  ### Webhook Signing  If a webhook secret is configured, each request includes an `X-MailOdds-Signature` header containing an HMAC-SHA256 hex digest of the request body.  **Verification pseudocode:** ``` expected = HMAC-SHA256(webhook_secret, request_body) valid = constant_time_compare(request.headers[\"X-MailOdds-Signature\"], hex(expected)) ```  The payload is serialized with compact JSON (no extra whitespace, sorted keys) before signing.  ### Headers  All webhook requests include: - `Content-Type: application/json` - `User-Agent: MailOdds-Webhook/1.0` - `X-MailOdds-Event: {event_type}` - `X-Request-Id: {uuid}` - `X-MailOdds-Signature: {hmac}` (when secret is configured)  ### Retry Policy  Failed deliveries (non-2xx response or timeout) are retried up to 3 times with exponential backoff (10s, 60s, 300s).
  *
  * The version of the OpenAPI document: 1.0.0
  * Contact: support@mailodds.com
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * SendingDomainIdentityScoreChecksDmarc Class Doc Comment
+ * SuppressionAuditResponseEntriesInner Class Doc Comment
  *
  * @category Class
  * @package  MailOdds
@@ -41,7 +41,7 @@ use \MailOdds\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class SendingDomainIdentityScoreChecksDmarc implements ModelInterface, ArrayAccess, \JsonSerializable
+class SuppressionAuditResponseEntriesInner implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class SendingDomainIdentityScoreChecksDmarc implements ModelInterface, ArrayAcce
       *
       * @var string
       */
-    protected static $openAPIModelName = 'SendingDomainIdentityScore_checks_dmarc';
+    protected static $openAPIModelName = 'SuppressionAuditResponse_entries_inner';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,9 +58,11 @@ class SendingDomainIdentityScoreChecksDmarc implements ModelInterface, ArrayAcce
       * @var string[]
       */
     protected static $openAPITypes = [
-        'status' => 'string',
-        'score' => 'float',
-        'policy' => 'string'
+        'id' => 'int',
+        'event_type' => 'string',
+        'event_category' => 'string',
+        'details' => 'object',
+        'created_at' => '\DateTime'
     ];
 
     /**
@@ -71,9 +73,11 @@ class SendingDomainIdentityScoreChecksDmarc implements ModelInterface, ArrayAcce
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'status' => null,
-        'score' => null,
-        'policy' => null
+        'id' => null,
+        'event_type' => null,
+        'event_category' => null,
+        'details' => null,
+        'created_at' => 'date-time'
     ];
 
     /**
@@ -82,9 +86,11 @@ class SendingDomainIdentityScoreChecksDmarc implements ModelInterface, ArrayAcce
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'status' => false,
-        'score' => false,
-        'policy' => false
+        'id' => false,
+        'event_type' => false,
+        'event_category' => false,
+        'details' => false,
+        'created_at' => false
     ];
 
     /**
@@ -173,9 +179,11 @@ class SendingDomainIdentityScoreChecksDmarc implements ModelInterface, ArrayAcce
      * @var string[]
      */
     protected static $attributeMap = [
-        'status' => 'status',
-        'score' => 'score',
-        'policy' => 'policy'
+        'id' => 'id',
+        'event_type' => 'event_type',
+        'event_category' => 'event_category',
+        'details' => 'details',
+        'created_at' => 'created_at'
     ];
 
     /**
@@ -184,9 +192,11 @@ class SendingDomainIdentityScoreChecksDmarc implements ModelInterface, ArrayAcce
      * @var string[]
      */
     protected static $setters = [
-        'status' => 'setStatus',
-        'score' => 'setScore',
-        'policy' => 'setPolicy'
+        'id' => 'setId',
+        'event_type' => 'setEventType',
+        'event_category' => 'setEventCategory',
+        'details' => 'setDetails',
+        'created_at' => 'setCreatedAt'
     ];
 
     /**
@@ -195,9 +205,11 @@ class SendingDomainIdentityScoreChecksDmarc implements ModelInterface, ArrayAcce
      * @var string[]
      */
     protected static $getters = [
-        'status' => 'getStatus',
-        'score' => 'getScore',
-        'policy' => 'getPolicy'
+        'id' => 'getId',
+        'event_type' => 'getEventType',
+        'event_category' => 'getEventCategory',
+        'details' => 'getDetails',
+        'created_at' => 'getCreatedAt'
     ];
 
     /**
@@ -257,9 +269,11 @@ class SendingDomainIdentityScoreChecksDmarc implements ModelInterface, ArrayAcce
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('score', $data ?? [], null);
-        $this->setIfExists('policy', $data ?? [], null);
+        $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('event_type', $data ?? [], null);
+        $this->setIfExists('event_category', $data ?? [], null);
+        $this->setIfExists('details', $data ?? [], null);
+        $this->setIfExists('created_at', $data ?? [], null);
     }
 
     /**
@@ -305,82 +319,136 @@ class SendingDomainIdentityScoreChecksDmarc implements ModelInterface, ArrayAcce
 
 
     /**
-     * Gets status
+     * Gets id
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getStatus()
+    public function getId()
     {
-        return $this->container['status'];
+        return $this->container['id'];
     }
 
     /**
-     * Sets status
+     * Sets id
      *
-     * @param string|null $status status
+     * @param int|null $id id
      *
      * @return self
      */
-    public function setStatus($status)
+    public function setId($id)
     {
-        if (is_null($status)) {
-            throw new \InvalidArgumentException('non-nullable status cannot be null');
+        if (is_null($id)) {
+            throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
-        $this->container['status'] = $status;
+        $this->container['id'] = $id;
 
         return $this;
     }
 
     /**
-     * Gets score
+     * Gets event_type
      *
-     * @return float|null
+     * @return string|null
      */
-    public function getScore()
+    public function getEventType()
     {
-        return $this->container['score'];
+        return $this->container['event_type'];
     }
 
     /**
-     * Sets score
+     * Sets event_type
      *
-     * @param float|null $score score
+     * @param string|null $event_type Audit event type
      *
      * @return self
      */
-    public function setScore($score)
+    public function setEventType($event_type)
     {
-        if (is_null($score)) {
-            throw new \InvalidArgumentException('non-nullable score cannot be null');
+        if (is_null($event_type)) {
+            throw new \InvalidArgumentException('non-nullable event_type cannot be null');
         }
-        $this->container['score'] = $score;
+        $this->container['event_type'] = $event_type;
 
         return $this;
     }
 
     /**
-     * Gets policy
+     * Gets event_category
      *
      * @return string|null
      */
-    public function getPolicy()
+    public function getEventCategory()
     {
-        return $this->container['policy'];
+        return $this->container['event_category'];
     }
 
     /**
-     * Sets policy
+     * Sets event_category
      *
-     * @param string|null $policy policy
+     * @param string|null $event_category event_category
      *
      * @return self
      */
-    public function setPolicy($policy)
+    public function setEventCategory($event_category)
     {
-        if (is_null($policy)) {
-            throw new \InvalidArgumentException('non-nullable policy cannot be null');
+        if (is_null($event_category)) {
+            throw new \InvalidArgumentException('non-nullable event_category cannot be null');
         }
-        $this->container['policy'] = $policy;
+        $this->container['event_category'] = $event_category;
+
+        return $this;
+    }
+
+    /**
+     * Gets details
+     *
+     * @return object|null
+     */
+    public function getDetails()
+    {
+        return $this->container['details'];
+    }
+
+    /**
+     * Sets details
+     *
+     * @param object|null $details Event-specific details
+     *
+     * @return self
+     */
+    public function setDetails($details)
+    {
+        if (is_null($details)) {
+            throw new \InvalidArgumentException('non-nullable details cannot be null');
+        }
+        $this->container['details'] = $details;
+
+        return $this;
+    }
+
+    /**
+     * Gets created_at
+     *
+     * @return \DateTime|null
+     */
+    public function getCreatedAt()
+    {
+        return $this->container['created_at'];
+    }
+
+    /**
+     * Sets created_at
+     *
+     * @param \DateTime|null $created_at created_at
+     *
+     * @return self
+     */
+    public function setCreatedAt($created_at)
+    {
+        if (is_null($created_at)) {
+            throw new \InvalidArgumentException('non-nullable created_at cannot be null');
+        }
+        $this->container['created_at'] = $created_at;
 
         return $this;
     }
