@@ -103,6 +103,55 @@ try {
 
 ```
 
+## Sending Email
+
+### Send a Single Email
+
+```php
+$sendingApi = new MailOdds\Api\EmailSendingApi(
+    new GuzzleHttp\Client(),
+    $config
+);
+
+$request = new MailOdds\Model\DeliverRequest([
+    'to' => [['email' => 'recipient@example.com', 'name' => 'Jane']],
+    'from' => 'you@yourdomain.com',
+    'subject' => 'Hello from MailOdds',
+    'html' => '<h1>Welcome!</h1><p>Your order has been confirmed.</p>',
+    'domain_id' => 'your-domain-uuid',
+]);
+
+try {
+    $result = $sendingApi->deliverEmail($request);
+    echo $result->getDelivery()->getMessageId();
+} catch (Exception $e) {
+    echo 'Exception: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Managing Sending Domains
+
+```php
+$domainsApi = new MailOdds\Api\SendingDomainsApi(
+    new GuzzleHttp\Client(),
+    $config
+);
+
+// List sending domains
+$domains = $domainsApi->listSendingDomains();
+foreach ($domains->getDomains() as $domain) {
+    echo $domain->getDomain() . ': ' . $domain->getStatus() . PHP_EOL;
+}
+
+// Add a new sending domain
+$newDomain = $domainsApi->createSendingDomain(
+    new MailOdds\Model\CreateSendingDomainRequest(['domain' => 'yourdomain.com'])
+);
+print_r($newDomain->getDnsRecords()); // DKIM records to add
+```
+
+For batch sending, scheduled delivery, and campaign management, see the [API documentation](https://mailodds.com/docs).
+
 ## API Endpoints
 
 All URIs are relative to *https://api.mailodds.com/v1*
