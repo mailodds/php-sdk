@@ -28,3 +28,4 @@ ci/**
 .github/**
 # Preserve package metadata
 composer.json
+README.md
