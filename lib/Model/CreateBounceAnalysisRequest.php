@@ -58,8 +58,8 @@ class CreateBounceAnalysisRequest implements ModelInterface, ArrayAccess, \JsonS
       * @var string[]
       */
     protected static $openAPITypes = [
-        'domain_id' => 'string',
-        'period' => 'string'
+        'text' => 'string',
+        'name' => 'string'
     ];
 
     /**
@@ -70,8 +70,8 @@ class CreateBounceAnalysisRequest implements ModelInterface, ArrayAccess, \JsonS
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'domain_id' => null,
-        'period' => null
+        'text' => null,
+        'name' => null
     ];
 
     /**
@@ -80,8 +80,8 @@ class CreateBounceAnalysisRequest implements ModelInterface, ArrayAccess, \JsonS
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'domain_id' => false,
-        'period' => false
+        'text' => false,
+        'name' => false
     ];
 
     /**
@@ -170,8 +170,8 @@ class CreateBounceAnalysisRequest implements ModelInterface, ArrayAccess, \JsonS
      * @var string[]
      */
     protected static $attributeMap = [
-        'domain_id' => 'domain_id',
-        'period' => 'period'
+        'text' => 'text',
+        'name' => 'name'
     ];
 
     /**
@@ -180,8 +180,8 @@ class CreateBounceAnalysisRequest implements ModelInterface, ArrayAccess, \JsonS
      * @var string[]
      */
     protected static $setters = [
-        'domain_id' => 'setDomainId',
-        'period' => 'setPeriod'
+        'text' => 'setText',
+        'name' => 'setName'
     ];
 
     /**
@@ -190,8 +190,8 @@ class CreateBounceAnalysisRequest implements ModelInterface, ArrayAccess, \JsonS
      * @var string[]
      */
     protected static $getters = [
-        'domain_id' => 'getDomainId',
-        'period' => 'getPeriod'
+        'text' => 'getText',
+        'name' => 'getName'
     ];
 
     /**
@@ -235,23 +235,6 @@ class CreateBounceAnalysisRequest implements ModelInterface, ArrayAccess, \JsonS
         return self::$openAPIModelName;
     }
 
-    public const PERIOD__7D = '7d';
-    public const PERIOD__30D = '30d';
-    public const PERIOD__90D = '90d';
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getPeriodAllowableValues()
-    {
-        return [
-            self::PERIOD__7D,
-            self::PERIOD__30D,
-            self::PERIOD__90D,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -268,8 +251,8 @@ class CreateBounceAnalysisRequest implements ModelInterface, ArrayAccess, \JsonS
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('domain_id', $data ?? [], null);
-        $this->setIfExists('period', $data ?? [], '30d');
+        $this->setIfExists('text', $data ?? [], null);
+        $this->setIfExists('name', $data ?? [], null);
     }
 
     /**
@@ -299,18 +282,9 @@ class CreateBounceAnalysisRequest implements ModelInterface, ArrayAccess, \JsonS
     {
         $invalidProperties = [];
 
-        if ($this->container['domain_id'] === null) {
-            $invalidProperties[] = "'domain_id' can't be null";
+        if ($this->container['text'] === null) {
+            $invalidProperties[] = "'text' can't be null";
         }
-        $allowedValues = $this->getPeriodAllowableValues();
-        if (!is_null($this->container['period']) && !in_array($this->container['period'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'period', must be one of '%s'",
-                $this->container['period'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         return $invalidProperties;
     }
 
@@ -327,65 +301,55 @@ class CreateBounceAnalysisRequest implements ModelInterface, ArrayAccess, \JsonS
 
 
     /**
-     * Gets domain_id
+     * Gets text
      *
      * @return string
      */
-    public function getDomainId()
+    public function getText()
     {
-        return $this->container['domain_id'];
+        return $this->container['text'];
     }
 
     /**
-     * Sets domain_id
+     * Sets text
      *
-     * @param string $domain_id Sending domain UUID to analyze bounces for
+     * @param string $text Bounce log text to analyze. Identifies patterns, categorizes bounce types, and provides remediation recommendations.
      *
      * @return self
      */
-    public function setDomainId($domain_id)
+    public function setText($text)
     {
-        if (is_null($domain_id)) {
-            throw new \InvalidArgumentException('non-nullable domain_id cannot be null');
+        if (is_null($text)) {
+            throw new \InvalidArgumentException('non-nullable text cannot be null');
         }
-        $this->container['domain_id'] = $domain_id;
+        $this->container['text'] = $text;
 
         return $this;
     }
 
     /**
-     * Gets period
+     * Gets name
      *
      * @return string|null
      */
-    public function getPeriod()
+    public function getName()
     {
-        return $this->container['period'];
+        return $this->container['name'];
     }
 
     /**
-     * Sets period
+     * Sets name
      *
-     * @param string|null $period Time period to analyze
+     * @param string|null $name Optional name for this bounce analysis
      *
      * @return self
      */
-    public function setPeriod($period)
+    public function setName($name)
     {
-        if (is_null($period)) {
-            throw new \InvalidArgumentException('non-nullable period cannot be null');
+        if (is_null($name)) {
+            throw new \InvalidArgumentException('non-nullable name cannot be null');
         }
-        $allowedValues = $this->getPeriodAllowableValues();
-        if (!in_array($period, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'period', must be one of '%s'",
-                    $period,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['period'] = $period;
+        $this->container['name'] = $name;
 
         return $this;
     }

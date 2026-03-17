@@ -1,6 +1,6 @@
 <?php
 /**
- * GetReputationTimeline200Response
+ * GetReputationTimeline200ResponseTimelineTimelineInner
  *
  * PHP version 8.1
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * GetReputationTimeline200Response Class Doc Comment
+ * GetReputationTimeline200ResponseTimelineTimelineInner Class Doc Comment
  *
  * @category Class
  * @package  MailOdds
@@ -41,7 +41,7 @@ use \MailOdds\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \JsonSerializable
+class GetReputationTimeline200ResponseTimelineTimelineInner implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
       *
       * @var string
       */
-    protected static $openAPIModelName = 'getReputationTimeline_200_response';
+    protected static $openAPIModelName = 'getReputationTimeline_200_response_timeline_timeline_inner';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,9 +58,12 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
       * @var string[]
       */
     protected static $openAPITypes = [
-        'schema_version' => 'string',
-        'request_id' => 'string',
-        'timeline' => '\MailOdds\Model\GetReputationTimeline200ResponseTimeline'
+        'date' => '\DateTime',
+        'sent' => 'int',
+        'bounce_rate' => 'float',
+        'complaint_rate' => 'float',
+        'open_rate' => 'float',
+        'delivery_rate' => 'float'
     ];
 
     /**
@@ -71,9 +74,12 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'schema_version' => null,
-        'request_id' => null,
-        'timeline' => null
+        'date' => 'date',
+        'sent' => null,
+        'bounce_rate' => null,
+        'complaint_rate' => null,
+        'open_rate' => null,
+        'delivery_rate' => null
     ];
 
     /**
@@ -82,9 +88,12 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'schema_version' => false,
-        'request_id' => false,
-        'timeline' => false
+        'date' => false,
+        'sent' => false,
+        'bounce_rate' => false,
+        'complaint_rate' => false,
+        'open_rate' => false,
+        'delivery_rate' => false
     ];
 
     /**
@@ -173,9 +182,12 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
      * @var string[]
      */
     protected static $attributeMap = [
-        'schema_version' => 'schema_version',
-        'request_id' => 'request_id',
-        'timeline' => 'timeline'
+        'date' => 'date',
+        'sent' => 'sent',
+        'bounce_rate' => 'bounce_rate',
+        'complaint_rate' => 'complaint_rate',
+        'open_rate' => 'open_rate',
+        'delivery_rate' => 'delivery_rate'
     ];
 
     /**
@@ -184,9 +196,12 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
      * @var string[]
      */
     protected static $setters = [
-        'schema_version' => 'setSchemaVersion',
-        'request_id' => 'setRequestId',
-        'timeline' => 'setTimeline'
+        'date' => 'setDate',
+        'sent' => 'setSent',
+        'bounce_rate' => 'setBounceRate',
+        'complaint_rate' => 'setComplaintRate',
+        'open_rate' => 'setOpenRate',
+        'delivery_rate' => 'setDeliveryRate'
     ];
 
     /**
@@ -195,9 +210,12 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
      * @var string[]
      */
     protected static $getters = [
-        'schema_version' => 'getSchemaVersion',
-        'request_id' => 'getRequestId',
-        'timeline' => 'getTimeline'
+        'date' => 'getDate',
+        'sent' => 'getSent',
+        'bounce_rate' => 'getBounceRate',
+        'complaint_rate' => 'getComplaintRate',
+        'open_rate' => 'getOpenRate',
+        'delivery_rate' => 'getDeliveryRate'
     ];
 
     /**
@@ -257,9 +275,12 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('schema_version', $data ?? [], null);
-        $this->setIfExists('request_id', $data ?? [], null);
-        $this->setIfExists('timeline', $data ?? [], null);
+        $this->setIfExists('date', $data ?? [], null);
+        $this->setIfExists('sent', $data ?? [], null);
+        $this->setIfExists('bounce_rate', $data ?? [], null);
+        $this->setIfExists('complaint_rate', $data ?? [], null);
+        $this->setIfExists('open_rate', $data ?? [], null);
+        $this->setIfExists('delivery_rate', $data ?? [], null);
     }
 
     /**
@@ -305,82 +326,163 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
 
 
     /**
-     * Gets schema_version
+     * Gets date
      *
-     * @return string|null
+     * @return \DateTime|null
      */
-    public function getSchemaVersion()
+    public function getDate()
     {
-        return $this->container['schema_version'];
+        return $this->container['date'];
     }
 
     /**
-     * Sets schema_version
+     * Sets date
      *
-     * @param string|null $schema_version schema_version
+     * @param \DateTime|null $date date
      *
      * @return self
      */
-    public function setSchemaVersion($schema_version)
+    public function setDate($date)
     {
-        if (is_null($schema_version)) {
-            throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
+        if (is_null($date)) {
+            throw new \InvalidArgumentException('non-nullable date cannot be null');
         }
-        $this->container['schema_version'] = $schema_version;
+        $this->container['date'] = $date;
 
         return $this;
     }
 
     /**
-     * Gets request_id
+     * Gets sent
      *
-     * @return string|null
+     * @return int|null
      */
-    public function getRequestId()
+    public function getSent()
     {
-        return $this->container['request_id'];
+        return $this->container['sent'];
     }
 
     /**
-     * Sets request_id
+     * Sets sent
      *
-     * @param string|null $request_id request_id
+     * @param int|null $sent sent
      *
      * @return self
      */
-    public function setRequestId($request_id)
+    public function setSent($sent)
     {
-        if (is_null($request_id)) {
-            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        if (is_null($sent)) {
+            throw new \InvalidArgumentException('non-nullable sent cannot be null');
         }
-        $this->container['request_id'] = $request_id;
+        $this->container['sent'] = $sent;
 
         return $this;
     }
 
     /**
-     * Gets timeline
+     * Gets bounce_rate
      *
-     * @return \MailOdds\Model\GetReputationTimeline200ResponseTimeline|null
+     * @return float|null
      */
-    public function getTimeline()
+    public function getBounceRate()
     {
-        return $this->container['timeline'];
+        return $this->container['bounce_rate'];
     }
 
     /**
-     * Sets timeline
+     * Sets bounce_rate
      *
-     * @param \MailOdds\Model\GetReputationTimeline200ResponseTimeline|null $timeline timeline
+     * @param float|null $bounce_rate bounce_rate
      *
      * @return self
      */
-    public function setTimeline($timeline)
+    public function setBounceRate($bounce_rate)
     {
-        if (is_null($timeline)) {
-            throw new \InvalidArgumentException('non-nullable timeline cannot be null');
+        if (is_null($bounce_rate)) {
+            throw new \InvalidArgumentException('non-nullable bounce_rate cannot be null');
         }
-        $this->container['timeline'] = $timeline;
+        $this->container['bounce_rate'] = $bounce_rate;
+
+        return $this;
+    }
+
+    /**
+     * Gets complaint_rate
+     *
+     * @return float|null
+     */
+    public function getComplaintRate()
+    {
+        return $this->container['complaint_rate'];
+    }
+
+    /**
+     * Sets complaint_rate
+     *
+     * @param float|null $complaint_rate complaint_rate
+     *
+     * @return self
+     */
+    public function setComplaintRate($complaint_rate)
+    {
+        if (is_null($complaint_rate)) {
+            throw new \InvalidArgumentException('non-nullable complaint_rate cannot be null');
+        }
+        $this->container['complaint_rate'] = $complaint_rate;
+
+        return $this;
+    }
+
+    /**
+     * Gets open_rate
+     *
+     * @return float|null
+     */
+    public function getOpenRate()
+    {
+        return $this->container['open_rate'];
+    }
+
+    /**
+     * Sets open_rate
+     *
+     * @param float|null $open_rate open_rate
+     *
+     * @return self
+     */
+    public function setOpenRate($open_rate)
+    {
+        if (is_null($open_rate)) {
+            throw new \InvalidArgumentException('non-nullable open_rate cannot be null');
+        }
+        $this->container['open_rate'] = $open_rate;
+
+        return $this;
+    }
+
+    /**
+     * Gets delivery_rate
+     *
+     * @return float|null
+     */
+    public function getDeliveryRate()
+    {
+        return $this->container['delivery_rate'];
+    }
+
+    /**
+     * Sets delivery_rate
+     *
+     * @param float|null $delivery_rate delivery_rate
+     *
+     * @return self
+     */
+    public function setDeliveryRate($delivery_rate)
+    {
+        if (is_null($delivery_rate)) {
+            throw new \InvalidArgumentException('non-nullable delivery_rate cannot be null');
+        }
+        $this->container['delivery_rate'] = $delivery_rate;
 
         return $this;
     }

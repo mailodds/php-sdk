@@ -1,6 +1,6 @@
 <?php
 /**
- * GetReputationTimeline200Response
+ * GetReputationTimeline200ResponseTimeline
  *
  * PHP version 8.1
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * GetReputationTimeline200Response Class Doc Comment
+ * GetReputationTimeline200ResponseTimeline Class Doc Comment
  *
  * @category Class
  * @package  MailOdds
@@ -41,7 +41,7 @@ use \MailOdds\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \JsonSerializable
+class GetReputationTimeline200ResponseTimeline implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
       *
       * @var string
       */
-    protected static $openAPIModelName = 'getReputationTimeline_200_response';
+    protected static $openAPIModelName = 'getReputationTimeline_200_response_timeline';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,9 +58,8 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
       * @var string[]
       */
     protected static $openAPITypes = [
-        'schema_version' => 'string',
-        'request_id' => 'string',
-        'timeline' => '\MailOdds\Model\GetReputationTimeline200ResponseTimeline'
+        'period' => 'string',
+        'timeline' => '\MailOdds\Model\GetReputationTimeline200ResponseTimelineTimelineInner[]'
     ];
 
     /**
@@ -71,8 +70,7 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'schema_version' => null,
-        'request_id' => null,
+        'period' => null,
         'timeline' => null
     ];
 
@@ -82,8 +80,7 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'schema_version' => false,
-        'request_id' => false,
+        'period' => false,
         'timeline' => false
     ];
 
@@ -173,8 +170,7 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
      * @var string[]
      */
     protected static $attributeMap = [
-        'schema_version' => 'schema_version',
-        'request_id' => 'request_id',
+        'period' => 'period',
         'timeline' => 'timeline'
     ];
 
@@ -184,8 +180,7 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
      * @var string[]
      */
     protected static $setters = [
-        'schema_version' => 'setSchemaVersion',
-        'request_id' => 'setRequestId',
+        'period' => 'setPeriod',
         'timeline' => 'setTimeline'
     ];
 
@@ -195,8 +190,7 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
      * @var string[]
      */
     protected static $getters = [
-        'schema_version' => 'getSchemaVersion',
-        'request_id' => 'getRequestId',
+        'period' => 'getPeriod',
         'timeline' => 'getTimeline'
     ];
 
@@ -241,6 +235,23 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
         return self::$openAPIModelName;
     }
 
+    public const PERIOD__24H = '24h';
+    public const PERIOD__7D = '7d';
+    public const PERIOD__30D = '30d';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getPeriodAllowableValues()
+    {
+        return [
+            self::PERIOD__24H,
+            self::PERIOD__7D,
+            self::PERIOD__30D,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -257,8 +268,7 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('schema_version', $data ?? [], null);
-        $this->setIfExists('request_id', $data ?? [], null);
+        $this->setIfExists('period', $data ?? [], null);
         $this->setIfExists('timeline', $data ?? [], null);
     }
 
@@ -289,6 +299,15 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
     {
         $invalidProperties = [];
 
+        $allowedValues = $this->getPeriodAllowableValues();
+        if (!is_null($this->container['period']) && !in_array($this->container['period'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'period', must be one of '%s'",
+                $this->container['period'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         return $invalidProperties;
     }
 
@@ -305,55 +324,38 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
 
 
     /**
-     * Gets schema_version
+     * Gets period
      *
      * @return string|null
      */
-    public function getSchemaVersion()
+    public function getPeriod()
     {
-        return $this->container['schema_version'];
+        return $this->container['period'];
     }
 
     /**
-     * Sets schema_version
+     * Sets period
      *
-     * @param string|null $schema_version schema_version
+     * @param string|null $period period
      *
      * @return self
      */
-    public function setSchemaVersion($schema_version)
+    public function setPeriod($period)
     {
-        if (is_null($schema_version)) {
-            throw new \InvalidArgumentException('non-nullable schema_version cannot be null');
+        if (is_null($period)) {
+            throw new \InvalidArgumentException('non-nullable period cannot be null');
         }
-        $this->container['schema_version'] = $schema_version;
-
-        return $this;
-    }
-
-    /**
-     * Gets request_id
-     *
-     * @return string|null
-     */
-    public function getRequestId()
-    {
-        return $this->container['request_id'];
-    }
-
-    /**
-     * Sets request_id
-     *
-     * @param string|null $request_id request_id
-     *
-     * @return self
-     */
-    public function setRequestId($request_id)
-    {
-        if (is_null($request_id)) {
-            throw new \InvalidArgumentException('non-nullable request_id cannot be null');
+        $allowedValues = $this->getPeriodAllowableValues();
+        if (!in_array($period, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'period', must be one of '%s'",
+                    $period,
+                    implode("', '", $allowedValues)
+                )
+            );
         }
-        $this->container['request_id'] = $request_id;
+        $this->container['period'] = $period;
 
         return $this;
     }
@@ -361,7 +363,7 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
     /**
      * Gets timeline
      *
-     * @return \MailOdds\Model\GetReputationTimeline200ResponseTimeline|null
+     * @return \MailOdds\Model\GetReputationTimeline200ResponseTimelineTimelineInner[]|null
      */
     public function getTimeline()
     {
@@ -371,7 +373,7 @@ class GetReputationTimeline200Response implements ModelInterface, ArrayAccess, \
     /**
      * Sets timeline
      *
-     * @param \MailOdds\Model\GetReputationTimeline200ResponseTimeline|null $timeline timeline
+     * @param \MailOdds\Model\GetReputationTimeline200ResponseTimelineTimelineInner[]|null $timeline timeline
      *
      * @return self
      */
