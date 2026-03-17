@@ -147,8 +147,8 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
         'has_dmarc' => false,
         'dmarc_policy' => false,
         'dnsbl_listed' => false,
-        'suppression_match' => false,
-        'policy_applied' => false
+        'suppression_match' => true,
+        'policy_applied' => true
     ];
 
     /**
@@ -1303,7 +1303,14 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     public function setSuppressionMatch($suppression_match)
     {
         if (is_null($suppression_match)) {
-            throw new \InvalidArgumentException('non-nullable suppression_match cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'suppression_match');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('suppression_match', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['suppression_match'] = $suppression_match;
 
@@ -1330,7 +1337,14 @@ class ValidationResponse implements ModelInterface, ArrayAccess, \JsonSerializab
     public function setPolicyApplied($policy_applied)
     {
         if (is_null($policy_applied)) {
-            throw new \InvalidArgumentException('non-nullable policy_applied cannot be null');
+            array_push($this->openAPINullablesSetToNull, 'policy_applied');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('policy_applied', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
         }
         $this->container['policy_applied'] = $policy_applied;
 

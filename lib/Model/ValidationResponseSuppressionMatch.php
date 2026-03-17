@@ -36,7 +36,7 @@ use \MailOdds\ObjectSerializer;
  * ValidationResponseSuppressionMatch Class Doc Comment
  *
  * @category Class
- * @description Present only when email matched a suppression list entry.
+ * @description Present only when email matched a suppression list entry. Null otherwise.
  * @package  MailOdds
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

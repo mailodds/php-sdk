@@ -8,6 +8,7 @@ All URIs are relative to https://api.mailodds.com/v1, except if the operation de
 | ------------- | ------------- | ------------- |
 | [**createBounceAnalysis()**](BounceAnalysisApi.md#createBounceAnalysis) | **POST** /v1/bounce-analyses | Analyze bounce logs |
 | [**crossReferenceBounces()**](BounceAnalysisApi.md#crossReferenceBounces) | **GET** /v1/bounce-analyses/{analysis_id}/cross-reference | Cross-reference bounces with validation logs |
+| [**deleteBounceAnalysis()**](BounceAnalysisApi.md#deleteBounceAnalysis) | **DELETE** /v1/bounce-analyses/{analysis_id} | Delete bounce analysis |
 | [**getBounceAnalysis()**](BounceAnalysisApi.md#getBounceAnalysis) | **GET** /v1/bounce-analyses/{analysis_id} | Get bounce analysis |
 | [**getBounceRecords()**](BounceAnalysisApi.md#getBounceRecords) | **GET** /v1/bounce-analyses/{analysis_id}/records | Get bounce records |
 
@@ -118,6 +119,66 @@ try {
 ### Return type
 
 [**\MailOdds\Model\CrossReferenceBounces200Response**](../Model/CrossReferenceBounces200Response.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteBounceAnalysis()`
+
+```php
+deleteBounceAnalysis($analysis_id): \MailOdds\Model\DeletePolicyRule200Response
+```
+
+Delete bounce analysis
+
+Delete a bounce analysis and all associated records.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: BearerAuth
+$config = MailOdds\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new MailOdds\Api\BounceAnalysisApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$analysis_id = 'analysis_id_example'; // string | Bounce analysis ID
+
+try {
+    $result = $apiInstance->deleteBounceAnalysis($analysis_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling BounceAnalysisApi->deleteBounceAnalysis: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **analysis_id** | **string**| Bounce analysis ID | |
+
+### Return type
+
+[**\MailOdds\Model\DeletePolicyRule200Response**](../Model/DeletePolicyRule200Response.md)
 
 ### Authorization
 

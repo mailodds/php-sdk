@@ -8,10 +8,12 @@ All URIs are relative to https://api.mailodds.com/v1, except if the operation de
 | ------------- | ------------- | ------------- |
 | [**createSendingDomain()**](SendingDomainsApi.md#createSendingDomain) | **POST** /v1/sending-domains | Add a sending domain |
 | [**deleteSendingDomain()**](SendingDomainsApi.md#deleteSendingDomain) | **DELETE** /v1/sending-domains/{domain_id} | Delete a sending domain |
+| [**getReplyForwarding()**](SendingDomainsApi.md#getReplyForwarding) | **GET** /v1/sending-domains/{domain_id}/reply-forwarding | Get reply forwarding config |
 | [**getSendingDomain()**](SendingDomainsApi.md#getSendingDomain) | **GET** /v1/sending-domains/{domain_id} | Get a sending domain |
 | [**getSendingDomainIdentityScore()**](SendingDomainsApi.md#getSendingDomainIdentityScore) | **GET** /v1/sending-domains/{domain_id}/identity-score | Get domain identity score |
 | [**getSendingStats()**](SendingDomainsApi.md#getSendingStats) | **GET** /v1/sending-stats | Get sending statistics |
 | [**listSendingDomains()**](SendingDomainsApi.md#listSendingDomains) | **GET** /v1/sending-domains | List sending domains |
+| [**updateReplyForwarding()**](SendingDomainsApi.md#updateReplyForwarding) | **PATCH** /v1/sending-domains/{domain_id}/reply-forwarding | Update reply forwarding config |
 | [**verifySendingDomain()**](SendingDomainsApi.md#verifySendingDomain) | **POST** /v1/sending-domains/{domain_id}/verify | Verify domain DNS records |
 
 
@@ -121,6 +123,66 @@ try {
 ### Return type
 
 [**\MailOdds\Model\DeletePolicyRule200Response**](../Model/DeletePolicyRule200Response.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `getReplyForwarding()`
+
+```php
+getReplyForwarding($domain_id): \MailOdds\Model\GetReplyForwarding200Response
+```
+
+Get reply forwarding config
+
+Get the reply forwarding configuration for a sending domain. Requires Growth+ plan.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: BearerAuth
+$config = MailOdds\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new MailOdds\Api\SendingDomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$domain_id = 'domain_id_example'; // string | Sending domain ID
+
+try {
+    $result = $apiInstance->getReplyForwarding($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SendingDomainsApi->getReplyForwarding: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| Sending domain ID | |
+
+### Return type
+
+[**\MailOdds\Model\GetReplyForwarding200Response**](../Model/GetReplyForwarding200Response.md)
 
 ### Authorization
 
@@ -368,6 +430,68 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `updateReplyForwarding()`
+
+```php
+updateReplyForwarding($domain_id, $update_reply_forwarding_request): \MailOdds\Model\GetReplyForwarding200Response
+```
+
+Update reply forwarding config
+
+Configure reply forwarding for a sending domain. Set forward_replies_to to null to disable. Requires Growth+ plan.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: BearerAuth
+$config = MailOdds\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new MailOdds\Api\SendingDomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$domain_id = 'domain_id_example'; // string | Sending domain ID
+$update_reply_forwarding_request = new \MailOdds\Model\UpdateReplyForwardingRequest(); // \MailOdds\Model\UpdateReplyForwardingRequest
+
+try {
+    $result = $apiInstance->updateReplyForwarding($domain_id, $update_reply_forwarding_request);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SendingDomainsApi->updateReplyForwarding: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**| Sending domain ID | |
+| **update_reply_forwarding_request** | [**\MailOdds\Model\UpdateReplyForwardingRequest**](../Model/UpdateReplyForwardingRequest.md)|  | |
+
+### Return type
+
+[**\MailOdds\Model\GetReplyForwarding200Response**](../Model/GetReplyForwarding200Response.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: `application/json`
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

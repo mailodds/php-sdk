@@ -15,6 +15,7 @@ All URIs are relative to https://api.mailodds.com/v1, except if the operation de
 | [**getJobResults()**](BulkValidationApi.md#getJobResults) | **GET** /v1/jobs/{job_id}/results | Get job results |
 | [**getPresignedUpload()**](BulkValidationApi.md#getPresignedUpload) | **POST** /v1/jobs/upload/presigned | Get S3 presigned upload URL |
 | [**listJobs()**](BulkValidationApi.md#listJobs) | **GET** /v1/jobs | List validation jobs |
+| [**retryJob()**](BulkValidationApi.md#retryJob) | **POST** /v1/jobs/{job_id}/retry | Retry failed job |
 
 
 ## `cancelJob()`
@@ -559,6 +560,66 @@ try {
 ### Return type
 
 [**\MailOdds\Model\JobListResponse**](../Model/JobListResponse.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `retryJob()`
+
+```php
+retryJob($job_id): \MailOdds\Model\RetryJob200Response
+```
+
+Retry failed job
+
+Retry processing for a failed or cancelled validation job. Re-queues unprocessed emails.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: BearerAuth
+$config = MailOdds\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new MailOdds\Api\BulkValidationApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$job_id = 'job_id_example'; // string | Job ID
+
+try {
+    $result = $apiInstance->retryJob($job_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling BulkValidationApi->retryJob: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **job_id** | **string**| Job ID | |
+
+### Return type
+
+[**\MailOdds\Model\RetryJob200Response**](../Model/RetryJob200Response.md)
 
 ### Authorization
 

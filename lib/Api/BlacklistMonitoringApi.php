@@ -78,6 +78,9 @@ class BlacklistMonitoringApi
         'addBlacklistMonitor' => [
             'application/json',
         ],
+        'deleteBlacklistMonitor' => [
+            'application/json',
+        ],
         'getBlacklistHistory' => [
             'application/json',
         ],
@@ -428,6 +431,306 @@ class BlacklistMonitoringApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteBlacklistMonitor
+     *
+     * Delete a blacklist monitor
+     *
+     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBlacklistMonitor'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \MailOdds\Model\DeletePolicyRule200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     */
+    public function deleteBlacklistMonitor($monitor_id, string $contentType = self::contentTypes['deleteBlacklistMonitor'][0])
+    {
+        list($response) = $this->deleteBlacklistMonitorWithHttpInfo($monitor_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteBlacklistMonitorWithHttpInfo
+     *
+     * Delete a blacklist monitor
+     *
+     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBlacklistMonitor'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \MailOdds\Model\DeletePolicyRule200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteBlacklistMonitorWithHttpInfo($monitor_id, string $contentType = self::contentTypes['deleteBlacklistMonitor'][0])
+    {
+        $request = $this->deleteBlacklistMonitorRequest($monitor_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\DeletePolicyRule200Response',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\MailOdds\Model\DeletePolicyRule200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\DeletePolicyRule200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteBlacklistMonitorAsync
+     *
+     * Delete a blacklist monitor
+     *
+     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBlacklistMonitor'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteBlacklistMonitorAsync($monitor_id, string $contentType = self::contentTypes['deleteBlacklistMonitor'][0])
+    {
+        return $this->deleteBlacklistMonitorAsyncWithHttpInfo($monitor_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteBlacklistMonitorAsyncWithHttpInfo
+     *
+     * Delete a blacklist monitor
+     *
+     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBlacklistMonitor'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteBlacklistMonitorAsyncWithHttpInfo($monitor_id, string $contentType = self::contentTypes['deleteBlacklistMonitor'][0])
+    {
+        $returnType = '\MailOdds\Model\DeletePolicyRule200Response';
+        $request = $this->deleteBlacklistMonitorRequest($monitor_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteBlacklistMonitor'
+     *
+     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBlacklistMonitor'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteBlacklistMonitorRequest($monitor_id, string $contentType = self::contentTypes['deleteBlacklistMonitor'][0])
+    {
+
+        // verify the required parameter 'monitor_id' is set
+        if ($monitor_id === null || (is_array($monitor_id) && count($monitor_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $monitor_id when calling deleteBlacklistMonitor'
+            );
+        }
+
+
+        $resourcePath = '/v1/blacklist-monitors/{monitor_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($monitor_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'monitor_id' . '}',
+                ObjectSerializer::toPathValue($monitor_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

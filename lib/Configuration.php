@@ -531,7 +531,11 @@ class Configuration
         return [
             [
                 "url" => "https://api.mailodds.com/v1",
-                "description" => "Production server",
+                "description" => "Production server (API v1 endpoints)",
+            ],
+            [
+                "url" => "https://api.mailodds.com",
+                "description" => "Production server (OAuth and discovery endpoints)",
             ]
         ];
     }

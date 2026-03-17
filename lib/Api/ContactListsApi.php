@@ -75,19 +75,37 @@ class ContactListsApi
 
     /** @var string[] $contentTypes **/
     public const contentTypes = [
+        'addContact' => [
+            'application/json',
+        ],
         'appendToContactList' => [
             'application/json',
         ],
         'createContactList' => [
             'application/json',
         ],
+        'deleteContact' => [
+            'application/json',
+        ],
+        'deleteContactList' => [
+            'application/json',
+        ],
+        'exportContactList' => [
+            'application/json',
+        ],
         'getInactiveContactsReport' => [
             'application/json',
+        ],
+        'importContactList' => [
+            'multipart/form-data',
         ],
         'listContactLists' => [
             'application/json',
         ],
         'queryContactList' => [
+            'application/json',
+        ],
+        'updateContact' => [
             'application/json',
         ],
     ];
@@ -136,6 +154,339 @@ class ContactListsApi
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Operation addContact
+     *
+     * Add contact to list
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  \MailOdds\Model\AddContactRequest $add_contact_request add_contact_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addContact'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \MailOdds\Model\AddContact201Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     */
+    public function addContact($list_id, $add_contact_request, string $contentType = self::contentTypes['addContact'][0])
+    {
+        list($response) = $this->addContactWithHttpInfo($list_id, $add_contact_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation addContactWithHttpInfo
+     *
+     * Add contact to list
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  \MailOdds\Model\AddContactRequest $add_contact_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addContact'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \MailOdds\Model\AddContact201Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function addContactWithHttpInfo($list_id, $add_contact_request, string $contentType = self::contentTypes['addContact'][0])
+    {
+        $request = $this->addContactRequest($list_id, $add_contact_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 201:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\AddContact201Response',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\MailOdds\Model\AddContact201Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 201:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\AddContact201Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation addContactAsync
+     *
+     * Add contact to list
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  \MailOdds\Model\AddContactRequest $add_contact_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addContact'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function addContactAsync($list_id, $add_contact_request, string $contentType = self::contentTypes['addContact'][0])
+    {
+        return $this->addContactAsyncWithHttpInfo($list_id, $add_contact_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation addContactAsyncWithHttpInfo
+     *
+     * Add contact to list
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  \MailOdds\Model\AddContactRequest $add_contact_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addContact'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function addContactAsyncWithHttpInfo($list_id, $add_contact_request, string $contentType = self::contentTypes['addContact'][0])
+    {
+        $returnType = '\MailOdds\Model\AddContact201Response';
+        $request = $this->addContactRequest($list_id, $add_contact_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'addContact'
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  \MailOdds\Model\AddContactRequest $add_contact_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addContact'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function addContactRequest($list_id, $add_contact_request, string $contentType = self::contentTypes['addContact'][0])
+    {
+
+        // verify the required parameter 'list_id' is set
+        if ($list_id === null || (is_array($list_id) && count($list_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $list_id when calling addContact'
+            );
+        }
+
+        // verify the required parameter 'add_contact_request' is set
+        if ($add_contact_request === null || (is_array($add_contact_request) && count($add_contact_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $add_contact_request when calling addContact'
+            );
+        }
+
+
+        $resourcePath = '/v1/contact-lists/{list_id}/contacts';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($list_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'list_id' . '}',
+                ObjectSerializer::toPathValue($list_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($add_contact_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($add_contact_request));
+            } else {
+                $httpBody = $add_contact_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
     }
 
     /**
@@ -785,6 +1136,926 @@ class ContactListsApi
     }
 
     /**
+     * Operation deleteContact
+     *
+     * Delete contact
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contact_id Contact ID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContact'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \MailOdds\Model\DeletePolicyRule200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     */
+    public function deleteContact($list_id, $contact_id, string $contentType = self::contentTypes['deleteContact'][0])
+    {
+        list($response) = $this->deleteContactWithHttpInfo($list_id, $contact_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteContactWithHttpInfo
+     *
+     * Delete contact
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contact_id Contact ID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContact'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \MailOdds\Model\DeletePolicyRule200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteContactWithHttpInfo($list_id, $contact_id, string $contentType = self::contentTypes['deleteContact'][0])
+    {
+        $request = $this->deleteContactRequest($list_id, $contact_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\DeletePolicyRule200Response',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\MailOdds\Model\DeletePolicyRule200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\DeletePolicyRule200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteContactAsync
+     *
+     * Delete contact
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contact_id Contact ID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContact'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteContactAsync($list_id, $contact_id, string $contentType = self::contentTypes['deleteContact'][0])
+    {
+        return $this->deleteContactAsyncWithHttpInfo($list_id, $contact_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteContactAsyncWithHttpInfo
+     *
+     * Delete contact
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contact_id Contact ID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContact'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteContactAsyncWithHttpInfo($list_id, $contact_id, string $contentType = self::contentTypes['deleteContact'][0])
+    {
+        $returnType = '\MailOdds\Model\DeletePolicyRule200Response';
+        $request = $this->deleteContactRequest($list_id, $contact_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteContact'
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contact_id Contact ID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContact'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteContactRequest($list_id, $contact_id, string $contentType = self::contentTypes['deleteContact'][0])
+    {
+
+        // verify the required parameter 'list_id' is set
+        if ($list_id === null || (is_array($list_id) && count($list_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $list_id when calling deleteContact'
+            );
+        }
+
+        // verify the required parameter 'contact_id' is set
+        if ($contact_id === null || (is_array($contact_id) && count($contact_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $contact_id when calling deleteContact'
+            );
+        }
+
+
+        $resourcePath = '/v1/contact-lists/{list_id}/contacts/{contact_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($list_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'list_id' . '}',
+                ObjectSerializer::toPathValue($list_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($contact_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'contact_id' . '}',
+                ObjectSerializer::toPathValue($contact_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation deleteContactList
+     *
+     * Delete a contact list
+     *
+     * @param  string $list_id Contact list UUID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContactList'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \MailOdds\Model\DeletePolicyRule200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     */
+    public function deleteContactList($list_id, string $contentType = self::contentTypes['deleteContactList'][0])
+    {
+        list($response) = $this->deleteContactListWithHttpInfo($list_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation deleteContactListWithHttpInfo
+     *
+     * Delete a contact list
+     *
+     * @param  string $list_id Contact list UUID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContactList'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \MailOdds\Model\DeletePolicyRule200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function deleteContactListWithHttpInfo($list_id, string $contentType = self::contentTypes['deleteContactList'][0])
+    {
+        $request = $this->deleteContactListRequest($list_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\DeletePolicyRule200Response',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\MailOdds\Model\DeletePolicyRule200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\DeletePolicyRule200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation deleteContactListAsync
+     *
+     * Delete a contact list
+     *
+     * @param  string $list_id Contact list UUID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContactList'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteContactListAsync($list_id, string $contentType = self::contentTypes['deleteContactList'][0])
+    {
+        return $this->deleteContactListAsyncWithHttpInfo($list_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation deleteContactListAsyncWithHttpInfo
+     *
+     * Delete a contact list
+     *
+     * @param  string $list_id Contact list UUID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContactList'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function deleteContactListAsyncWithHttpInfo($list_id, string $contentType = self::contentTypes['deleteContactList'][0])
+    {
+        $returnType = '\MailOdds\Model\DeletePolicyRule200Response';
+        $request = $this->deleteContactListRequest($list_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'deleteContactList'
+     *
+     * @param  string $list_id Contact list UUID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContactList'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function deleteContactListRequest($list_id, string $contentType = self::contentTypes['deleteContactList'][0])
+    {
+
+        // verify the required parameter 'list_id' is set
+        if ($list_id === null || (is_array($list_id) && count($list_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $list_id when calling deleteContactList'
+            );
+        }
+
+
+        $resourcePath = '/v1/contact-lists/{list_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($list_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'list_id' . '}',
+                ObjectSerializer::toPathValue($list_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'DELETE',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation exportContactList
+     *
+     * Export contact list
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportContactList'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return string|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     */
+    public function exportContactList($list_id, string $contentType = self::contentTypes['exportContactList'][0])
+    {
+        list($response) = $this->exportContactListWithHttpInfo($list_id, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation exportContactListWithHttpInfo
+     *
+     * Export contact list
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportContactList'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of string|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function exportContactListWithHttpInfo($list_id, string $contentType = self::contentTypes['exportContactList'][0])
+    {
+        $request = $this->exportContactListRequest($list_id, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        'string',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                'string',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        'string',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation exportContactListAsync
+     *
+     * Export contact list
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportContactList'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function exportContactListAsync($list_id, string $contentType = self::contentTypes['exportContactList'][0])
+    {
+        return $this->exportContactListAsyncWithHttpInfo($list_id, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation exportContactListAsyncWithHttpInfo
+     *
+     * Export contact list
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportContactList'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function exportContactListAsyncWithHttpInfo($list_id, string $contentType = self::contentTypes['exportContactList'][0])
+    {
+        $returnType = 'string';
+        $request = $this->exportContactListRequest($list_id, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'exportContactList'
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportContactList'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function exportContactListRequest($list_id, string $contentType = self::contentTypes['exportContactList'][0])
+    {
+
+        // verify the required parameter 'list_id' is set
+        if ($list_id === null || (is_array($list_id) && count($list_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $list_id when calling exportContactList'
+            );
+        }
+
+
+        $resourcePath = '/v1/contact-lists/{list_id}/export';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($list_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'list_id' . '}',
+                ObjectSerializer::toPathValue($list_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['text/csv', 'application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
      * Operation getInactiveContactsReport
      *
      * Get inactive contacts report
@@ -1079,6 +2350,363 @@ class ContactListsApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation importContactList
+     *
+     * Import contacts from CSV
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  \SplFileObject $file CSV file (max 10MB) (required)
+     * @param  string|null $column_mapping JSON mapping of CSV columns to contact fields (optional)
+     * @param  string|null $consent_source Source of consent for imported contacts (optional)
+     * @param  string|null $tags JSON array of tags to apply (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['importContactList'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \MailOdds\Model\ImportContactList200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     */
+    public function importContactList($list_id, $file, $column_mapping = null, $consent_source = null, $tags = null, string $contentType = self::contentTypes['importContactList'][0])
+    {
+        list($response) = $this->importContactListWithHttpInfo($list_id, $file, $column_mapping, $consent_source, $tags, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation importContactListWithHttpInfo
+     *
+     * Import contacts from CSV
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  \SplFileObject $file CSV file (max 10MB) (required)
+     * @param  string|null $column_mapping JSON mapping of CSV columns to contact fields (optional)
+     * @param  string|null $consent_source Source of consent for imported contacts (optional)
+     * @param  string|null $tags JSON array of tags to apply (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['importContactList'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \MailOdds\Model\ImportContactList200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function importContactListWithHttpInfo($list_id, $file, $column_mapping = null, $consent_source = null, $tags = null, string $contentType = self::contentTypes['importContactList'][0])
+    {
+        $request = $this->importContactListRequest($list_id, $file, $column_mapping, $consent_source, $tags, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ImportContactList200Response',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\MailOdds\Model\ImportContactList200Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ImportContactList200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation importContactListAsync
+     *
+     * Import contacts from CSV
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  \SplFileObject $file CSV file (max 10MB) (required)
+     * @param  string|null $column_mapping JSON mapping of CSV columns to contact fields (optional)
+     * @param  string|null $consent_source Source of consent for imported contacts (optional)
+     * @param  string|null $tags JSON array of tags to apply (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['importContactList'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function importContactListAsync($list_id, $file, $column_mapping = null, $consent_source = null, $tags = null, string $contentType = self::contentTypes['importContactList'][0])
+    {
+        return $this->importContactListAsyncWithHttpInfo($list_id, $file, $column_mapping, $consent_source, $tags, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation importContactListAsyncWithHttpInfo
+     *
+     * Import contacts from CSV
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  \SplFileObject $file CSV file (max 10MB) (required)
+     * @param  string|null $column_mapping JSON mapping of CSV columns to contact fields (optional)
+     * @param  string|null $consent_source Source of consent for imported contacts (optional)
+     * @param  string|null $tags JSON array of tags to apply (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['importContactList'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function importContactListAsyncWithHttpInfo($list_id, $file, $column_mapping = null, $consent_source = null, $tags = null, string $contentType = self::contentTypes['importContactList'][0])
+    {
+        $returnType = '\MailOdds\Model\ImportContactList200Response';
+        $request = $this->importContactListRequest($list_id, $file, $column_mapping, $consent_source, $tags, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'importContactList'
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  \SplFileObject $file CSV file (max 10MB) (required)
+     * @param  string|null $column_mapping JSON mapping of CSV columns to contact fields (optional)
+     * @param  string|null $consent_source Source of consent for imported contacts (optional)
+     * @param  string|null $tags JSON array of tags to apply (optional)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['importContactList'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function importContactListRequest($list_id, $file, $column_mapping = null, $consent_source = null, $tags = null, string $contentType = self::contentTypes['importContactList'][0])
+    {
+
+        // verify the required parameter 'list_id' is set
+        if ($list_id === null || (is_array($list_id) && count($list_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $list_id when calling importContactList'
+            );
+        }
+
+        // verify the required parameter 'file' is set
+        if ($file === null || (is_array($file) && count($file) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $file when calling importContactList'
+            );
+        }
+
+
+
+
+
+        $resourcePath = '/v1/contact-lists/{list_id}/import';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($list_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'list_id' . '}',
+                ObjectSerializer::toPathValue($list_id),
+                $resourcePath
+            );
+        }
+
+        // form params
+        $formDataProcessor = new FormDataProcessor();
+
+        $formData = $formDataProcessor->prepare([
+            'file' => $file,
+            'column_mapping' => $column_mapping,
+            'consent_source' => $consent_source,
+            'tags' => $tags,
+        ]);
+
+        $formParams = $formDataProcessor->flatten($formData);
+        $multipart = $formDataProcessor->has_file;
+
+        $multipart = true;
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'POST',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody
@@ -1725,6 +3353,359 @@ class ContactListsApi
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
+            $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
+            $headers,
+            $httpBody
+        );
+    }
+
+    /**
+     * Operation updateContact
+     *
+     * Update contact
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contact_id Contact ID (required)
+     * @param  \MailOdds\Model\UpdateContactRequest $update_contact_request update_contact_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateContact'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return \MailOdds\Model\AddContact201Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     */
+    public function updateContact($list_id, $contact_id, $update_contact_request, string $contentType = self::contentTypes['updateContact'][0])
+    {
+        list($response) = $this->updateContactWithHttpInfo($list_id, $contact_id, $update_contact_request, $contentType);
+        return $response;
+    }
+
+    /**
+     * Operation updateContactWithHttpInfo
+     *
+     * Update contact
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contact_id Contact ID (required)
+     * @param  \MailOdds\Model\UpdateContactRequest $update_contact_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateContact'] to see the possible values for this operation
+     *
+     * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
+     * @throws \InvalidArgumentException
+     * @return array of \MailOdds\Model\AddContact201Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     */
+    public function updateContactWithHttpInfo($list_id, $contact_id, $update_contact_request, string $contentType = self::contentTypes['updateContact'][0])
+    {
+        $request = $this->updateContactRequest($list_id, $contact_id, $update_contact_request, $contentType);
+
+        try {
+            $options = $this->createHttpClientOption();
+            try {
+                $response = $this->client->send($request, $options);
+            } catch (RequestException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    $e->getResponse() ? $e->getResponse()->getHeaders() : null,
+                    $e->getResponse() ? (string) $e->getResponse()->getBody() : null
+                );
+            } catch (ConnectException $e) {
+                throw new ApiException(
+                    "[{$e->getCode()}] {$e->getMessage()}",
+                    (int) $e->getCode(),
+                    null,
+                    null
+                );
+            }
+
+            $statusCode = $response->getStatusCode();
+
+
+            switch($statusCode) {
+                case 200:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\AddContact201Response',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+            }
+
+            
+
+            if ($statusCode < 200 || $statusCode > 299) {
+                throw new ApiException(
+                    sprintf(
+                        '[%d] Error connecting to the API (%s)',
+                        $statusCode,
+                        (string) $request->getUri()
+                    ),
+                    $statusCode,
+                    $response->getHeaders(),
+                    (string) $response->getBody()
+                );
+            }
+
+            return $this->handleResponseWithDataType(
+                '\MailOdds\Model\AddContact201Response',
+                $request,
+                $response,
+            );
+        } catch (ApiException $e) {
+            switch ($e->getCode()) {
+                case 200:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\AddContact201Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+            }
+        
+
+            throw $e;
+        }
+    }
+
+    /**
+     * Operation updateContactAsync
+     *
+     * Update contact
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contact_id Contact ID (required)
+     * @param  \MailOdds\Model\UpdateContactRequest $update_contact_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateContact'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateContactAsync($list_id, $contact_id, $update_contact_request, string $contentType = self::contentTypes['updateContact'][0])
+    {
+        return $this->updateContactAsyncWithHttpInfo($list_id, $contact_id, $update_contact_request, $contentType)
+            ->then(
+                function ($response) {
+                    return $response[0];
+                }
+            );
+    }
+
+    /**
+     * Operation updateContactAsyncWithHttpInfo
+     *
+     * Update contact
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contact_id Contact ID (required)
+     * @param  \MailOdds\Model\UpdateContactRequest $update_contact_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateContact'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Promise\PromiseInterface
+     */
+    public function updateContactAsyncWithHttpInfo($list_id, $contact_id, $update_contact_request, string $contentType = self::contentTypes['updateContact'][0])
+    {
+        $returnType = '\MailOdds\Model\AddContact201Response';
+        $request = $this->updateContactRequest($list_id, $contact_id, $update_contact_request, $contentType);
+
+        return $this->client
+            ->sendAsync($request, $this->createHttpClientOption())
+            ->then(
+                function ($response) use ($returnType) {
+                    if ($returnType === '\SplFileObject') {
+                        $content = $response->getBody(); //stream goes to serializer
+                    } else {
+                        $content = (string) $response->getBody();
+                        if ($returnType !== 'string') {
+                            $content = json_decode($content);
+                        }
+                    }
+
+                    return [
+                        ObjectSerializer::deserialize($content, $returnType, []),
+                        $response->getStatusCode(),
+                        $response->getHeaders()
+                    ];
+                },
+                function ($exception) {
+                    $response = $exception->getResponse();
+                    $statusCode = $response->getStatusCode();
+                    throw new ApiException(
+                        sprintf(
+                            '[%d] Error connecting to the API (%s)',
+                            $statusCode,
+                            $exception->getRequest()->getUri()
+                        ),
+                        $statusCode,
+                        $response->getHeaders(),
+                        (string) $response->getBody()
+                    );
+                }
+            );
+    }
+
+    /**
+     * Create request for operation 'updateContact'
+     *
+     * @param  string $list_id Contact list ID (required)
+     * @param  string $contact_id Contact ID (required)
+     * @param  \MailOdds\Model\UpdateContactRequest $update_contact_request (required)
+     * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateContact'] to see the possible values for this operation
+     *
+     * @throws \InvalidArgumentException
+     * @return \GuzzleHttp\Psr7\Request
+     */
+    public function updateContactRequest($list_id, $contact_id, $update_contact_request, string $contentType = self::contentTypes['updateContact'][0])
+    {
+
+        // verify the required parameter 'list_id' is set
+        if ($list_id === null || (is_array($list_id) && count($list_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $list_id when calling updateContact'
+            );
+        }
+
+        // verify the required parameter 'contact_id' is set
+        if ($contact_id === null || (is_array($contact_id) && count($contact_id) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $contact_id when calling updateContact'
+            );
+        }
+
+        // verify the required parameter 'update_contact_request' is set
+        if ($update_contact_request === null || (is_array($update_contact_request) && count($update_contact_request) === 0)) {
+            throw new \InvalidArgumentException(
+                'Missing the required parameter $update_contact_request when calling updateContact'
+            );
+        }
+
+
+        $resourcePath = '/v1/contact-lists/{list_id}/contacts/{contact_id}';
+        $formParams = [];
+        $queryParams = [];
+        $headerParams = [];
+        $httpBody = '';
+        $multipart = false;
+
+
+
+        // path params
+        if ($list_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'list_id' . '}',
+                ObjectSerializer::toPathValue($list_id),
+                $resourcePath
+            );
+        }
+        // path params
+        if ($contact_id !== null) {
+            $resourcePath = str_replace(
+                '{' . 'contact_id' . '}',
+                ObjectSerializer::toPathValue($contact_id),
+                $resourcePath
+            );
+        }
+
+
+        $headers = $this->headerSelector->selectHeaders(
+            ['application/json', ],
+            $contentType,
+            $multipart
+        );
+
+        // for model (json/xml)
+        if (isset($update_contact_request)) {
+            if (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the body
+                $httpBody = \GuzzleHttp\Utils::jsonEncode(ObjectSerializer::sanitizeForSerialization($update_contact_request));
+            } else {
+                $httpBody = $update_contact_request;
+            }
+        } elseif (count($formParams) > 0) {
+            if ($multipart) {
+                $multipartContents = [];
+                foreach ($formParams as $formParamName => $formParamValue) {
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    foreach ($formParamValueItems as $formParamValueItem) {
+                        $multipartContents[] = [
+                            'name' => $formParamName,
+                            'contents' => $formParamValueItem
+                        ];
+                    }
+                }
+                // for HTTP post (form)
+                $httpBody = new MultipartStream($multipartContents);
+
+            } elseif (stripos($headers['Content-Type'], 'application/json') !== false) {
+                # if Content-Type contains "application/json", json_encode the form parameters
+                $httpBody = \GuzzleHttp\Utils::jsonEncode($formParams);
+            } else {
+                // for HTTP post (form)
+                $httpBody = ObjectSerializer::buildQuery($formParams);
+            }
+        }
+
+        // this endpoint requires Bearer authentication (access token)
+        if (!empty($this->config->getAccessToken())) {
+            $headers['Authorization'] = 'Bearer ' . $this->config->getAccessToken();
+        }
+
+        $defaultHeaders = [];
+        if ($this->config->getUserAgent()) {
+            $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
+        }
+
+        $headers = array_merge(
+            $defaultHeaders,
+            $headerParams,
+            $headers
+        );
+
+        $operationHost = $this->config->getHost();
+        $query = ObjectSerializer::buildQuery($queryParams);
+        return new Request(
+            'PATCH',
             $operationHost . $resourcePath . ($query ? "?{$query}" : ''),
             $headers,
             $httpBody

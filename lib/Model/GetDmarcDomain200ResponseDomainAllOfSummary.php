@@ -58,12 +58,13 @@ class GetDmarcDomain200ResponseDomainAllOfSummary implements ModelInterface, Arr
       * @var string[]
       */
     protected static $openAPITypes = [
-        'total_reports' => 'int',
-        'total_records' => 'int',
-        'pass_rate' => 'float',
-        'fail_rate' => 'float',
-        'dkim_aligned' => 'float',
-        'spf_aligned' => 'float'
+        'days' => 'int',
+        'report_count' => 'int',
+        'source_count' => 'int',
+        'total_messages' => 'int',
+        'total_pass' => 'int',
+        'total_fail' => 'int',
+        'pass_rate' => 'float'
     ];
 
     /**
@@ -74,12 +75,13 @@ class GetDmarcDomain200ResponseDomainAllOfSummary implements ModelInterface, Arr
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'total_reports' => null,
-        'total_records' => null,
-        'pass_rate' => null,
-        'fail_rate' => null,
-        'dkim_aligned' => null,
-        'spf_aligned' => null
+        'days' => null,
+        'report_count' => null,
+        'source_count' => null,
+        'total_messages' => null,
+        'total_pass' => null,
+        'total_fail' => null,
+        'pass_rate' => null
     ];
 
     /**
@@ -88,12 +90,13 @@ class GetDmarcDomain200ResponseDomainAllOfSummary implements ModelInterface, Arr
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'total_reports' => false,
-        'total_records' => false,
-        'pass_rate' => false,
-        'fail_rate' => false,
-        'dkim_aligned' => false,
-        'spf_aligned' => false
+        'days' => false,
+        'report_count' => false,
+        'source_count' => false,
+        'total_messages' => false,
+        'total_pass' => false,
+        'total_fail' => false,
+        'pass_rate' => false
     ];
 
     /**
@@ -182,12 +185,13 @@ class GetDmarcDomain200ResponseDomainAllOfSummary implements ModelInterface, Arr
      * @var string[]
      */
     protected static $attributeMap = [
-        'total_reports' => 'total_reports',
-        'total_records' => 'total_records',
-        'pass_rate' => 'pass_rate',
-        'fail_rate' => 'fail_rate',
-        'dkim_aligned' => 'dkim_aligned',
-        'spf_aligned' => 'spf_aligned'
+        'days' => 'days',
+        'report_count' => 'report_count',
+        'source_count' => 'source_count',
+        'total_messages' => 'total_messages',
+        'total_pass' => 'total_pass',
+        'total_fail' => 'total_fail',
+        'pass_rate' => 'pass_rate'
     ];
 
     /**
@@ -196,12 +200,13 @@ class GetDmarcDomain200ResponseDomainAllOfSummary implements ModelInterface, Arr
      * @var string[]
      */
     protected static $setters = [
-        'total_reports' => 'setTotalReports',
-        'total_records' => 'setTotalRecords',
-        'pass_rate' => 'setPassRate',
-        'fail_rate' => 'setFailRate',
-        'dkim_aligned' => 'setDkimAligned',
-        'spf_aligned' => 'setSpfAligned'
+        'days' => 'setDays',
+        'report_count' => 'setReportCount',
+        'source_count' => 'setSourceCount',
+        'total_messages' => 'setTotalMessages',
+        'total_pass' => 'setTotalPass',
+        'total_fail' => 'setTotalFail',
+        'pass_rate' => 'setPassRate'
     ];
 
     /**
@@ -210,12 +215,13 @@ class GetDmarcDomain200ResponseDomainAllOfSummary implements ModelInterface, Arr
      * @var string[]
      */
     protected static $getters = [
-        'total_reports' => 'getTotalReports',
-        'total_records' => 'getTotalRecords',
-        'pass_rate' => 'getPassRate',
-        'fail_rate' => 'getFailRate',
-        'dkim_aligned' => 'getDkimAligned',
-        'spf_aligned' => 'getSpfAligned'
+        'days' => 'getDays',
+        'report_count' => 'getReportCount',
+        'source_count' => 'getSourceCount',
+        'total_messages' => 'getTotalMessages',
+        'total_pass' => 'getTotalPass',
+        'total_fail' => 'getTotalFail',
+        'pass_rate' => 'getPassRate'
     ];
 
     /**
@@ -275,12 +281,13 @@ class GetDmarcDomain200ResponseDomainAllOfSummary implements ModelInterface, Arr
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('total_reports', $data ?? [], null);
-        $this->setIfExists('total_records', $data ?? [], null);
+        $this->setIfExists('days', $data ?? [], null);
+        $this->setIfExists('report_count', $data ?? [], null);
+        $this->setIfExists('source_count', $data ?? [], null);
+        $this->setIfExists('total_messages', $data ?? [], null);
+        $this->setIfExists('total_pass', $data ?? [], null);
+        $this->setIfExists('total_fail', $data ?? [], null);
         $this->setIfExists('pass_rate', $data ?? [], null);
-        $this->setIfExists('fail_rate', $data ?? [], null);
-        $this->setIfExists('dkim_aligned', $data ?? [], null);
-        $this->setIfExists('spf_aligned', $data ?? [], null);
     }
 
     /**
@@ -326,55 +333,163 @@ class GetDmarcDomain200ResponseDomainAllOfSummary implements ModelInterface, Arr
 
 
     /**
-     * Gets total_reports
+     * Gets days
      *
      * @return int|null
      */
-    public function getTotalReports()
+    public function getDays()
     {
-        return $this->container['total_reports'];
+        return $this->container['days'];
     }
 
     /**
-     * Sets total_reports
+     * Sets days
      *
-     * @param int|null $total_reports total_reports
+     * @param int|null $days days
      *
      * @return self
      */
-    public function setTotalReports($total_reports)
+    public function setDays($days)
     {
-        if (is_null($total_reports)) {
-            throw new \InvalidArgumentException('non-nullable total_reports cannot be null');
+        if (is_null($days)) {
+            throw new \InvalidArgumentException('non-nullable days cannot be null');
         }
-        $this->container['total_reports'] = $total_reports;
+        $this->container['days'] = $days;
 
         return $this;
     }
 
     /**
-     * Gets total_records
+     * Gets report_count
      *
      * @return int|null
      */
-    public function getTotalRecords()
+    public function getReportCount()
     {
-        return $this->container['total_records'];
+        return $this->container['report_count'];
     }
 
     /**
-     * Sets total_records
+     * Sets report_count
      *
-     * @param int|null $total_records total_records
+     * @param int|null $report_count report_count
      *
      * @return self
      */
-    public function setTotalRecords($total_records)
+    public function setReportCount($report_count)
     {
-        if (is_null($total_records)) {
-            throw new \InvalidArgumentException('non-nullable total_records cannot be null');
+        if (is_null($report_count)) {
+            throw new \InvalidArgumentException('non-nullable report_count cannot be null');
         }
-        $this->container['total_records'] = $total_records;
+        $this->container['report_count'] = $report_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets source_count
+     *
+     * @return int|null
+     */
+    public function getSourceCount()
+    {
+        return $this->container['source_count'];
+    }
+
+    /**
+     * Sets source_count
+     *
+     * @param int|null $source_count source_count
+     *
+     * @return self
+     */
+    public function setSourceCount($source_count)
+    {
+        if (is_null($source_count)) {
+            throw new \InvalidArgumentException('non-nullable source_count cannot be null');
+        }
+        $this->container['source_count'] = $source_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets total_messages
+     *
+     * @return int|null
+     */
+    public function getTotalMessages()
+    {
+        return $this->container['total_messages'];
+    }
+
+    /**
+     * Sets total_messages
+     *
+     * @param int|null $total_messages total_messages
+     *
+     * @return self
+     */
+    public function setTotalMessages($total_messages)
+    {
+        if (is_null($total_messages)) {
+            throw new \InvalidArgumentException('non-nullable total_messages cannot be null');
+        }
+        $this->container['total_messages'] = $total_messages;
+
+        return $this;
+    }
+
+    /**
+     * Gets total_pass
+     *
+     * @return int|null
+     */
+    public function getTotalPass()
+    {
+        return $this->container['total_pass'];
+    }
+
+    /**
+     * Sets total_pass
+     *
+     * @param int|null $total_pass total_pass
+     *
+     * @return self
+     */
+    public function setTotalPass($total_pass)
+    {
+        if (is_null($total_pass)) {
+            throw new \InvalidArgumentException('non-nullable total_pass cannot be null');
+        }
+        $this->container['total_pass'] = $total_pass;
+
+        return $this;
+    }
+
+    /**
+     * Gets total_fail
+     *
+     * @return int|null
+     */
+    public function getTotalFail()
+    {
+        return $this->container['total_fail'];
+    }
+
+    /**
+     * Sets total_fail
+     *
+     * @param int|null $total_fail total_fail
+     *
+     * @return self
+     */
+    public function setTotalFail($total_fail)
+    {
+        if (is_null($total_fail)) {
+            throw new \InvalidArgumentException('non-nullable total_fail cannot be null');
+        }
+        $this->container['total_fail'] = $total_fail;
 
         return $this;
     }
@@ -402,87 +517,6 @@ class GetDmarcDomain200ResponseDomainAllOfSummary implements ModelInterface, Arr
             throw new \InvalidArgumentException('non-nullable pass_rate cannot be null');
         }
         $this->container['pass_rate'] = $pass_rate;
-
-        return $this;
-    }
-
-    /**
-     * Gets fail_rate
-     *
-     * @return float|null
-     */
-    public function getFailRate()
-    {
-        return $this->container['fail_rate'];
-    }
-
-    /**
-     * Sets fail_rate
-     *
-     * @param float|null $fail_rate fail_rate
-     *
-     * @return self
-     */
-    public function setFailRate($fail_rate)
-    {
-        if (is_null($fail_rate)) {
-            throw new \InvalidArgumentException('non-nullable fail_rate cannot be null');
-        }
-        $this->container['fail_rate'] = $fail_rate;
-
-        return $this;
-    }
-
-    /**
-     * Gets dkim_aligned
-     *
-     * @return float|null
-     */
-    public function getDkimAligned()
-    {
-        return $this->container['dkim_aligned'];
-    }
-
-    /**
-     * Sets dkim_aligned
-     *
-     * @param float|null $dkim_aligned dkim_aligned
-     *
-     * @return self
-     */
-    public function setDkimAligned($dkim_aligned)
-    {
-        if (is_null($dkim_aligned)) {
-            throw new \InvalidArgumentException('non-nullable dkim_aligned cannot be null');
-        }
-        $this->container['dkim_aligned'] = $dkim_aligned;
-
-        return $this;
-    }
-
-    /**
-     * Gets spf_aligned
-     *
-     * @return float|null
-     */
-    public function getSpfAligned()
-    {
-        return $this->container['spf_aligned'];
-    }
-
-    /**
-     * Sets spf_aligned
-     *
-     * @param float|null $spf_aligned spf_aligned
-     *
-     * @return self
-     */
-    public function setSpfAligned($spf_aligned)
-    {
-        if (is_null($spf_aligned)) {
-            throw new \InvalidArgumentException('non-nullable spf_aligned cannot be null');
-        }
-        $this->container['spf_aligned'] = $spf_aligned;
 
         return $this;
     }

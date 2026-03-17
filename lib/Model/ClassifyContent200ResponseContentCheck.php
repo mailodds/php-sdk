@@ -58,10 +58,12 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
       * @var string[]
       */
     protected static $openAPITypes = [
-        'score' => 'float',
-        'verdict' => 'string',
-        'categories' => '\MailOdds\Model\ClassifyContent200ResponseContentCheckCategoriesInner[]',
-        'suggestions' => 'string[]'
+        'status' => 'string',
+        'flag' => 'bool',
+        'reason' => 'string',
+        'priority' => 'int',
+        'suggestions' => 'string[]',
+        'duration_ms' => 'int'
     ];
 
     /**
@@ -72,10 +74,12 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'score' => null,
-        'verdict' => null,
-        'categories' => null,
-        'suggestions' => null
+        'status' => null,
+        'flag' => null,
+        'reason' => null,
+        'priority' => null,
+        'suggestions' => null,
+        'duration_ms' => null
     ];
 
     /**
@@ -84,10 +88,12 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'score' => false,
-        'verdict' => false,
-        'categories' => false,
-        'suggestions' => false
+        'status' => false,
+        'flag' => false,
+        'reason' => false,
+        'priority' => false,
+        'suggestions' => false,
+        'duration_ms' => false
     ];
 
     /**
@@ -176,10 +182,12 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
      * @var string[]
      */
     protected static $attributeMap = [
-        'score' => 'score',
-        'verdict' => 'verdict',
-        'categories' => 'categories',
-        'suggestions' => 'suggestions'
+        'status' => 'status',
+        'flag' => 'flag',
+        'reason' => 'reason',
+        'priority' => 'priority',
+        'suggestions' => 'suggestions',
+        'duration_ms' => 'duration_ms'
     ];
 
     /**
@@ -188,10 +196,12 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
      * @var string[]
      */
     protected static $setters = [
-        'score' => 'setScore',
-        'verdict' => 'setVerdict',
-        'categories' => 'setCategories',
-        'suggestions' => 'setSuggestions'
+        'status' => 'setStatus',
+        'flag' => 'setFlag',
+        'reason' => 'setReason',
+        'priority' => 'setPriority',
+        'suggestions' => 'setSuggestions',
+        'duration_ms' => 'setDurationMs'
     ];
 
     /**
@@ -200,10 +210,12 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
      * @var string[]
      */
     protected static $getters = [
-        'score' => 'getScore',
-        'verdict' => 'getVerdict',
-        'categories' => 'getCategories',
-        'suggestions' => 'getSuggestions'
+        'status' => 'getStatus',
+        'flag' => 'getFlag',
+        'reason' => 'getReason',
+        'priority' => 'getPriority',
+        'suggestions' => 'getSuggestions',
+        'duration_ms' => 'getDurationMs'
     ];
 
     /**
@@ -247,21 +259,21 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
         return self::$openAPIModelName;
     }
 
-    public const VERDICT_CLEAN = 'clean';
-    public const VERDICT_WARNING = 'warning';
-    public const VERDICT_RISKY = 'risky';
+    public const STATUS_CLEAN = 'clean';
+    public const STATUS_WARNING = 'warning';
+    public const STATUS_RISKY = 'risky';
 
     /**
      * Gets allowable values of the enum
      *
      * @return string[]
      */
-    public function getVerdictAllowableValues()
+    public function getStatusAllowableValues()
     {
         return [
-            self::VERDICT_CLEAN,
-            self::VERDICT_WARNING,
-            self::VERDICT_RISKY,
+            self::STATUS_CLEAN,
+            self::STATUS_WARNING,
+            self::STATUS_RISKY,
         ];
     }
 
@@ -280,10 +292,12 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('score', $data ?? [], null);
-        $this->setIfExists('verdict', $data ?? [], null);
-        $this->setIfExists('categories', $data ?? [], null);
+        $this->setIfExists('status', $data ?? [], null);
+        $this->setIfExists('flag', $data ?? [], null);
+        $this->setIfExists('reason', $data ?? [], null);
+        $this->setIfExists('priority', $data ?? [], null);
         $this->setIfExists('suggestions', $data ?? [], null);
+        $this->setIfExists('duration_ms', $data ?? [], null);
     }
 
     /**
@@ -313,11 +327,11 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
     {
         $invalidProperties = [];
 
-        $allowedValues = $this->getVerdictAllowableValues();
-        if (!is_null($this->container['verdict']) && !in_array($this->container['verdict'], $allowedValues, true)) {
+        $allowedValues = $this->getStatusAllowableValues();
+        if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'verdict', must be one of '%s'",
-                $this->container['verdict'],
+                "invalid value '%s' for 'status', must be one of '%s'",
+                $this->container['status'],
                 implode("', '", $allowedValues)
             );
         }
@@ -338,92 +352,119 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
 
 
     /**
-     * Gets score
-     *
-     * @return float|null
-     */
-    public function getScore()
-    {
-        return $this->container['score'];
-    }
-
-    /**
-     * Sets score
-     *
-     * @param float|null $score Overall content quality score (0-100)
-     *
-     * @return self
-     */
-    public function setScore($score)
-    {
-        if (is_null($score)) {
-            throw new \InvalidArgumentException('non-nullable score cannot be null');
-        }
-        $this->container['score'] = $score;
-
-        return $this;
-    }
-
-    /**
-     * Gets verdict
+     * Gets status
      *
      * @return string|null
      */
-    public function getVerdict()
+    public function getStatus()
     {
-        return $this->container['verdict'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets verdict
+     * Sets status
      *
-     * @param string|null $verdict Overall verdict
+     * @param string|null $status Overall content status
      *
      * @return self
      */
-    public function setVerdict($verdict)
+    public function setStatus($status)
     {
-        if (is_null($verdict)) {
-            throw new \InvalidArgumentException('non-nullable verdict cannot be null');
+        if (is_null($status)) {
+            throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
-        $allowedValues = $this->getVerdictAllowableValues();
-        if (!in_array($verdict, $allowedValues, true)) {
+        $allowedValues = $this->getStatusAllowableValues();
+        if (!in_array($status, $allowedValues, true)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    "Invalid value '%s' for 'verdict', must be one of '%s'",
-                    $verdict,
+                    "Invalid value '%s' for 'status', must be one of '%s'",
+                    $status,
                     implode("', '", $allowedValues)
                 )
             );
         }
-        $this->container['verdict'] = $verdict;
+        $this->container['status'] = $status;
 
         return $this;
     }
 
     /**
-     * Gets categories
+     * Gets flag
      *
-     * @return \MailOdds\Model\ClassifyContent200ResponseContentCheckCategoriesInner[]|null
+     * @return bool|null
      */
-    public function getCategories()
+    public function getFlag()
     {
-        return $this->container['categories'];
+        return $this->container['flag'];
     }
 
     /**
-     * Sets categories
+     * Sets flag
      *
-     * @param \MailOdds\Model\ClassifyContent200ResponseContentCheckCategoriesInner[]|null $categories categories
+     * @param bool|null $flag Whether the content is flagged
      *
      * @return self
      */
-    public function setCategories($categories)
+    public function setFlag($flag)
     {
-        if (is_null($categories)) {
-            throw new \InvalidArgumentException('non-nullable categories cannot be null');
+        if (is_null($flag)) {
+            throw new \InvalidArgumentException('non-nullable flag cannot be null');
         }
-        $this->container['categories'] = $categories;
+        $this->container['flag'] = $flag;
+
+        return $this;
+    }
+
+    /**
+     * Gets reason
+     *
+     * @return string|null
+     */
+    public function getReason()
+    {
+        return $this->container['reason'];
+    }
+
+    /**
+     * Sets reason
+     *
+     * @param string|null $reason Human-readable reason for the status
+     *
+     * @return self
+     */
+    public function setReason($reason)
+    {
+        if (is_null($reason)) {
+            throw new \InvalidArgumentException('non-nullable reason cannot be null');
+        }
+        $this->container['reason'] = $reason;
+
+        return $this;
+    }
+
+    /**
+     * Gets priority
+     *
+     * @return int|null
+     */
+    public function getPriority()
+    {
+        return $this->container['priority'];
+    }
+
+    /**
+     * Sets priority
+     *
+     * @param int|null $priority Priority level (1=lowest, 5=highest)
+     *
+     * @return self
+     */
+    public function setPriority($priority)
+    {
+        if (is_null($priority)) {
+            throw new \InvalidArgumentException('non-nullable priority cannot be null');
+        }
+        $this->container['priority'] = $priority;
 
         return $this;
     }
@@ -451,6 +492,33 @@ class ClassifyContent200ResponseContentCheck implements ModelInterface, ArrayAcc
             throw new \InvalidArgumentException('non-nullable suggestions cannot be null');
         }
         $this->container['suggestions'] = $suggestions;
+
+        return $this;
+    }
+
+    /**
+     * Gets duration_ms
+     *
+     * @return int|null
+     */
+    public function getDurationMs()
+    {
+        return $this->container['duration_ms'];
+    }
+
+    /**
+     * Sets duration_ms
+     *
+     * @param int|null $duration_ms Classification duration in milliseconds
+     *
+     * @return self
+     */
+    public function setDurationMs($duration_ms)
+    {
+        if (is_null($duration_ms)) {
+            throw new \InvalidArgumentException('non-nullable duration_ms cannot be null');
+        }
+        $this->container['duration_ms'] = $duration_ms;
 
         return $this;
     }

@@ -36,7 +36,7 @@ use \MailOdds\ObjectSerializer;
  * ValidationResponsePolicyApplied Class Doc Comment
  *
  * @category Class
- * @description Present when a validation policy modified the result.
+ * @description Present when a validation policy modified the result. Null when no policy is applied.
  * @package  MailOdds
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech

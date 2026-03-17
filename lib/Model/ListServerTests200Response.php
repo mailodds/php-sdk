@@ -60,7 +60,7 @@ class ListServerTests200Response implements ModelInterface, ArrayAccess, \JsonSe
     protected static $openAPITypes = [
         'schema_version' => 'string',
         'request_id' => 'string',
-        'tests' => '\MailOdds\Model\ServerTest[]',
+        'data' => '\MailOdds\Model\ServerTest[]',
         'pagination' => '\MailOdds\Model\Pagination'
     ];
 
@@ -74,7 +74,7 @@ class ListServerTests200Response implements ModelInterface, ArrayAccess, \JsonSe
     protected static $openAPIFormats = [
         'schema_version' => null,
         'request_id' => null,
-        'tests' => null,
+        'data' => null,
         'pagination' => null
     ];
 
@@ -86,7 +86,7 @@ class ListServerTests200Response implements ModelInterface, ArrayAccess, \JsonSe
     protected static array $openAPINullables = [
         'schema_version' => false,
         'request_id' => false,
-        'tests' => false,
+        'data' => false,
         'pagination' => false
     ];
 
@@ -178,7 +178,7 @@ class ListServerTests200Response implements ModelInterface, ArrayAccess, \JsonSe
     protected static $attributeMap = [
         'schema_version' => 'schema_version',
         'request_id' => 'request_id',
-        'tests' => 'tests',
+        'data' => 'data',
         'pagination' => 'pagination'
     ];
 
@@ -190,7 +190,7 @@ class ListServerTests200Response implements ModelInterface, ArrayAccess, \JsonSe
     protected static $setters = [
         'schema_version' => 'setSchemaVersion',
         'request_id' => 'setRequestId',
-        'tests' => 'setTests',
+        'data' => 'setData',
         'pagination' => 'setPagination'
     ];
 
@@ -202,7 +202,7 @@ class ListServerTests200Response implements ModelInterface, ArrayAccess, \JsonSe
     protected static $getters = [
         'schema_version' => 'getSchemaVersion',
         'request_id' => 'getRequestId',
-        'tests' => 'getTests',
+        'data' => 'getData',
         'pagination' => 'getPagination'
     ];
 
@@ -265,7 +265,7 @@ class ListServerTests200Response implements ModelInterface, ArrayAccess, \JsonSe
     {
         $this->setIfExists('schema_version', $data ?? [], null);
         $this->setIfExists('request_id', $data ?? [], null);
-        $this->setIfExists('tests', $data ?? [], null);
+        $this->setIfExists('data', $data ?? [], null);
         $this->setIfExists('pagination', $data ?? [], null);
     }
 
@@ -366,28 +366,28 @@ class ListServerTests200Response implements ModelInterface, ArrayAccess, \JsonSe
     }
 
     /**
-     * Gets tests
+     * Gets data
      *
      * @return \MailOdds\Model\ServerTest[]|null
      */
-    public function getTests()
+    public function getData()
     {
-        return $this->container['tests'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets tests
+     * Sets data
      *
-     * @param \MailOdds\Model\ServerTest[]|null $tests tests
+     * @param \MailOdds\Model\ServerTest[]|null $data data
      *
      * @return self
      */
-    public function setTests($tests)
+    public function setData($data)
     {
-        if (is_null($tests)) {
-            throw new \InvalidArgumentException('non-nullable tests cannot be null');
+        if (is_null($data)) {
+            throw new \InvalidArgumentException('non-nullable data cannot be null');
         }
-        $this->container['tests'] = $tests;
+        $this->container['data'] = $data;
 
         return $this;
     }

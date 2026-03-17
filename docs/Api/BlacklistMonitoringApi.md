@@ -7,6 +7,7 @@ All URIs are relative to https://api.mailodds.com/v1, except if the operation de
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**addBlacklistMonitor()**](BlacklistMonitoringApi.md#addBlacklistMonitor) | **POST** /v1/blacklist-monitors | Add blacklist monitor |
+| [**deleteBlacklistMonitor()**](BlacklistMonitoringApi.md#deleteBlacklistMonitor) | **DELETE** /v1/blacklist-monitors/{monitor_id} | Delete a blacklist monitor |
 | [**getBlacklistHistory()**](BlacklistMonitoringApi.md#getBlacklistHistory) | **GET** /v1/blacklist-monitors/{monitor_id}/history | Get blacklist check history |
 | [**listBlacklistMonitors()**](BlacklistMonitoringApi.md#listBlacklistMonitors) | **GET** /v1/blacklist-monitors | List blacklist monitors |
 | [**runBlacklistCheck()**](BlacklistMonitoringApi.md#runBlacklistCheck) | **POST** /v1/blacklist-monitors/{monitor_id}/check | Run blacklist check |
@@ -66,6 +67,66 @@ try {
 ### HTTP request headers
 
 - **Content-Type**: `application/json`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `deleteBlacklistMonitor()`
+
+```php
+deleteBlacklistMonitor($monitor_id): \MailOdds\Model\DeletePolicyRule200Response
+```
+
+Delete a blacklist monitor
+
+Permanently remove a blacklist monitor and its check history.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: BearerAuth
+$config = MailOdds\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new MailOdds\Api\BlacklistMonitoringApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$monitor_id = 'monitor_id_example'; // string | Monitor UUID
+
+try {
+    $result = $apiInstance->deleteBlacklistMonitor($monitor_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling BlacklistMonitoringApi->deleteBlacklistMonitor: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **monitor_id** | **string**| Monitor UUID | |
+
+### Return type
+
+[**\MailOdds\Model\DeletePolicyRule200Response**](../Model/DeletePolicyRule200Response.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
