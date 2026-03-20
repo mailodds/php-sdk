@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **subject** | **string** |  |
 **html** | **string** |  | [optional]
 **text** | **string** |  | [optional]
-**domain_id** | **string** |  |
+**domain_id** | **string** | Sending domain UUID. Optional -- auto-resolved from the from address, or falls back to primary domain. | [optional]
 **reply_to** | **string** |  | [optional]
 **headers** | **object** |  | [optional]
 **tags** | **string[]** |  | [optional]

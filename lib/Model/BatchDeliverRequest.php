@@ -366,9 +366,6 @@ class BatchDeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializa
         if ($this->container['subject'] === null) {
             $invalidProperties[] = "'subject' can't be null";
         }
-        if ($this->container['domain_id'] === null) {
-            $invalidProperties[] = "'domain_id' can't be null";
-        }
         return $invalidProperties;
     }
 
@@ -526,7 +523,7 @@ class BatchDeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Gets domain_id
      *
-     * @return string
+     * @return string|null
      */
     public function getDomainId()
     {
@@ -536,7 +533,7 @@ class BatchDeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializa
     /**
      * Sets domain_id
      *
-     * @param string $domain_id domain_id
+     * @param string|null $domain_id Sending domain UUID. Optional -- auto-resolved from the from address, or falls back to primary domain.
      *
      * @return self
      */

@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **subject** | **string** | Email subject line |
 **html** | **string** | HTML email body | [optional]
 **text** | **string** | Plain text email body | [optional]
-**domain_id** | **string** | Sending domain UUID |
+**domain_id** | **string** | Sending domain UUID. Optional -- auto-resolved from the from address, or falls back to primary domain. | [optional]
 **reply_to** | **string** | Reply-to address | [optional]
 **headers** | **object** | Extra email headers | [optional]
 **tags** | **string[]** | Tags for categorization | [optional]

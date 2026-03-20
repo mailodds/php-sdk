@@ -13,6 +13,7 @@ All URIs are relative to https://api.mailodds.com/v1, except if the operation de
 | [**getSendingDomainIdentityScore()**](SendingDomainsApi.md#getSendingDomainIdentityScore) | **GET** /v1/sending-domains/{domain_id}/identity-score | Get domain identity score |
 | [**getSendingStats()**](SendingDomainsApi.md#getSendingStats) | **GET** /v1/sending-stats | Get sending statistics |
 | [**listSendingDomains()**](SendingDomainsApi.md#listSendingDomains) | **GET** /v1/sending-domains | List sending domains |
+| [**setPrimarySendingDomain()**](SendingDomainsApi.md#setPrimarySendingDomain) | **POST** /v1/sending-domains/{domain_id}/set-primary | Set primary sending domain |
 | [**updateReplyForwarding()**](SendingDomainsApi.md#updateReplyForwarding) | **PATCH** /v1/sending-domains/{domain_id}/reply-forwarding | Update reply forwarding config |
 | [**verifySendingDomain()**](SendingDomainsApi.md#verifySendingDomain) | **POST** /v1/sending-domains/{domain_id}/verify | Verify domain DNS records |
 
@@ -422,6 +423,66 @@ This endpoint does not need any parameter.
 ### Return type
 
 [**\MailOdds\Model\ListSendingDomains200Response**](../Model/ListSendingDomains200Response.md)
+
+### Authorization
+
+[BearerAuth](../../README.md#BearerAuth)
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `setPrimarySendingDomain()`
+
+```php
+setPrimarySendingDomain($domain_id): \MailOdds\Model\CreateSendingDomain201Response
+```
+
+Set primary sending domain
+
+Designate a domain as the primary/default sending domain. When domain_id is omitted from deliver calls, the primary domain is used automatically.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+// Configure Bearer authorization: BearerAuth
+$config = MailOdds\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
+
+$apiInstance = new MailOdds\Api\SendingDomainsApi(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client(),
+    $config
+);
+$domain_id = 'domain_id_example'; // string
+
+try {
+    $result = $apiInstance->setPrimarySendingDomain($domain_id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling SendingDomainsApi->setPrimarySendingDomain: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+| Name | Type | Description  | Notes |
+| ------------- | ------------- | ------------- | ------------- |
+| **domain_id** | **string**|  | |
+
+### Return type
+
+[**\MailOdds\Model\CreateSendingDomain201Response**](../Model/CreateSendingDomain201Response.md)
 
 ### Authorization
 

@@ -413,9 +413,6 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
         if ($this->container['subject'] === null) {
             $invalidProperties[] = "'subject' can't be null";
         }
-        if ($this->container['domain_id'] === null) {
-            $invalidProperties[] = "'domain_id' can't be null";
-        }
         $allowedValues = $this->getCampaignTypeAllowableValues();
         if (!is_null($this->container['campaign_type']) && !in_array($this->container['campaign_type'], $allowedValues, true)) {
             $invalidProperties[] = sprintf(
@@ -582,7 +579,7 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Gets domain_id
      *
-     * @return string
+     * @return string|null
      */
     public function getDomainId()
     {
@@ -592,7 +589,7 @@ class DeliverRequest implements ModelInterface, ArrayAccess, \JsonSerializable
     /**
      * Sets domain_id
      *
-     * @param string $domain_id Sending domain UUID
+     * @param string|null $domain_id Sending domain UUID. Optional -- auto-resolved from the from address, or falls back to primary domain.
      *
      * @return self
      */

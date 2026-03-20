@@ -68,6 +68,7 @@ class SendingDomain implements ModelInterface, ArrayAccess, \JsonSerializable
         'bimi_vmc_url' => 'string',
         'bimi_enabled' => 'bool',
         'forward_replies_to' => 'string',
+        'is_primary' => 'bool',
         'created_at' => '\DateTime',
         'updated_at' => '\DateTime'
     ];
@@ -90,6 +91,7 @@ class SendingDomain implements ModelInterface, ArrayAccess, \JsonSerializable
         'bimi_vmc_url' => null,
         'bimi_enabled' => null,
         'forward_replies_to' => null,
+        'is_primary' => null,
         'created_at' => 'date-time',
         'updated_at' => 'date-time'
     ];
@@ -110,6 +112,7 @@ class SendingDomain implements ModelInterface, ArrayAccess, \JsonSerializable
         'bimi_vmc_url' => true,
         'bimi_enabled' => false,
         'forward_replies_to' => true,
+        'is_primary' => false,
         'created_at' => false,
         'updated_at' => false
     ];
@@ -210,6 +213,7 @@ class SendingDomain implements ModelInterface, ArrayAccess, \JsonSerializable
         'bimi_vmc_url' => 'bimi_vmc_url',
         'bimi_enabled' => 'bimi_enabled',
         'forward_replies_to' => 'forward_replies_to',
+        'is_primary' => 'is_primary',
         'created_at' => 'created_at',
         'updated_at' => 'updated_at'
     ];
@@ -230,6 +234,7 @@ class SendingDomain implements ModelInterface, ArrayAccess, \JsonSerializable
         'bimi_vmc_url' => 'setBimiVmcUrl',
         'bimi_enabled' => 'setBimiEnabled',
         'forward_replies_to' => 'setForwardRepliesTo',
+        'is_primary' => 'setIsPrimary',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
     ];
@@ -250,6 +255,7 @@ class SendingDomain implements ModelInterface, ArrayAccess, \JsonSerializable
         'bimi_vmc_url' => 'getBimiVmcUrl',
         'bimi_enabled' => 'getBimiEnabled',
         'forward_replies_to' => 'getForwardRepliesTo',
+        'is_primary' => 'getIsPrimary',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
     ];
@@ -340,6 +346,7 @@ class SendingDomain implements ModelInterface, ArrayAccess, \JsonSerializable
         $this->setIfExists('bimi_vmc_url', $data ?? [], null);
         $this->setIfExists('bimi_enabled', $data ?? [], null);
         $this->setIfExists('forward_replies_to', $data ?? [], null);
+        $this->setIfExists('is_primary', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
     }
@@ -692,6 +699,33 @@ class SendingDomain implements ModelInterface, ArrayAccess, \JsonSerializable
             }
         }
         $this->container['forward_replies_to'] = $forward_replies_to;
+
+        return $this;
+    }
+
+    /**
+     * Gets is_primary
+     *
+     * @return bool|null
+     */
+    public function getIsPrimary()
+    {
+        return $this->container['is_primary'];
+    }
+
+    /**
+     * Sets is_primary
+     *
+     * @param bool|null $is_primary Whether this is the account primary/default sending domain
+     *
+     * @return self
+     */
+    public function setIsPrimary($is_primary)
+    {
+        if (is_null($is_primary)) {
+            throw new \InvalidArgumentException('non-nullable is_primary cannot be null');
+        }
+        $this->container['is_primary'] = $is_primary;
 
         return $this;
     }
