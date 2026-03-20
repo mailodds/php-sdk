@@ -207,13 +207,13 @@ class EngagementApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -251,7 +251,7 @@ class EngagementApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -259,7 +259,7 @@ class EngagementApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -513,7 +513,7 @@ class EngagementApi
      *
      * Get engagement score
      *
-     * @param  string $email Email address (required)
+     * @param  string $email email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEngagementScore'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -531,7 +531,7 @@ class EngagementApi
      *
      * Get engagement score
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEngagementScore'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -572,13 +572,13 @@ class EngagementApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -616,7 +616,7 @@ class EngagementApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -624,7 +624,7 @@ class EngagementApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -644,7 +644,7 @@ class EngagementApi
      *
      * Get engagement score
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEngagementScore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -665,7 +665,7 @@ class EngagementApi
      *
      * Get engagement score
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEngagementScore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -715,7 +715,7 @@ class EngagementApi
     /**
      * Create request for operation 'getEngagementScore'
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getEngagementScore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -872,13 +872,13 @@ class EngagementApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -916,7 +916,7 @@ class EngagementApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -924,7 +924,7 @@ class EngagementApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1113,7 +1113,7 @@ class EngagementApi
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \MailOdds\Model\SuppressDisengaged200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     * @return \MailOdds\Model\SuppressDisengaged200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
      */
     public function suppressDisengaged($suppress_disengaged_request, string $contentType = self::contentTypes['suppressDisengaged'][0])
     {
@@ -1131,7 +1131,7 @@ class EngagementApi
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \MailOdds\Model\SuppressDisengaged200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MailOdds\Model\SuppressDisengaged200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function suppressDisengagedWithHttpInfo($suppress_disengaged_request, string $contentType = self::contentTypes['suppressDisengaged'][0])
     {
@@ -1167,13 +1167,19 @@ class EngagementApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1211,7 +1217,7 @@ class EngagementApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1219,7 +1225,15 @@ class EngagementApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',

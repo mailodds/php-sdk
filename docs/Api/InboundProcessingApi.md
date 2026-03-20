@@ -41,7 +41,7 @@ $apiInstance = new MailOdds\Api\InboundProcessingApi(
     new GuzzleHttp\Client(),
     $config
 );
-$message_id = 'message_id_example'; // string | Message ID
+$message_id = 'message_id_example'; // string
 $correct_inbound_message_request = new \MailOdds\Model\CorrectInboundMessageRequest(); // \MailOdds\Model\CorrectInboundMessageRequest
 
 try {
@@ -56,7 +56,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **message_id** | **string**| Message ID | |
+| **message_id** | **string**|  | |
 | **correct_inbound_message_request** | [**\MailOdds\Model\CorrectInboundMessageRequest**](../Model/CorrectInboundMessageRequest.md)|  | |
 
 ### Return type
@@ -291,7 +291,7 @@ $apiInstance = new MailOdds\Api\InboundProcessingApi(
     new GuzzleHttp\Client(),
     $config
 );
-$message_id = 'message_id_example'; // string | Message ID
+$message_id = 'message_id_example'; // string
 
 try {
     $result = $apiInstance->getInboundMessage($message_id);
@@ -305,7 +305,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **message_id** | **string**| Message ID | |
+| **message_id** | **string**|  | |
 
 ### Return type
 

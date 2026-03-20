@@ -46,7 +46,7 @@ $apiInstance = new MailOdds\Api\ContactListsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$list_id = 'list_id_example'; // string | Contact list ID
+$list_id = 'list_id_example'; // string
 $add_contact_request = new \MailOdds\Model\AddContactRequest(); // \MailOdds\Model\AddContactRequest
 
 try {
@@ -61,7 +61,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **list_id** | **string**| Contact list ID | |
+| **list_id** | **string**|  | |
 | **add_contact_request** | [**\MailOdds\Model\AddContactRequest**](../Model/AddContactRequest.md)|  | |
 
 ### Return type
@@ -108,7 +108,7 @@ $apiInstance = new MailOdds\Api\ContactListsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$list_id = 'list_id_example'; // string | Contact list UUID
+$list_id = 'list_id_example'; // string
 $append_to_contact_list_request = new \MailOdds\Model\AppendToContactListRequest(); // \MailOdds\Model\AppendToContactListRequest
 
 try {
@@ -123,7 +123,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **list_id** | **string**| Contact list UUID | |
+| **list_id** | **string**|  | |
 | **append_to_contact_list_request** | [**\MailOdds\Model\AppendToContactListRequest**](../Model/AppendToContactListRequest.md)|  | |
 
 ### Return type
@@ -230,8 +230,8 @@ $apiInstance = new MailOdds\Api\ContactListsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$list_id = 'list_id_example'; // string | Contact list ID
-$contact_id = 'contact_id_example'; // string | Contact ID
+$list_id = 'list_id_example'; // string
+$contact_id = 'contact_id_example'; // string
 
 try {
     $result = $apiInstance->deleteContact($list_id, $contact_id);
@@ -245,8 +245,8 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **list_id** | **string**| Contact list ID | |
-| **contact_id** | **string**| Contact ID | |
+| **list_id** | **string**|  | |
+| **contact_id** | **string**|  | |
 
 ### Return type
 
@@ -292,7 +292,7 @@ $apiInstance = new MailOdds\Api\ContactListsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$list_id = 'list_id_example'; // string | Contact list UUID
+$list_id = 'list_id_example'; // string
 
 try {
     $result = $apiInstance->deleteContactList($list_id);
@@ -306,7 +306,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **list_id** | **string**| Contact list UUID | |
+| **list_id** | **string**|  | |
 
 ### Return type
 
@@ -352,7 +352,7 @@ $apiInstance = new MailOdds\Api\ContactListsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$list_id = 'list_id_example'; // string | Contact list ID
+$list_id = 'list_id_example'; // string
 
 try {
     $result = $apiInstance->exportContactList($list_id);
@@ -366,7 +366,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **list_id** | **string**| Contact list ID | |
+| **list_id** | **string**|  | |
 
 ### Return type
 
@@ -472,7 +472,7 @@ $apiInstance = new MailOdds\Api\ContactListsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$list_id = 'list_id_example'; // string | Contact list ID
+$list_id = 'list_id_example'; // string
 $file = '/path/to/file.txt'; // \SplFileObject | CSV file (max 10MB)
 $column_mapping = 'column_mapping_example'; // string | JSON mapping of CSV columns to contact fields
 $consent_source = 'consent_source_example'; // string | Source of consent for imported contacts
@@ -490,7 +490,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **list_id** | **string**| Contact list ID | |
+| **list_id** | **string**|  | |
 | **file** | **\SplFileObject****\SplFileObject**| CSV file (max 10MB) | |
 | **column_mapping** | **string**| JSON mapping of CSV columns to contact fields | [optional] |
 | **consent_source** | **string**| Source of consent for imported contacts | [optional] |
@@ -602,7 +602,7 @@ $apiInstance = new MailOdds\Api\ContactListsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$list_id = 'list_id_example'; // string | Contact list UUID
+$list_id = 'list_id_example'; // string
 $query_contact_list_request = new \MailOdds\Model\QueryContactListRequest(); // \MailOdds\Model\QueryContactListRequest
 
 try {
@@ -617,7 +617,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **list_id** | **string**| Contact list UUID | |
+| **list_id** | **string**|  | |
 | **query_contact_list_request** | [**\MailOdds\Model\QueryContactListRequest**](../Model/QueryContactListRequest.md)|  | |
 
 ### Return type
@@ -664,8 +664,8 @@ $apiInstance = new MailOdds\Api\ContactListsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$list_id = 'list_id_example'; // string | Contact list ID
-$contact_id = 'contact_id_example'; // string | Contact ID
+$list_id = 'list_id_example'; // string
+$contact_id = 'contact_id_example'; // string
 $update_contact_request = new \MailOdds\Model\UpdateContactRequest(); // \MailOdds\Model\UpdateContactRequest
 
 try {
@@ -680,8 +680,8 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **list_id** | **string**| Contact list ID | |
-| **contact_id** | **string**| Contact ID | |
+| **list_id** | **string**|  | |
+| **contact_id** | **string**|  | |
 | **update_contact_request** | [**\MailOdds\Model\UpdateContactRequest**](../Model/UpdateContactRequest.md)|  | |
 
 ### Return type

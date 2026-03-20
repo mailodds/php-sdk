@@ -39,7 +39,7 @@ $apiInstance = new MailOdds\Api\SpamChecksApi(
     new GuzzleHttp\Client(),
     $config
 );
-$check_id = 'check_id_example'; // string | Spam check ID
+$check_id = 'check_id_example'; // string
 
 try {
     $result = $apiInstance->deleteSpamCheck($check_id);
@@ -53,7 +53,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **check_id** | **string**| Spam check ID | |
+| **check_id** | **string**|  | |
 
 ### Return type
 
@@ -99,7 +99,7 @@ $apiInstance = new MailOdds\Api\SpamChecksApi(
     new GuzzleHttp\Client(),
     $config
 );
-$check_id = 'check_id_example'; // string | Spam check UUID
+$check_id = 'check_id_example'; // string
 
 try {
     $result = $apiInstance->getSpamCheck($check_id);
@@ -113,7 +113,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **check_id** | **string**| Spam check UUID | |
+| **check_id** | **string**|  | |
 
 ### Return type
 

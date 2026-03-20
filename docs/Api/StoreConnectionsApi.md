@@ -103,7 +103,7 @@ $apiInstance = new MailOdds\Api\StoreConnectionsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$store_id = 'store_id_example'; // string | Store connection UUID
+$store_id = 'store_id_example'; // string
 
 try {
     $result = $apiInstance->disconnectStore($store_id);
@@ -117,7 +117,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **store_id** | **string**| Store connection UUID | |
+| **store_id** | **string**|  | |
 
 ### Return type
 
@@ -163,7 +163,7 @@ $apiInstance = new MailOdds\Api\StoreConnectionsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$store_id = 'store_id_example'; // string | Store connection UUID
+$store_id = 'store_id_example'; // string
 
 try {
     $result = $apiInstance->getStore($store_id);
@@ -177,7 +177,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **store_id** | **string**| Store connection UUID | |
+| **store_id** | **string**|  | |
 
 ### Return type
 
@@ -223,8 +223,8 @@ $apiInstance = new MailOdds\Api\StoreConnectionsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$store_id = 'store_id_example'; // string | Store ID
-$job_id = 'job_id_example'; // string | Sync job ID
+$store_id = 'store_id_example'; // string
+$job_id = 'job_id_example'; // string
 $page = 1; // int
 $per_page = 50; // int
 
@@ -240,8 +240,8 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **store_id** | **string**| Store ID | |
-| **job_id** | **string**| Sync job ID | |
+| **store_id** | **string**|  | |
+| **job_id** | **string**|  | |
 | **page** | **int**|  | [optional] [default to 1] |
 | **per_page** | **int**|  | [optional] [default to 50] |
 
@@ -349,7 +349,7 @@ $apiInstance = new MailOdds\Api\StoreConnectionsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$store_id = 'store_id_example'; // string | Store ID
+$store_id = 'store_id_example'; // string
 $page = 1; // int
 $per_page = 20; // int
 
@@ -365,7 +365,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **store_id** | **string**| Store ID | |
+| **store_id** | **string**|  | |
 | **page** | **int**|  | [optional] [default to 1] |
 | **per_page** | **int**|  | [optional] [default to 20] |
 
@@ -413,7 +413,7 @@ $apiInstance = new MailOdds\Api\StoreConnectionsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$store_id = 'store_id_example'; // string | Store connection UUID
+$store_id = 'store_id_example'; // string
 $idempotency_key = 'idempotency_key_example'; // string | Idempotency key to prevent duplicate syncs (5 min TTL)
 
 try {
@@ -428,7 +428,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **store_id** | **string**| Store connection UUID | |
+| **store_id** | **string**|  | |
 | **idempotency_key** | **string**| Idempotency key to prevent duplicate syncs (5 min TTL) | [optional] |
 
 ### Return type
@@ -475,7 +475,7 @@ $apiInstance = new MailOdds\Api\StoreConnectionsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$store_id = 'store_id_example'; // string | Store connection UUID
+$store_id = 'store_id_example'; // string
 $update_store_request = new \MailOdds\Model\UpdateStoreRequest(); // \MailOdds\Model\UpdateStoreRequest
 
 try {
@@ -490,7 +490,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **store_id** | **string**| Store connection UUID | |
+| **store_id** | **string**|  | |
 | **update_store_request** | [**\MailOdds\Model\UpdateStoreRequest**](../Model/UpdateStoreRequest.md)|  | |
 
 ### Return type

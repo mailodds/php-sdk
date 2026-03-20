@@ -137,7 +137,7 @@ class ServerTestsApi
      *
      * Get server test
      *
-     * @param  string $test_id Server test UUID (required)
+     * @param  string $test_id test_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getServerTest'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -155,7 +155,7 @@ class ServerTestsApi
      *
      * Get server test
      *
-     * @param  string $test_id Server test UUID (required)
+     * @param  string $test_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getServerTest'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -196,13 +196,13 @@ class ServerTestsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -240,7 +240,7 @@ class ServerTestsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -248,7 +248,7 @@ class ServerTestsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -268,7 +268,7 @@ class ServerTestsApi
      *
      * Get server test
      *
-     * @param  string $test_id Server test UUID (required)
+     * @param  string $test_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getServerTest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -289,7 +289,7 @@ class ServerTestsApi
      *
      * Get server test
      *
-     * @param  string $test_id Server test UUID (required)
+     * @param  string $test_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getServerTest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -339,7 +339,7 @@ class ServerTestsApi
     /**
      * Create request for operation 'getServerTest'
      *
-     * @param  string $test_id Server test UUID (required)
+     * @param  string $test_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getServerTest'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException

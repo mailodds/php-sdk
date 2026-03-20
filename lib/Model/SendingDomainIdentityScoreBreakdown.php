@@ -59,11 +59,11 @@ class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess
       * @var string[]
       */
     protected static $openAPITypes = [
-        'dkim' => '\MailOdds\Model\IdentityScoreCheck',
         'spf' => '\MailOdds\Model\IdentityScoreCheck',
+        'dkim' => '\MailOdds\Model\IdentityScoreCheck',
         'dmarc' => '\MailOdds\Model\IdentityScoreCheck',
-        'mx' => '\MailOdds\Model\IdentityScoreCheck',
-        'return_path' => '\MailOdds\Model\IdentityScoreCheck',
+        'bounce' => '\MailOdds\Model\IdentityScoreCheck',
+        'tracking' => '\MailOdds\Model\IdentityScoreCheck',
         'bimi' => '\MailOdds\Model\IdentityScoreCheck'
     ];
 
@@ -75,11 +75,11 @@ class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'dkim' => null,
         'spf' => null,
+        'dkim' => null,
         'dmarc' => null,
-        'mx' => null,
-        'return_path' => null,
+        'bounce' => null,
+        'tracking' => null,
         'bimi' => null
     ];
 
@@ -89,11 +89,11 @@ class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'dkim' => false,
         'spf' => false,
+        'dkim' => false,
         'dmarc' => false,
-        'mx' => false,
-        'return_path' => false,
+        'bounce' => false,
+        'tracking' => false,
         'bimi' => false
     ];
 
@@ -183,11 +183,11 @@ class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $attributeMap = [
-        'dkim' => 'dkim',
         'spf' => 'spf',
+        'dkim' => 'dkim',
         'dmarc' => 'dmarc',
-        'mx' => 'mx',
-        'return_path' => 'return_path',
+        'bounce' => 'bounce',
+        'tracking' => 'tracking',
         'bimi' => 'bimi'
     ];
 
@@ -197,11 +197,11 @@ class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $setters = [
-        'dkim' => 'setDkim',
         'spf' => 'setSpf',
+        'dkim' => 'setDkim',
         'dmarc' => 'setDmarc',
-        'mx' => 'setMx',
-        'return_path' => 'setReturnPath',
+        'bounce' => 'setBounce',
+        'tracking' => 'setTracking',
         'bimi' => 'setBimi'
     ];
 
@@ -211,11 +211,11 @@ class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess
      * @var string[]
      */
     protected static $getters = [
-        'dkim' => 'getDkim',
         'spf' => 'getSpf',
+        'dkim' => 'getDkim',
         'dmarc' => 'getDmarc',
-        'mx' => 'getMx',
-        'return_path' => 'getReturnPath',
+        'bounce' => 'getBounce',
+        'tracking' => 'getTracking',
         'bimi' => 'getBimi'
     ];
 
@@ -276,11 +276,11 @@ class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('dkim', $data ?? [], null);
         $this->setIfExists('spf', $data ?? [], null);
+        $this->setIfExists('dkim', $data ?? [], null);
         $this->setIfExists('dmarc', $data ?? [], null);
-        $this->setIfExists('mx', $data ?? [], null);
-        $this->setIfExists('return_path', $data ?? [], null);
+        $this->setIfExists('bounce', $data ?? [], null);
+        $this->setIfExists('tracking', $data ?? [], null);
         $this->setIfExists('bimi', $data ?? [], null);
     }
 
@@ -327,33 +327,6 @@ class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess
 
 
     /**
-     * Gets dkim
-     *
-     * @return \MailOdds\Model\IdentityScoreCheck|null
-     */
-    public function getDkim()
-    {
-        return $this->container['dkim'];
-    }
-
-    /**
-     * Sets dkim
-     *
-     * @param \MailOdds\Model\IdentityScoreCheck|null $dkim dkim
-     *
-     * @return self
-     */
-    public function setDkim($dkim)
-    {
-        if (is_null($dkim)) {
-            throw new \InvalidArgumentException('non-nullable dkim cannot be null');
-        }
-        $this->container['dkim'] = $dkim;
-
-        return $this;
-    }
-
-    /**
      * Gets spf
      *
      * @return \MailOdds\Model\IdentityScoreCheck|null
@@ -376,6 +349,33 @@ class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess
             throw new \InvalidArgumentException('non-nullable spf cannot be null');
         }
         $this->container['spf'] = $spf;
+
+        return $this;
+    }
+
+    /**
+     * Gets dkim
+     *
+     * @return \MailOdds\Model\IdentityScoreCheck|null
+     */
+    public function getDkim()
+    {
+        return $this->container['dkim'];
+    }
+
+    /**
+     * Sets dkim
+     *
+     * @param \MailOdds\Model\IdentityScoreCheck|null $dkim dkim
+     *
+     * @return self
+     */
+    public function setDkim($dkim)
+    {
+        if (is_null($dkim)) {
+            throw new \InvalidArgumentException('non-nullable dkim cannot be null');
+        }
+        $this->container['dkim'] = $dkim;
 
         return $this;
     }
@@ -408,55 +408,55 @@ class SendingDomainIdentityScoreBreakdown implements ModelInterface, ArrayAccess
     }
 
     /**
-     * Gets mx
+     * Gets bounce
      *
      * @return \MailOdds\Model\IdentityScoreCheck|null
      */
-    public function getMx()
+    public function getBounce()
     {
-        return $this->container['mx'];
+        return $this->container['bounce'];
     }
 
     /**
-     * Sets mx
+     * Sets bounce
      *
-     * @param \MailOdds\Model\IdentityScoreCheck|null $mx mx
+     * @param \MailOdds\Model\IdentityScoreCheck|null $bounce bounce
      *
      * @return self
      */
-    public function setMx($mx)
+    public function setBounce($bounce)
     {
-        if (is_null($mx)) {
-            throw new \InvalidArgumentException('non-nullable mx cannot be null');
+        if (is_null($bounce)) {
+            throw new \InvalidArgumentException('non-nullable bounce cannot be null');
         }
-        $this->container['mx'] = $mx;
+        $this->container['bounce'] = $bounce;
 
         return $this;
     }
 
     /**
-     * Gets return_path
+     * Gets tracking
      *
      * @return \MailOdds\Model\IdentityScoreCheck|null
      */
-    public function getReturnPath()
+    public function getTracking()
     {
-        return $this->container['return_path'];
+        return $this->container['tracking'];
     }
 
     /**
-     * Sets return_path
+     * Sets tracking
      *
-     * @param \MailOdds\Model\IdentityScoreCheck|null $return_path return_path
+     * @param \MailOdds\Model\IdentityScoreCheck|null $tracking tracking
      *
      * @return self
      */
-    public function setReturnPath($return_path)
+    public function setTracking($tracking)
     {
-        if (is_null($return_path)) {
-            throw new \InvalidArgumentException('non-nullable return_path cannot be null');
+        if (is_null($tracking)) {
+            throw new \InvalidArgumentException('non-nullable tracking cannot be null');
         }
-        $this->container['return_path'] = $return_path;
+        $this->container['tracking'] = $tracking;
 
         return $this;
     }

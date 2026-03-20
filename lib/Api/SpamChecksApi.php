@@ -140,7 +140,7 @@ class SpamChecksApi
      *
      * Delete spam check
      *
-     * @param  string $check_id Spam check ID (required)
+     * @param  string $check_id check_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSpamCheck'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -158,7 +158,7 @@ class SpamChecksApi
      *
      * Delete spam check
      *
-     * @param  string $check_id Spam check ID (required)
+     * @param  string $check_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSpamCheck'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -199,13 +199,13 @@ class SpamChecksApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -243,7 +243,7 @@ class SpamChecksApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -251,7 +251,7 @@ class SpamChecksApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -271,7 +271,7 @@ class SpamChecksApi
      *
      * Delete spam check
      *
-     * @param  string $check_id Spam check ID (required)
+     * @param  string $check_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSpamCheck'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -292,7 +292,7 @@ class SpamChecksApi
      *
      * Delete spam check
      *
-     * @param  string $check_id Spam check ID (required)
+     * @param  string $check_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSpamCheck'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -342,7 +342,7 @@ class SpamChecksApi
     /**
      * Create request for operation 'deleteSpamCheck'
      *
-     * @param  string $check_id Spam check ID (required)
+     * @param  string $check_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteSpamCheck'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -440,7 +440,7 @@ class SpamChecksApi
      *
      * Get spam check
      *
-     * @param  string $check_id Spam check UUID (required)
+     * @param  string $check_id check_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpamCheck'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -458,7 +458,7 @@ class SpamChecksApi
      *
      * Get spam check
      *
-     * @param  string $check_id Spam check UUID (required)
+     * @param  string $check_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpamCheck'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -499,13 +499,13 @@ class SpamChecksApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -543,7 +543,7 @@ class SpamChecksApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -551,7 +551,7 @@ class SpamChecksApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -571,7 +571,7 @@ class SpamChecksApi
      *
      * Get spam check
      *
-     * @param  string $check_id Spam check UUID (required)
+     * @param  string $check_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpamCheck'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -592,7 +592,7 @@ class SpamChecksApi
      *
      * Get spam check
      *
-     * @param  string $check_id Spam check UUID (required)
+     * @param  string $check_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpamCheck'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -642,7 +642,7 @@ class SpamChecksApi
     /**
      * Create request for operation 'getSpamCheck'
      *
-     * @param  string $check_id Spam check UUID (required)
+     * @param  string $check_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSpamCheck'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException

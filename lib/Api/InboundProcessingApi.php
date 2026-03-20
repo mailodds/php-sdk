@@ -146,13 +146,13 @@ class InboundProcessingApi
      *
      * Correct inbound message classification
      *
-     * @param  string $message_id Message ID (required)
+     * @param  string $message_id message_id (required)
      * @param  \MailOdds\Model\CorrectInboundMessageRequest $correct_inbound_message_request correct_inbound_message_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['correctInboundMessage'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \MailOdds\Model\GetInboundMessage200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     * @return \MailOdds\Model\GetInboundMessage200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
      */
     public function correctInboundMessage($message_id, $correct_inbound_message_request, string $contentType = self::contentTypes['correctInboundMessage'][0])
     {
@@ -165,13 +165,13 @@ class InboundProcessingApi
      *
      * Correct inbound message classification
      *
-     * @param  string $message_id Message ID (required)
+     * @param  string $message_id (required)
      * @param  \MailOdds\Model\CorrectInboundMessageRequest $correct_inbound_message_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['correctInboundMessage'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \MailOdds\Model\GetInboundMessage200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MailOdds\Model\GetInboundMessage200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function correctInboundMessageWithHttpInfo($message_id, $correct_inbound_message_request, string $contentType = self::contentTypes['correctInboundMessage'][0])
     {
@@ -207,12 +207,6 @@ class InboundProcessingApi
                         $request,
                         $response,
                     );
-                case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -220,6 +214,18 @@ class InboundProcessingApi
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -257,14 +263,6 @@ class InboundProcessingApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -274,6 +272,22 @@ class InboundProcessingApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -293,7 +307,7 @@ class InboundProcessingApi
      *
      * Correct inbound message classification
      *
-     * @param  string $message_id Message ID (required)
+     * @param  string $message_id (required)
      * @param  \MailOdds\Model\CorrectInboundMessageRequest $correct_inbound_message_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['correctInboundMessage'] to see the possible values for this operation
      *
@@ -315,7 +329,7 @@ class InboundProcessingApi
      *
      * Correct inbound message classification
      *
-     * @param  string $message_id Message ID (required)
+     * @param  string $message_id (required)
      * @param  \MailOdds\Model\CorrectInboundMessageRequest $correct_inbound_message_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['correctInboundMessage'] to see the possible values for this operation
      *
@@ -366,7 +380,7 @@ class InboundProcessingApi
     /**
      * Create request for operation 'correctInboundMessage'
      *
-     * @param  string $message_id Message ID (required)
+     * @param  string $message_id (required)
      * @param  \MailOdds\Model\CorrectInboundMessageRequest $correct_inbound_message_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['correctInboundMessage'] to see the possible values for this operation
      *
@@ -542,13 +556,13 @@ class InboundProcessingApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -586,7 +600,7 @@ class InboundProcessingApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -594,7 +608,7 @@ class InboundProcessingApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -865,13 +879,13 @@ class InboundProcessingApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -909,7 +923,7 @@ class InboundProcessingApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -917,7 +931,7 @@ class InboundProcessingApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1175,13 +1189,13 @@ class InboundProcessingApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1219,7 +1233,7 @@ class InboundProcessingApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1227,7 +1241,7 @@ class InboundProcessingApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1424,7 +1438,7 @@ class InboundProcessingApi
      *
      * Get inbound message
      *
-     * @param  string $message_id Message ID (required)
+     * @param  string $message_id message_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInboundMessage'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1442,7 +1456,7 @@ class InboundProcessingApi
      *
      * Get inbound message
      *
-     * @param  string $message_id Message ID (required)
+     * @param  string $message_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInboundMessage'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1483,12 +1497,6 @@ class InboundProcessingApi
                         $request,
                         $response,
                     );
-                case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -1496,6 +1504,12 @@ class InboundProcessingApi
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1533,14 +1547,6 @@ class InboundProcessingApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -1550,6 +1556,14 @@ class InboundProcessingApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1569,7 +1583,7 @@ class InboundProcessingApi
      *
      * Get inbound message
      *
-     * @param  string $message_id Message ID (required)
+     * @param  string $message_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInboundMessage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1590,7 +1604,7 @@ class InboundProcessingApi
      *
      * Get inbound message
      *
-     * @param  string $message_id Message ID (required)
+     * @param  string $message_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInboundMessage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1640,7 +1654,7 @@ class InboundProcessingApi
     /**
      * Create request for operation 'getInboundMessage'
      *
-     * @param  string $message_id Message ID (required)
+     * @param  string $message_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getInboundMessage'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1813,13 +1827,13 @@ class InboundProcessingApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1857,7 +1871,7 @@ class InboundProcessingApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1865,7 +1879,7 @@ class InboundProcessingApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',

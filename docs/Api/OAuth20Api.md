@@ -18,8 +18,7 @@ All URIs are relative to https://api.mailodds.com/v1, except if the operation de
 ```php
 createToken($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier): \MailOdds\Model\CreateToken200Response
 ```
-### URI(s):
-- https://api.mailodds.com Server root
+
 Create token
 
 Exchange an authorization code, client credentials, or refresh token for access and refresh tokens. Authenticate via client_secret_post or client_secret_basic.
@@ -46,12 +45,8 @@ $refresh_token = 'refresh_token_example'; // string | Refresh token (for refresh
 $scope = 'scope_example'; // string | Space-separated scopes
 $code_verifier = 'code_verifier_example'; // string | PKCE code verifier
 
-$hostIndex = 0;
-$variables = [
-];
-
 try {
-    $result = $apiInstance->createToken($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier, $hostIndex, $variables);
+    $result = $apiInstance->createToken($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OAuth20Api->createToken: ', $e->getMessage(), PHP_EOL;
@@ -70,8 +65,6 @@ try {
 | **refresh_token** | **string**| Refresh token (for refresh_token grant) | [optional] |
 | **scope** | **string**| Space-separated scopes | [optional] |
 | **code_verifier** | **string**| PKCE code verifier | [optional] |
-| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
-| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -95,8 +88,7 @@ No authorization required
 ```php
 getJwks(): \MailOdds\Model\JwksResponse
 ```
-### URI(s):
-- https://api.mailodds.com Server root
+
 Get JSON Web Key Set
 
 Public key set for verifying JWT access tokens issued by this server.
@@ -115,12 +107,8 @@ $apiInstance = new MailOdds\Api\OAuth20Api(
     new GuzzleHttp\Client()
 );
 
-$hostIndex = 0;
-$variables = [
-];
-
 try {
-    $result = $apiInstance->getJwks($hostIndex, $variables);
+    $result = $apiInstance->getJwks();
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OAuth20Api->getJwks: ', $e->getMessage(), PHP_EOL;
@@ -130,8 +118,6 @@ try {
 ### Parameters
 
 This endpoint does not need any parameter.
-| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
-| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -155,8 +141,7 @@ No authorization required
 ```php
 introspectToken($token, $token_type_hint, $client_id, $client_secret): \MailOdds\Model\IntrospectToken200Response
 ```
-### URI(s):
-- https://api.mailodds.com Server root
+
 Introspect token
 
 Introspect a token to determine its active state and metadata (RFC 7662). Requires client authentication.
@@ -179,12 +164,8 @@ $token_type_hint = 'token_type_hint_example'; // string
 $client_id = 'client_id_example'; // string
 $client_secret = 'client_secret_example'; // string
 
-$hostIndex = 0;
-$variables = [
-];
-
 try {
-    $result = $apiInstance->introspectToken($token, $token_type_hint, $client_id, $client_secret, $hostIndex, $variables);
+    $result = $apiInstance->introspectToken($token, $token_type_hint, $client_id, $client_secret);
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OAuth20Api->introspectToken: ', $e->getMessage(), PHP_EOL;
@@ -199,8 +180,6 @@ try {
 | **token_type_hint** | **string**|  | [optional] |
 | **client_id** | **string**|  | [optional] |
 | **client_secret** | **string**|  | [optional] |
-| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
-| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -224,8 +203,7 @@ No authorization required
 ```php
 oauthServerMetadata(): \MailOdds\Model\OAuthServerMetadata
 ```
-### URI(s):
-- https://api.mailodds.com Server root
+
 OAuth server metadata
 
 OAuth 2.0 Authorization Server Metadata (RFC 8414). Returns server configuration including supported grant types, scopes, and endpoints.
@@ -244,12 +222,8 @@ $apiInstance = new MailOdds\Api\OAuth20Api(
     new GuzzleHttp\Client()
 );
 
-$hostIndex = 0;
-$variables = [
-];
-
 try {
-    $result = $apiInstance->oauthServerMetadata($hostIndex, $variables);
+    $result = $apiInstance->oauthServerMetadata();
     print_r($result);
 } catch (Exception $e) {
     echo 'Exception when calling OAuth20Api->oauthServerMetadata: ', $e->getMessage(), PHP_EOL;
@@ -259,8 +233,6 @@ try {
 ### Parameters
 
 This endpoint does not need any parameter.
-| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
-| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -284,8 +256,7 @@ No authorization required
 ```php
 revokeToken($token, $token_type_hint, $client_id, $client_secret)
 ```
-### URI(s):
-- https://api.mailodds.com Server root
+
 Revoke token
 
 Revoke an access or refresh token (RFC 7009). Requires client authentication. Always returns 200 per spec to prevent token scanning.
@@ -308,12 +279,8 @@ $token_type_hint = 'token_type_hint_example'; // string
 $client_id = 'client_id_example'; // string
 $client_secret = 'client_secret_example'; // string
 
-$hostIndex = 0;
-$variables = [
-];
-
 try {
-    $apiInstance->revokeToken($token, $token_type_hint, $client_id, $client_secret, $hostIndex, $variables);
+    $apiInstance->revokeToken($token, $token_type_hint, $client_id, $client_secret);
 } catch (Exception $e) {
     echo 'Exception when calling OAuth20Api->revokeToken: ', $e->getMessage(), PHP_EOL;
 }
@@ -327,8 +294,6 @@ try {
 | **token_type_hint** | **string**|  | [optional] |
 | **client_id** | **string**|  | [optional] |
 | **client_secret** | **string**|  | [optional] |
-| hostIndex | null|int | Host index. Defaults to null. If null, then the library will use $this->hostIndex instead | [optional] |
-| variables | array | Associative array of variables to pass to the host. Defaults to empty array. | [optional] |
 
 ### Return type
 
@@ -341,7 +306,7 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: `application/x-www-form-urlencoded`
-- **Accept**: Not defined
+- **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
 [[Back to Model list]](../../README.md#models)

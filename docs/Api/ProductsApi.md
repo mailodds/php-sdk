@@ -39,7 +39,7 @@ $apiInstance = new MailOdds\Api\ProductsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$store_id = 'store_id_example'; // string | Store connection UUID
+$store_id = 'store_id_example'; // string
 $batch_products_request = new \MailOdds\Model\BatchProductsRequest(); // \MailOdds\Model\BatchProductsRequest
 
 try {
@@ -54,7 +54,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **store_id** | **string**| Store connection UUID | |
+| **store_id** | **string**|  | |
 | **batch_products_request** | [**\MailOdds\Model\BatchProductsRequest**](../Model/BatchProductsRequest.md)|  | |
 
 ### Return type
@@ -161,7 +161,7 @@ $apiInstance = new MailOdds\Api\ProductsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$product_id = 'product_id_example'; // string | Product UUID
+$product_id = 'product_id_example'; // string
 
 try {
     $result = $apiInstance->getProduct($product_id);
@@ -175,7 +175,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **product_id** | **string**| Product UUID | |
+| **product_id** | **string**|  | |
 
 ### Return type
 

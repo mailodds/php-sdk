@@ -223,13 +223,13 @@ class BulkValidationApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -275,7 +275,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -283,7 +283,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1445,13 +1445,13 @@ class BulkValidationApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1489,7 +1489,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1497,7 +1497,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1745,13 +1745,13 @@ class BulkValidationApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1789,7 +1789,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1797,7 +1797,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2053,13 +2053,13 @@ class BulkValidationApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -2097,7 +2097,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2105,7 +2105,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2354,7 +2354,7 @@ class BulkValidationApi
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \MailOdds\Model\PresignedUploadResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     * @return \MailOdds\Model\PresignedUploadResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
      */
     public function getPresignedUpload($get_presigned_upload_request, string $contentType = self::contentTypes['getPresignedUpload'][0])
     {
@@ -2372,7 +2372,7 @@ class BulkValidationApi
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \MailOdds\Model\PresignedUploadResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MailOdds\Model\PresignedUploadResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function getPresignedUploadWithHttpInfo($get_presigned_upload_request, string $contentType = self::contentTypes['getPresignedUpload'][0])
     {
@@ -2408,13 +2408,19 @@ class BulkValidationApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 503:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 503:
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -2452,7 +2458,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 503:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2460,7 +2466,15 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 503:
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2962,7 +2976,7 @@ class BulkValidationApi
      *
      * Retry failed job
      *
-     * @param  string $job_id Job ID (required)
+     * @param  string $job_id job_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['retryJob'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -2980,7 +2994,7 @@ class BulkValidationApi
      *
      * Retry failed job
      *
-     * @param  string $job_id Job ID (required)
+     * @param  string $job_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['retryJob'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -3027,13 +3041,13 @@ class BulkValidationApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -3079,7 +3093,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -3087,7 +3101,7 @@ class BulkValidationApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -3107,7 +3121,7 @@ class BulkValidationApi
      *
      * Retry failed job
      *
-     * @param  string $job_id Job ID (required)
+     * @param  string $job_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['retryJob'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3128,7 +3142,7 @@ class BulkValidationApi
      *
      * Retry failed job
      *
-     * @param  string $job_id Job ID (required)
+     * @param  string $job_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['retryJob'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -3178,7 +3192,7 @@ class BulkValidationApi
     /**
      * Create request for operation 'retryJob'
      *
-     * @param  string $job_id Job ID (required)
+     * @param  string $job_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['retryJob'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException

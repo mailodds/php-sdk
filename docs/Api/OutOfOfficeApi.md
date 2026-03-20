@@ -100,7 +100,7 @@ $apiInstance = new MailOdds\Api\OutOfOfficeApi(
     new GuzzleHttp\Client(),
     $config
 );
-$email = 'email_example'; // string | Email address
+$email = 'email_example'; // string
 
 try {
     $result = $apiInstance->deleteOooContact($email);
@@ -114,7 +114,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **email** | **string**| Email address | |
+| **email** | **string**|  | |
 
 ### Return type
 
@@ -160,7 +160,7 @@ $apiInstance = new MailOdds\Api\OutOfOfficeApi(
     new GuzzleHttp\Client(),
     $config
 );
-$email = 'email_example'; // string | Email address to check
+$email = 'email_example'; // string
 
 try {
     $result = $apiInstance->getOooStatus($email);
@@ -174,7 +174,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **email** | **string**| Email address to check | |
+| **email** | **string**|  | |
 
 ### Return type
 
@@ -284,7 +284,7 @@ $apiInstance = new MailOdds\Api\OutOfOfficeApi(
     new GuzzleHttp\Client(),
     $config
 );
-$email = 'email_example'; // string | Email address
+$email = 'email_example'; // string
 $update_ooo_contact_request = new \MailOdds\Model\UpdateOooContactRequest(); // \MailOdds\Model\UpdateOooContactRequest
 
 try {
@@ -299,7 +299,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **email** | **string**| Email address | |
+| **email** | **string**|  | |
 | **update_ooo_contact_request** | [**\MailOdds\Model\UpdateOooContactRequest**](../Model/UpdateOooContactRequest.md)|  | |
 
 ### Return type

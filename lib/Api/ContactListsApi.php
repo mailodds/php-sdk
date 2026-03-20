@@ -161,7 +161,7 @@ class ContactListsApi
      *
      * Add contact to list
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id list_id (required)
      * @param  \MailOdds\Model\AddContactRequest $add_contact_request add_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addContact'] to see the possible values for this operation
      *
@@ -180,7 +180,7 @@ class ContactListsApi
      *
      * Add contact to list
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\AddContactRequest $add_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addContact'] to see the possible values for this operation
      *
@@ -222,6 +222,12 @@ class ContactListsApi
                         $request,
                         $response,
                     );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -229,12 +235,6 @@ class ContactListsApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -272,6 +272,14 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -281,14 +289,6 @@ class ContactListsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -308,7 +308,7 @@ class ContactListsApi
      *
      * Add contact to list
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\AddContactRequest $add_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addContact'] to see the possible values for this operation
      *
@@ -330,7 +330,7 @@ class ContactListsApi
      *
      * Add contact to list
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\AddContactRequest $add_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addContact'] to see the possible values for this operation
      *
@@ -381,7 +381,7 @@ class ContactListsApi
     /**
      * Create request for operation 'addContact'
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\AddContactRequest $add_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['addContact'] to see the possible values for this operation
      *
@@ -494,7 +494,7 @@ class ContactListsApi
      *
      * Append to contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id list_id (required)
      * @param  \MailOdds\Model\AppendToContactListRequest $append_to_contact_list_request append_to_contact_list_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['appendToContactList'] to see the possible values for this operation
      *
@@ -513,7 +513,7 @@ class ContactListsApi
      *
      * Append to contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\AppendToContactListRequest $append_to_contact_list_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['appendToContactList'] to see the possible values for this operation
      *
@@ -555,6 +555,12 @@ class ContactListsApi
                         $request,
                         $response,
                     );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -562,12 +568,6 @@ class ContactListsApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -605,6 +605,14 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -614,14 +622,6 @@ class ContactListsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -641,7 +641,7 @@ class ContactListsApi
      *
      * Append to contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\AppendToContactListRequest $append_to_contact_list_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['appendToContactList'] to see the possible values for this operation
      *
@@ -663,7 +663,7 @@ class ContactListsApi
      *
      * Append to contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\AppendToContactListRequest $append_to_contact_list_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['appendToContactList'] to see the possible values for this operation
      *
@@ -714,7 +714,7 @@ class ContactListsApi
     /**
      * Create request for operation 'appendToContactList'
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\AppendToContactListRequest $append_to_contact_list_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['appendToContactList'] to see the possible values for this operation
      *
@@ -886,6 +886,12 @@ class ContactListsApi
                         $request,
                         $response,
                     );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -893,12 +899,6 @@ class ContactListsApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -936,6 +936,14 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -945,14 +953,6 @@ class ContactListsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1140,8 +1140,8 @@ class ContactListsApi
      *
      * Delete contact
      *
-     * @param  string $list_id Contact list ID (required)
-     * @param  string $contact_id Contact ID (required)
+     * @param  string $list_id list_id (required)
+     * @param  string $contact_id contact_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContact'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1159,8 +1159,8 @@ class ContactListsApi
      *
      * Delete contact
      *
-     * @param  string $list_id Contact list ID (required)
-     * @param  string $contact_id Contact ID (required)
+     * @param  string $list_id (required)
+     * @param  string $contact_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContact'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1201,13 +1201,13 @@ class ContactListsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1245,7 +1245,7 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1253,7 +1253,7 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1273,8 +1273,8 @@ class ContactListsApi
      *
      * Delete contact
      *
-     * @param  string $list_id Contact list ID (required)
-     * @param  string $contact_id Contact ID (required)
+     * @param  string $list_id (required)
+     * @param  string $contact_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContact'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1295,8 +1295,8 @@ class ContactListsApi
      *
      * Delete contact
      *
-     * @param  string $list_id Contact list ID (required)
-     * @param  string $contact_id Contact ID (required)
+     * @param  string $list_id (required)
+     * @param  string $contact_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContact'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1346,8 +1346,8 @@ class ContactListsApi
     /**
      * Create request for operation 'deleteContact'
      *
-     * @param  string $list_id Contact list ID (required)
-     * @param  string $contact_id Contact ID (required)
+     * @param  string $list_id (required)
+     * @param  string $contact_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContact'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1460,7 +1460,7 @@ class ContactListsApi
      *
      * Delete a contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id list_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContactList'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1478,7 +1478,7 @@ class ContactListsApi
      *
      * Delete a contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContactList'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1519,13 +1519,13 @@ class ContactListsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1563,7 +1563,7 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1571,7 +1571,7 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1591,7 +1591,7 @@ class ContactListsApi
      *
      * Delete a contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContactList'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1612,7 +1612,7 @@ class ContactListsApi
      *
      * Delete a contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContactList'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1662,7 +1662,7 @@ class ContactListsApi
     /**
      * Create request for operation 'deleteContactList'
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteContactList'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1760,7 +1760,7 @@ class ContactListsApi
      *
      * Export contact list
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id list_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportContactList'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1778,7 +1778,7 @@ class ContactListsApi
      *
      * Export contact list
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportContactList'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1819,13 +1819,13 @@ class ContactListsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1863,7 +1863,7 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1871,7 +1871,7 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1891,7 +1891,7 @@ class ContactListsApi
      *
      * Export contact list
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportContactList'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1912,7 +1912,7 @@ class ContactListsApi
      *
      * Export contact list
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportContactList'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1962,7 +1962,7 @@ class ContactListsApi
     /**
      * Create request for operation 'exportContactList'
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['exportContactList'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -2119,13 +2119,13 @@ class ContactListsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -2163,7 +2163,7 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2171,7 +2171,7 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2361,7 +2361,7 @@ class ContactListsApi
      *
      * Import contacts from CSV
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id list_id (required)
      * @param  \SplFileObject $file CSV file (max 10MB) (required)
      * @param  string|null $column_mapping JSON mapping of CSV columns to contact fields (optional)
      * @param  string|null $consent_source Source of consent for imported contacts (optional)
@@ -2383,7 +2383,7 @@ class ContactListsApi
      *
      * Import contacts from CSV
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  \SplFileObject $file CSV file (max 10MB) (required)
      * @param  string|null $column_mapping JSON mapping of CSV columns to contact fields (optional)
      * @param  string|null $consent_source Source of consent for imported contacts (optional)
@@ -2428,6 +2428,12 @@ class ContactListsApi
                         $request,
                         $response,
                     );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -2435,12 +2441,6 @@ class ContactListsApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -2478,6 +2478,14 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -2487,14 +2495,6 @@ class ContactListsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2514,7 +2514,7 @@ class ContactListsApi
      *
      * Import contacts from CSV
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  \SplFileObject $file CSV file (max 10MB) (required)
      * @param  string|null $column_mapping JSON mapping of CSV columns to contact fields (optional)
      * @param  string|null $consent_source Source of consent for imported contacts (optional)
@@ -2539,7 +2539,7 @@ class ContactListsApi
      *
      * Import contacts from CSV
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  \SplFileObject $file CSV file (max 10MB) (required)
      * @param  string|null $column_mapping JSON mapping of CSV columns to contact fields (optional)
      * @param  string|null $consent_source Source of consent for imported contacts (optional)
@@ -2593,7 +2593,7 @@ class ContactListsApi
     /**
      * Create request for operation 'importContactList'
      *
-     * @param  string $list_id Contact list ID (required)
+     * @param  string $list_id (required)
      * @param  \SplFileObject $file CSV file (max 10MB) (required)
      * @param  string|null $column_mapping JSON mapping of CSV columns to contact fields (optional)
      * @param  string|null $consent_source Source of consent for imported contacts (optional)
@@ -2779,13 +2779,13 @@ class ContactListsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -2823,7 +2823,7 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2831,7 +2831,7 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -3031,7 +3031,7 @@ class ContactListsApi
      *
      * Query contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id list_id (required)
      * @param  \MailOdds\Model\QueryContactListRequest $query_contact_list_request query_contact_list_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['queryContactList'] to see the possible values for this operation
      *
@@ -3050,7 +3050,7 @@ class ContactListsApi
      *
      * Query contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\QueryContactListRequest $query_contact_list_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['queryContactList'] to see the possible values for this operation
      *
@@ -3092,6 +3092,12 @@ class ContactListsApi
                         $request,
                         $response,
                     );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -3099,12 +3105,6 @@ class ContactListsApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -3142,6 +3142,14 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -3151,14 +3159,6 @@ class ContactListsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -3178,7 +3178,7 @@ class ContactListsApi
      *
      * Query contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\QueryContactListRequest $query_contact_list_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['queryContactList'] to see the possible values for this operation
      *
@@ -3200,7 +3200,7 @@ class ContactListsApi
      *
      * Query contact list
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\QueryContactListRequest $query_contact_list_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['queryContactList'] to see the possible values for this operation
      *
@@ -3251,7 +3251,7 @@ class ContactListsApi
     /**
      * Create request for operation 'queryContactList'
      *
-     * @param  string $list_id Contact list UUID (required)
+     * @param  string $list_id (required)
      * @param  \MailOdds\Model\QueryContactListRequest $query_contact_list_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['queryContactList'] to see the possible values for this operation
      *
@@ -3364,8 +3364,8 @@ class ContactListsApi
      *
      * Update contact
      *
-     * @param  string $list_id Contact list ID (required)
-     * @param  string $contact_id Contact ID (required)
+     * @param  string $list_id list_id (required)
+     * @param  string $contact_id contact_id (required)
      * @param  \MailOdds\Model\UpdateContactRequest $update_contact_request update_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateContact'] to see the possible values for this operation
      *
@@ -3384,8 +3384,8 @@ class ContactListsApi
      *
      * Update contact
      *
-     * @param  string $list_id Contact list ID (required)
-     * @param  string $contact_id Contact ID (required)
+     * @param  string $list_id (required)
+     * @param  string $contact_id (required)
      * @param  \MailOdds\Model\UpdateContactRequest $update_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateContact'] to see the possible values for this operation
      *
@@ -3427,6 +3427,12 @@ class ContactListsApi
                         $request,
                         $response,
                     );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -3434,12 +3440,6 @@ class ContactListsApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -3477,6 +3477,14 @@ class ContactListsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -3486,14 +3494,6 @@ class ContactListsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -3513,8 +3513,8 @@ class ContactListsApi
      *
      * Update contact
      *
-     * @param  string $list_id Contact list ID (required)
-     * @param  string $contact_id Contact ID (required)
+     * @param  string $list_id (required)
+     * @param  string $contact_id (required)
      * @param  \MailOdds\Model\UpdateContactRequest $update_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateContact'] to see the possible values for this operation
      *
@@ -3536,8 +3536,8 @@ class ContactListsApi
      *
      * Update contact
      *
-     * @param  string $list_id Contact list ID (required)
-     * @param  string $contact_id Contact ID (required)
+     * @param  string $list_id (required)
+     * @param  string $contact_id (required)
      * @param  \MailOdds\Model\UpdateContactRequest $update_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateContact'] to see the possible values for this operation
      *
@@ -3588,8 +3588,8 @@ class ContactListsApi
     /**
      * Create request for operation 'updateContact'
      *
-     * @param  string $list_id Contact list ID (required)
-     * @param  string $contact_id Contact ID (required)
+     * @param  string $list_id (required)
+     * @param  string $contact_id (required)
      * @param  \MailOdds\Model\UpdateContactRequest $update_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateContact'] to see the possible values for this operation
      *

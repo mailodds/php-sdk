@@ -601,7 +601,7 @@ $apiInstance = new MailOdds\Api\BulkValidationApi(
     new GuzzleHttp\Client(),
     $config
 );
-$job_id = 'job_id_example'; // string | Job ID
+$job_id = 'job_id_example'; // string
 
 try {
     $result = $apiInstance->retryJob($job_id);
@@ -615,7 +615,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **job_id** | **string**| Job ID | |
+| **job_id** | **string**|  | |
 
 ### Return type
 

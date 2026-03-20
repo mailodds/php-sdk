@@ -451,7 +451,7 @@ class StoreConnectionsApi
      *
      * Disconnect a store
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id store_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disconnectStore'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -469,7 +469,7 @@ class StoreConnectionsApi
      *
      * Disconnect a store
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disconnectStore'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -510,13 +510,13 @@ class StoreConnectionsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -554,7 +554,7 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -562,7 +562,7 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -582,7 +582,7 @@ class StoreConnectionsApi
      *
      * Disconnect a store
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disconnectStore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -603,7 +603,7 @@ class StoreConnectionsApi
      *
      * Disconnect a store
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disconnectStore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -653,7 +653,7 @@ class StoreConnectionsApi
     /**
      * Create request for operation 'disconnectStore'
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['disconnectStore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -751,7 +751,7 @@ class StoreConnectionsApi
      *
      * Get a store connection
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id store_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getStore'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -769,7 +769,7 @@ class StoreConnectionsApi
      *
      * Get a store connection
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getStore'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -810,13 +810,13 @@ class StoreConnectionsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -854,7 +854,7 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -862,7 +862,7 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -882,7 +882,7 @@ class StoreConnectionsApi
      *
      * Get a store connection
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getStore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -903,7 +903,7 @@ class StoreConnectionsApi
      *
      * Get a store connection
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getStore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -953,7 +953,7 @@ class StoreConnectionsApi
     /**
      * Create request for operation 'getStore'
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getStore'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1051,8 +1051,8 @@ class StoreConnectionsApi
      *
      * Get sync job errors
      *
-     * @param  string $store_id Store ID (required)
-     * @param  string $job_id Sync job ID (required)
+     * @param  string $store_id store_id (required)
+     * @param  string $job_id job_id (required)
      * @param  int|null $page page (optional, default to 1)
      * @param  int|null $per_page per_page (optional, default to 50)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSyncJobErrors'] to see the possible values for this operation
@@ -1072,8 +1072,8 @@ class StoreConnectionsApi
      *
      * Get sync job errors
      *
-     * @param  string $store_id Store ID (required)
-     * @param  string $job_id Sync job ID (required)
+     * @param  string $store_id (required)
+     * @param  string $job_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 50)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSyncJobErrors'] to see the possible values for this operation
@@ -1116,13 +1116,13 @@ class StoreConnectionsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1160,7 +1160,7 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1168,7 +1168,7 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1188,8 +1188,8 @@ class StoreConnectionsApi
      *
      * Get sync job errors
      *
-     * @param  string $store_id Store ID (required)
-     * @param  string $job_id Sync job ID (required)
+     * @param  string $store_id (required)
+     * @param  string $job_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 50)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSyncJobErrors'] to see the possible values for this operation
@@ -1212,8 +1212,8 @@ class StoreConnectionsApi
      *
      * Get sync job errors
      *
-     * @param  string $store_id Store ID (required)
-     * @param  string $job_id Sync job ID (required)
+     * @param  string $store_id (required)
+     * @param  string $job_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 50)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSyncJobErrors'] to see the possible values for this operation
@@ -1265,8 +1265,8 @@ class StoreConnectionsApi
     /**
      * Create request for operation 'getSyncJobErrors'
      *
-     * @param  string $store_id Store ID (required)
-     * @param  string $job_id Sync job ID (required)
+     * @param  string $store_id (required)
+     * @param  string $job_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 50)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getSyncJobErrors'] to see the possible values for this operation
@@ -1685,7 +1685,7 @@ class StoreConnectionsApi
      *
      * List sync jobs
      *
-     * @param  string $store_id Store ID (required)
+     * @param  string $store_id store_id (required)
      * @param  int|null $page page (optional, default to 1)
      * @param  int|null $per_page per_page (optional, default to 20)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSyncJobs'] to see the possible values for this operation
@@ -1705,7 +1705,7 @@ class StoreConnectionsApi
      *
      * List sync jobs
      *
-     * @param  string $store_id Store ID (required)
+     * @param  string $store_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 20)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSyncJobs'] to see the possible values for this operation
@@ -1748,13 +1748,13 @@ class StoreConnectionsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1792,7 +1792,7 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1800,7 +1800,7 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1820,7 +1820,7 @@ class StoreConnectionsApi
      *
      * List sync jobs
      *
-     * @param  string $store_id Store ID (required)
+     * @param  string $store_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 20)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSyncJobs'] to see the possible values for this operation
@@ -1843,7 +1843,7 @@ class StoreConnectionsApi
      *
      * List sync jobs
      *
-     * @param  string $store_id Store ID (required)
+     * @param  string $store_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 20)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSyncJobs'] to see the possible values for this operation
@@ -1895,7 +1895,7 @@ class StoreConnectionsApi
     /**
      * Create request for operation 'listSyncJobs'
      *
-     * @param  string $store_id Store ID (required)
+     * @param  string $store_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 20)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['listSyncJobs'] to see the possible values for this operation
@@ -2018,7 +2018,7 @@ class StoreConnectionsApi
      *
      * Trigger product sync
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id store_id (required)
      * @param  string|null $idempotency_key Idempotency key to prevent duplicate syncs (5 min TTL) (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['triggerSync'] to see the possible values for this operation
      *
@@ -2037,7 +2037,7 @@ class StoreConnectionsApi
      *
      * Trigger product sync
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string|null $idempotency_key Idempotency key to prevent duplicate syncs (5 min TTL) (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['triggerSync'] to see the possible values for this operation
      *
@@ -2085,13 +2085,13 @@ class StoreConnectionsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -2137,7 +2137,7 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2145,7 +2145,7 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2165,7 +2165,7 @@ class StoreConnectionsApi
      *
      * Trigger product sync
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string|null $idempotency_key Idempotency key to prevent duplicate syncs (5 min TTL) (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['triggerSync'] to see the possible values for this operation
      *
@@ -2187,7 +2187,7 @@ class StoreConnectionsApi
      *
      * Trigger product sync
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string|null $idempotency_key Idempotency key to prevent duplicate syncs (5 min TTL) (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['triggerSync'] to see the possible values for this operation
      *
@@ -2238,7 +2238,7 @@ class StoreConnectionsApi
     /**
      * Create request for operation 'triggerSync'
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  string|null $idempotency_key Idempotency key to prevent duplicate syncs (5 min TTL) (optional)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['triggerSync'] to see the possible values for this operation
      *
@@ -2342,7 +2342,7 @@ class StoreConnectionsApi
      *
      * Update a store connection
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id store_id (required)
      * @param  \MailOdds\Model\UpdateStoreRequest $update_store_request update_store_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateStore'] to see the possible values for this operation
      *
@@ -2361,7 +2361,7 @@ class StoreConnectionsApi
      *
      * Update a store connection
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  \MailOdds\Model\UpdateStoreRequest $update_store_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateStore'] to see the possible values for this operation
      *
@@ -2403,6 +2403,12 @@ class StoreConnectionsApi
                         $request,
                         $response,
                     );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -2410,12 +2416,6 @@ class StoreConnectionsApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -2453,6 +2453,14 @@ class StoreConnectionsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -2462,14 +2470,6 @@ class StoreConnectionsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -2489,7 +2489,7 @@ class StoreConnectionsApi
      *
      * Update a store connection
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  \MailOdds\Model\UpdateStoreRequest $update_store_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateStore'] to see the possible values for this operation
      *
@@ -2511,7 +2511,7 @@ class StoreConnectionsApi
      *
      * Update a store connection
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  \MailOdds\Model\UpdateStoreRequest $update_store_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateStore'] to see the possible values for this operation
      *
@@ -2562,7 +2562,7 @@ class StoreConnectionsApi
     /**
      * Create request for operation 'updateStore'
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  \MailOdds\Model\UpdateStoreRequest $update_store_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateStore'] to see the possible values for this operation
      *

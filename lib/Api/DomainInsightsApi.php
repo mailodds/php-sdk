@@ -198,12 +198,6 @@ class DomainInsightsApi
                         $request,
                         $response,
                     );
-                case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -211,6 +205,12 @@ class DomainInsightsApi
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -248,14 +248,6 @@ class DomainInsightsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -265,6 +257,14 @@ class DomainInsightsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -533,12 +533,6 @@ class DomainInsightsApi
                         $request,
                         $response,
                     );
-                case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -546,6 +540,12 @@ class DomainInsightsApi
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -583,14 +583,6 @@ class DomainInsightsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -600,6 +592,14 @@ class DomainInsightsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -868,12 +868,6 @@ class DomainInsightsApi
                         $request,
                         $response,
                     );
-                case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -881,6 +875,12 @@ class DomainInsightsApi
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -918,14 +918,6 @@ class DomainInsightsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -935,6 +927,14 @@ class DomainInsightsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',

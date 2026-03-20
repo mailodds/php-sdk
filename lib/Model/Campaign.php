@@ -59,18 +59,32 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPITypes = [
         'id' => 'string',
+        'account_id' => 'int',
         'name' => 'string',
         'status' => 'string',
-        'list_id' => 'string',
         'domain_id' => 'string',
-        'from_email' => 'string',
-        'from_name' => 'string',
+        'subject' => 'string',
+        'from_address' => 'string',
         'reply_to' => 'string',
+        'html_body' => 'string',
+        'text_body' => 'string',
+        'html_body_dark' => 'string',
+        'text_body_dark' => 'string',
+        'campaign_type' => 'string',
+        'auto_detect_schema' => 'bool',
+        'promo_annotations' => 'object',
+        'throwaway_policy' => 'string',
         'scheduled_at' => '\DateTime',
-        'sent_at' => '\DateTime',
-        'cancelled_at' => '\DateTime',
-        'variant_count' => 'int',
+        'started_at' => '\DateTime',
+        'completed_at' => '\DateTime',
+        'recipient_count' => 'int',
+        'is_ab_test' => 'bool',
+        'winning_variant_id' => 'string',
+        'ab_test_config' => 'object',
+        'error_message' => 'string',
         'stats' => '\MailOdds\Model\CampaignStats',
+        'open_rate' => 'float',
+        'click_rate' => 'float',
         'created_at' => '\DateTime',
         'updated_at' => '\DateTime'
     ];
@@ -84,18 +98,32 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static $openAPIFormats = [
         'id' => null,
+        'account_id' => null,
         'name' => null,
         'status' => null,
-        'list_id' => null,
         'domain_id' => null,
-        'from_email' => null,
-        'from_name' => null,
+        'subject' => null,
+        'from_address' => null,
         'reply_to' => null,
+        'html_body' => null,
+        'text_body' => null,
+        'html_body_dark' => null,
+        'text_body_dark' => null,
+        'campaign_type' => null,
+        'auto_detect_schema' => null,
+        'promo_annotations' => null,
+        'throwaway_policy' => null,
         'scheduled_at' => 'date-time',
-        'sent_at' => 'date-time',
-        'cancelled_at' => 'date-time',
-        'variant_count' => null,
+        'started_at' => 'date-time',
+        'completed_at' => 'date-time',
+        'recipient_count' => null,
+        'is_ab_test' => null,
+        'winning_variant_id' => null,
+        'ab_test_config' => null,
+        'error_message' => null,
         'stats' => null,
+        'open_rate' => null,
+        'click_rate' => null,
         'created_at' => 'date-time',
         'updated_at' => 'date-time'
     ];
@@ -107,18 +135,32 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
       */
     protected static array $openAPINullables = [
         'id' => false,
+        'account_id' => false,
         'name' => false,
         'status' => false,
-        'list_id' => false,
         'domain_id' => false,
-        'from_email' => false,
-        'from_name' => false,
+        'subject' => false,
+        'from_address' => false,
         'reply_to' => true,
+        'html_body' => true,
+        'text_body' => true,
+        'html_body_dark' => true,
+        'text_body_dark' => true,
+        'campaign_type' => true,
+        'auto_detect_schema' => false,
+        'promo_annotations' => true,
+        'throwaway_policy' => false,
         'scheduled_at' => true,
-        'sent_at' => true,
-        'cancelled_at' => true,
-        'variant_count' => false,
+        'started_at' => true,
+        'completed_at' => true,
+        'recipient_count' => false,
+        'is_ab_test' => false,
+        'winning_variant_id' => true,
+        'ab_test_config' => true,
+        'error_message' => true,
         'stats' => false,
+        'open_rate' => false,
+        'click_rate' => false,
         'created_at' => false,
         'updated_at' => false
     ];
@@ -210,18 +252,32 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $attributeMap = [
         'id' => 'id',
+        'account_id' => 'account_id',
         'name' => 'name',
         'status' => 'status',
-        'list_id' => 'list_id',
         'domain_id' => 'domain_id',
-        'from_email' => 'from_email',
-        'from_name' => 'from_name',
+        'subject' => 'subject',
+        'from_address' => 'from_address',
         'reply_to' => 'reply_to',
+        'html_body' => 'html_body',
+        'text_body' => 'text_body',
+        'html_body_dark' => 'html_body_dark',
+        'text_body_dark' => 'text_body_dark',
+        'campaign_type' => 'campaign_type',
+        'auto_detect_schema' => 'auto_detect_schema',
+        'promo_annotations' => 'promo_annotations',
+        'throwaway_policy' => 'throwaway_policy',
         'scheduled_at' => 'scheduled_at',
-        'sent_at' => 'sent_at',
-        'cancelled_at' => 'cancelled_at',
-        'variant_count' => 'variant_count',
+        'started_at' => 'started_at',
+        'completed_at' => 'completed_at',
+        'recipient_count' => 'recipient_count',
+        'is_ab_test' => 'is_ab_test',
+        'winning_variant_id' => 'winning_variant_id',
+        'ab_test_config' => 'ab_test_config',
+        'error_message' => 'error_message',
         'stats' => 'stats',
+        'open_rate' => 'open_rate',
+        'click_rate' => 'click_rate',
         'created_at' => 'created_at',
         'updated_at' => 'updated_at'
     ];
@@ -233,18 +289,32 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $setters = [
         'id' => 'setId',
+        'account_id' => 'setAccountId',
         'name' => 'setName',
         'status' => 'setStatus',
-        'list_id' => 'setListId',
         'domain_id' => 'setDomainId',
-        'from_email' => 'setFromEmail',
-        'from_name' => 'setFromName',
+        'subject' => 'setSubject',
+        'from_address' => 'setFromAddress',
         'reply_to' => 'setReplyTo',
+        'html_body' => 'setHtmlBody',
+        'text_body' => 'setTextBody',
+        'html_body_dark' => 'setHtmlBodyDark',
+        'text_body_dark' => 'setTextBodyDark',
+        'campaign_type' => 'setCampaignType',
+        'auto_detect_schema' => 'setAutoDetectSchema',
+        'promo_annotations' => 'setPromoAnnotations',
+        'throwaway_policy' => 'setThrowawayPolicy',
         'scheduled_at' => 'setScheduledAt',
-        'sent_at' => 'setSentAt',
-        'cancelled_at' => 'setCancelledAt',
-        'variant_count' => 'setVariantCount',
+        'started_at' => 'setStartedAt',
+        'completed_at' => 'setCompletedAt',
+        'recipient_count' => 'setRecipientCount',
+        'is_ab_test' => 'setIsAbTest',
+        'winning_variant_id' => 'setWinningVariantId',
+        'ab_test_config' => 'setAbTestConfig',
+        'error_message' => 'setErrorMessage',
         'stats' => 'setStats',
+        'open_rate' => 'setOpenRate',
+        'click_rate' => 'setClickRate',
         'created_at' => 'setCreatedAt',
         'updated_at' => 'setUpdatedAt'
     ];
@@ -256,18 +326,32 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     protected static $getters = [
         'id' => 'getId',
+        'account_id' => 'getAccountId',
         'name' => 'getName',
         'status' => 'getStatus',
-        'list_id' => 'getListId',
         'domain_id' => 'getDomainId',
-        'from_email' => 'getFromEmail',
-        'from_name' => 'getFromName',
+        'subject' => 'getSubject',
+        'from_address' => 'getFromAddress',
         'reply_to' => 'getReplyTo',
+        'html_body' => 'getHtmlBody',
+        'text_body' => 'getTextBody',
+        'html_body_dark' => 'getHtmlBodyDark',
+        'text_body_dark' => 'getTextBodyDark',
+        'campaign_type' => 'getCampaignType',
+        'auto_detect_schema' => 'getAutoDetectSchema',
+        'promo_annotations' => 'getPromoAnnotations',
+        'throwaway_policy' => 'getThrowawayPolicy',
         'scheduled_at' => 'getScheduledAt',
-        'sent_at' => 'getSentAt',
-        'cancelled_at' => 'getCancelledAt',
-        'variant_count' => 'getVariantCount',
+        'started_at' => 'getStartedAt',
+        'completed_at' => 'getCompletedAt',
+        'recipient_count' => 'getRecipientCount',
+        'is_ab_test' => 'getIsAbTest',
+        'winning_variant_id' => 'getWinningVariantId',
+        'ab_test_config' => 'getAbTestConfig',
+        'error_message' => 'getErrorMessage',
         'stats' => 'getStats',
+        'open_rate' => 'getOpenRate',
+        'click_rate' => 'getClickRate',
         'created_at' => 'getCreatedAt',
         'updated_at' => 'getUpdatedAt'
     ];
@@ -351,18 +435,32 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
     public function __construct(?array $data = null)
     {
         $this->setIfExists('id', $data ?? [], null);
+        $this->setIfExists('account_id', $data ?? [], null);
         $this->setIfExists('name', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
-        $this->setIfExists('list_id', $data ?? [], null);
         $this->setIfExists('domain_id', $data ?? [], null);
-        $this->setIfExists('from_email', $data ?? [], null);
-        $this->setIfExists('from_name', $data ?? [], null);
+        $this->setIfExists('subject', $data ?? [], null);
+        $this->setIfExists('from_address', $data ?? [], null);
         $this->setIfExists('reply_to', $data ?? [], null);
+        $this->setIfExists('html_body', $data ?? [], null);
+        $this->setIfExists('text_body', $data ?? [], null);
+        $this->setIfExists('html_body_dark', $data ?? [], null);
+        $this->setIfExists('text_body_dark', $data ?? [], null);
+        $this->setIfExists('campaign_type', $data ?? [], null);
+        $this->setIfExists('auto_detect_schema', $data ?? [], null);
+        $this->setIfExists('promo_annotations', $data ?? [], null);
+        $this->setIfExists('throwaway_policy', $data ?? [], null);
         $this->setIfExists('scheduled_at', $data ?? [], null);
-        $this->setIfExists('sent_at', $data ?? [], null);
-        $this->setIfExists('cancelled_at', $data ?? [], null);
-        $this->setIfExists('variant_count', $data ?? [], null);
+        $this->setIfExists('started_at', $data ?? [], null);
+        $this->setIfExists('completed_at', $data ?? [], null);
+        $this->setIfExists('recipient_count', $data ?? [], null);
+        $this->setIfExists('is_ab_test', $data ?? [], null);
+        $this->setIfExists('winning_variant_id', $data ?? [], null);
+        $this->setIfExists('ab_test_config', $data ?? [], null);
+        $this->setIfExists('error_message', $data ?? [], null);
         $this->setIfExists('stats', $data ?? [], null);
+        $this->setIfExists('open_rate', $data ?? [], null);
+        $this->setIfExists('click_rate', $data ?? [], null);
         $this->setIfExists('created_at', $data ?? [], null);
         $this->setIfExists('updated_at', $data ?? [], null);
     }
@@ -412,14 +510,11 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
             );
         }
 
-        if ($this->container['list_id'] === null) {
-            $invalidProperties[] = "'list_id' can't be null";
-        }
         if ($this->container['domain_id'] === null) {
             $invalidProperties[] = "'domain_id' can't be null";
         }
-        if ($this->container['from_email'] === null) {
-            $invalidProperties[] = "'from_email' can't be null";
+        if ($this->container['from_address'] === null) {
+            $invalidProperties[] = "'from_address' can't be null";
         }
         if ($this->container['created_at'] === null) {
             $invalidProperties[] = "'created_at' can't be null";
@@ -462,6 +557,33 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable id cannot be null');
         }
         $this->container['id'] = $id;
+
+        return $this;
+    }
+
+    /**
+     * Gets account_id
+     *
+     * @return int|null
+     */
+    public function getAccountId()
+    {
+        return $this->container['account_id'];
+    }
+
+    /**
+     * Sets account_id
+     *
+     * @param int|null $account_id account_id
+     *
+     * @return self
+     */
+    public function setAccountId($account_id)
+    {
+        if (is_null($account_id)) {
+            throw new \InvalidArgumentException('non-nullable account_id cannot be null');
+        }
+        $this->container['account_id'] = $account_id;
 
         return $this;
     }
@@ -531,33 +653,6 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets list_id
-     *
-     * @return string
-     */
-    public function getListId()
-    {
-        return $this->container['list_id'];
-    }
-
-    /**
-     * Sets list_id
-     *
-     * @param string $list_id Target subscriber list UUID
-     *
-     * @return self
-     */
-    public function setListId($list_id)
-    {
-        if (is_null($list_id)) {
-            throw new \InvalidArgumentException('non-nullable list_id cannot be null');
-        }
-        $this->container['list_id'] = $list_id;
-
-        return $this;
-    }
-
-    /**
      * Gets domain_id
      *
      * @return string
@@ -585,55 +680,55 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets from_email
+     * Gets subject
      *
-     * @return string
+     * @return string|null
      */
-    public function getFromEmail()
+    public function getSubject()
     {
-        return $this->container['from_email'];
+        return $this->container['subject'];
     }
 
     /**
-     * Sets from_email
+     * Sets subject
      *
-     * @param string $from_email from_email
+     * @param string|null $subject subject
      *
      * @return self
      */
-    public function setFromEmail($from_email)
+    public function setSubject($subject)
     {
-        if (is_null($from_email)) {
-            throw new \InvalidArgumentException('non-nullable from_email cannot be null');
+        if (is_null($subject)) {
+            throw new \InvalidArgumentException('non-nullable subject cannot be null');
         }
-        $this->container['from_email'] = $from_email;
+        $this->container['subject'] = $subject;
 
         return $this;
     }
 
     /**
-     * Gets from_name
+     * Gets from_address
      *
-     * @return string|null
+     * @return string
      */
-    public function getFromName()
+    public function getFromAddress()
     {
-        return $this->container['from_name'];
+        return $this->container['from_address'];
     }
 
     /**
-     * Sets from_name
+     * Sets from_address
      *
-     * @param string|null $from_name from_name
+     * @param string $from_address Sender email address
      *
      * @return self
      */
-    public function setFromName($from_name)
+    public function setFromAddress($from_address)
     {
-        if (is_null($from_name)) {
-            throw new \InvalidArgumentException('non-nullable from_name cannot be null');
+        if (is_null($from_address)) {
+            throw new \InvalidArgumentException('non-nullable from_address cannot be null');
         }
-        $this->container['from_name'] = $from_name;
+        $this->container['from_address'] = $from_address;
 
         return $this;
     }
@@ -673,6 +768,264 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
+     * Gets html_body
+     *
+     * @return string|null
+     */
+    public function getHtmlBody()
+    {
+        return $this->container['html_body'];
+    }
+
+    /**
+     * Sets html_body
+     *
+     * @param string|null $html_body html_body
+     *
+     * @return self
+     */
+    public function setHtmlBody($html_body)
+    {
+        if (is_null($html_body)) {
+            array_push($this->openAPINullablesSetToNull, 'html_body');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('html_body', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['html_body'] = $html_body;
+
+        return $this;
+    }
+
+    /**
+     * Gets text_body
+     *
+     * @return string|null
+     */
+    public function getTextBody()
+    {
+        return $this->container['text_body'];
+    }
+
+    /**
+     * Sets text_body
+     *
+     * @param string|null $text_body text_body
+     *
+     * @return self
+     */
+    public function setTextBody($text_body)
+    {
+        if (is_null($text_body)) {
+            array_push($this->openAPINullablesSetToNull, 'text_body');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('text_body', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['text_body'] = $text_body;
+
+        return $this;
+    }
+
+    /**
+     * Gets html_body_dark
+     *
+     * @return string|null
+     */
+    public function getHtmlBodyDark()
+    {
+        return $this->container['html_body_dark'];
+    }
+
+    /**
+     * Sets html_body_dark
+     *
+     * @param string|null $html_body_dark html_body_dark
+     *
+     * @return self
+     */
+    public function setHtmlBodyDark($html_body_dark)
+    {
+        if (is_null($html_body_dark)) {
+            array_push($this->openAPINullablesSetToNull, 'html_body_dark');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('html_body_dark', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['html_body_dark'] = $html_body_dark;
+
+        return $this;
+    }
+
+    /**
+     * Gets text_body_dark
+     *
+     * @return string|null
+     */
+    public function getTextBodyDark()
+    {
+        return $this->container['text_body_dark'];
+    }
+
+    /**
+     * Sets text_body_dark
+     *
+     * @param string|null $text_body_dark text_body_dark
+     *
+     * @return self
+     */
+    public function setTextBodyDark($text_body_dark)
+    {
+        if (is_null($text_body_dark)) {
+            array_push($this->openAPINullablesSetToNull, 'text_body_dark');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('text_body_dark', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['text_body_dark'] = $text_body_dark;
+
+        return $this;
+    }
+
+    /**
+     * Gets campaign_type
+     *
+     * @return string|null
+     */
+    public function getCampaignType()
+    {
+        return $this->container['campaign_type'];
+    }
+
+    /**
+     * Sets campaign_type
+     *
+     * @param string|null $campaign_type campaign_type
+     *
+     * @return self
+     */
+    public function setCampaignType($campaign_type)
+    {
+        if (is_null($campaign_type)) {
+            array_push($this->openAPINullablesSetToNull, 'campaign_type');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('campaign_type', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['campaign_type'] = $campaign_type;
+
+        return $this;
+    }
+
+    /**
+     * Gets auto_detect_schema
+     *
+     * @return bool|null
+     */
+    public function getAutoDetectSchema()
+    {
+        return $this->container['auto_detect_schema'];
+    }
+
+    /**
+     * Sets auto_detect_schema
+     *
+     * @param bool|null $auto_detect_schema auto_detect_schema
+     *
+     * @return self
+     */
+    public function setAutoDetectSchema($auto_detect_schema)
+    {
+        if (is_null($auto_detect_schema)) {
+            throw new \InvalidArgumentException('non-nullable auto_detect_schema cannot be null');
+        }
+        $this->container['auto_detect_schema'] = $auto_detect_schema;
+
+        return $this;
+    }
+
+    /**
+     * Gets promo_annotations
+     *
+     * @return object|null
+     */
+    public function getPromoAnnotations()
+    {
+        return $this->container['promo_annotations'];
+    }
+
+    /**
+     * Sets promo_annotations
+     *
+     * @param object|null $promo_annotations promo_annotations
+     *
+     * @return self
+     */
+    public function setPromoAnnotations($promo_annotations)
+    {
+        if (is_null($promo_annotations)) {
+            array_push($this->openAPINullablesSetToNull, 'promo_annotations');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('promo_annotations', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['promo_annotations'] = $promo_annotations;
+
+        return $this;
+    }
+
+    /**
+     * Gets throwaway_policy
+     *
+     * @return string|null
+     */
+    public function getThrowawayPolicy()
+    {
+        return $this->container['throwaway_policy'];
+    }
+
+    /**
+     * Sets throwaway_policy
+     *
+     * @param string|null $throwaway_policy throwaway_policy
+     *
+     * @return self
+     */
+    public function setThrowawayPolicy($throwaway_policy)
+    {
+        if (is_null($throwaway_policy)) {
+            throw new \InvalidArgumentException('non-nullable throwaway_policy cannot be null');
+        }
+        $this->container['throwaway_policy'] = $throwaway_policy;
+
+        return $this;
+    }
+
+    /**
      * Gets scheduled_at
      *
      * @return \DateTime|null
@@ -707,96 +1060,225 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
     }
 
     /**
-     * Gets sent_at
+     * Gets started_at
      *
      * @return \DateTime|null
      */
-    public function getSentAt()
+    public function getStartedAt()
     {
-        return $this->container['sent_at'];
+        return $this->container['started_at'];
     }
 
     /**
-     * Sets sent_at
+     * Sets started_at
      *
-     * @param \DateTime|null $sent_at sent_at
+     * @param \DateTime|null $started_at started_at
      *
      * @return self
      */
-    public function setSentAt($sent_at)
+    public function setStartedAt($started_at)
     {
-        if (is_null($sent_at)) {
-            array_push($this->openAPINullablesSetToNull, 'sent_at');
+        if (is_null($started_at)) {
+            array_push($this->openAPINullablesSetToNull, 'started_at');
         } else {
             $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('sent_at', $nullablesSetToNull);
+            $index = array_search('started_at', $nullablesSetToNull);
             if ($index !== FALSE) {
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
-        $this->container['sent_at'] = $sent_at;
+        $this->container['started_at'] = $started_at;
 
         return $this;
     }
 
     /**
-     * Gets cancelled_at
+     * Gets completed_at
      *
      * @return \DateTime|null
      */
-    public function getCancelledAt()
+    public function getCompletedAt()
     {
-        return $this->container['cancelled_at'];
+        return $this->container['completed_at'];
     }
 
     /**
-     * Sets cancelled_at
+     * Sets completed_at
      *
-     * @param \DateTime|null $cancelled_at cancelled_at
+     * @param \DateTime|null $completed_at completed_at
      *
      * @return self
      */
-    public function setCancelledAt($cancelled_at)
+    public function setCompletedAt($completed_at)
     {
-        if (is_null($cancelled_at)) {
-            array_push($this->openAPINullablesSetToNull, 'cancelled_at');
+        if (is_null($completed_at)) {
+            array_push($this->openAPINullablesSetToNull, 'completed_at');
         } else {
             $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
-            $index = array_search('cancelled_at', $nullablesSetToNull);
+            $index = array_search('completed_at', $nullablesSetToNull);
             if ($index !== FALSE) {
                 unset($nullablesSetToNull[$index]);
                 $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
             }
         }
-        $this->container['cancelled_at'] = $cancelled_at;
+        $this->container['completed_at'] = $completed_at;
 
         return $this;
     }
 
     /**
-     * Gets variant_count
+     * Gets recipient_count
      *
      * @return int|null
      */
-    public function getVariantCount()
+    public function getRecipientCount()
     {
-        return $this->container['variant_count'];
+        return $this->container['recipient_count'];
     }
 
     /**
-     * Sets variant_count
+     * Sets recipient_count
      *
-     * @param int|null $variant_count Number of A/B variants
+     * @param int|null $recipient_count recipient_count
      *
      * @return self
      */
-    public function setVariantCount($variant_count)
+    public function setRecipientCount($recipient_count)
     {
-        if (is_null($variant_count)) {
-            throw new \InvalidArgumentException('non-nullable variant_count cannot be null');
+        if (is_null($recipient_count)) {
+            throw new \InvalidArgumentException('non-nullable recipient_count cannot be null');
         }
-        $this->container['variant_count'] = $variant_count;
+        $this->container['recipient_count'] = $recipient_count;
+
+        return $this;
+    }
+
+    /**
+     * Gets is_ab_test
+     *
+     * @return bool|null
+     */
+    public function getIsAbTest()
+    {
+        return $this->container['is_ab_test'];
+    }
+
+    /**
+     * Sets is_ab_test
+     *
+     * @param bool|null $is_ab_test is_ab_test
+     *
+     * @return self
+     */
+    public function setIsAbTest($is_ab_test)
+    {
+        if (is_null($is_ab_test)) {
+            throw new \InvalidArgumentException('non-nullable is_ab_test cannot be null');
+        }
+        $this->container['is_ab_test'] = $is_ab_test;
+
+        return $this;
+    }
+
+    /**
+     * Gets winning_variant_id
+     *
+     * @return string|null
+     */
+    public function getWinningVariantId()
+    {
+        return $this->container['winning_variant_id'];
+    }
+
+    /**
+     * Sets winning_variant_id
+     *
+     * @param string|null $winning_variant_id winning_variant_id
+     *
+     * @return self
+     */
+    public function setWinningVariantId($winning_variant_id)
+    {
+        if (is_null($winning_variant_id)) {
+            array_push($this->openAPINullablesSetToNull, 'winning_variant_id');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('winning_variant_id', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['winning_variant_id'] = $winning_variant_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets ab_test_config
+     *
+     * @return object|null
+     */
+    public function getAbTestConfig()
+    {
+        return $this->container['ab_test_config'];
+    }
+
+    /**
+     * Sets ab_test_config
+     *
+     * @param object|null $ab_test_config ab_test_config
+     *
+     * @return self
+     */
+    public function setAbTestConfig($ab_test_config)
+    {
+        if (is_null($ab_test_config)) {
+            array_push($this->openAPINullablesSetToNull, 'ab_test_config');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('ab_test_config', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['ab_test_config'] = $ab_test_config;
+
+        return $this;
+    }
+
+    /**
+     * Gets error_message
+     *
+     * @return string|null
+     */
+    public function getErrorMessage()
+    {
+        return $this->container['error_message'];
+    }
+
+    /**
+     * Sets error_message
+     *
+     * @param string|null $error_message error_message
+     *
+     * @return self
+     */
+    public function setErrorMessage($error_message)
+    {
+        if (is_null($error_message)) {
+            array_push($this->openAPINullablesSetToNull, 'error_message');
+        } else {
+            $nullablesSetToNull = $this->getOpenAPINullablesSetToNull();
+            $index = array_search('error_message', $nullablesSetToNull);
+            if ($index !== FALSE) {
+                unset($nullablesSetToNull[$index]);
+                $this->setOpenAPINullablesSetToNull($nullablesSetToNull);
+            }
+        }
+        $this->container['error_message'] = $error_message;
 
         return $this;
     }
@@ -824,6 +1306,60 @@ class Campaign implements ModelInterface, ArrayAccess, \JsonSerializable
             throw new \InvalidArgumentException('non-nullable stats cannot be null');
         }
         $this->container['stats'] = $stats;
+
+        return $this;
+    }
+
+    /**
+     * Gets open_rate
+     *
+     * @return float|null
+     */
+    public function getOpenRate()
+    {
+        return $this->container['open_rate'];
+    }
+
+    /**
+     * Sets open_rate
+     *
+     * @param float|null $open_rate open_rate
+     *
+     * @return self
+     */
+    public function setOpenRate($open_rate)
+    {
+        if (is_null($open_rate)) {
+            throw new \InvalidArgumentException('non-nullable open_rate cannot be null');
+        }
+        $this->container['open_rate'] = $open_rate;
+
+        return $this;
+    }
+
+    /**
+     * Gets click_rate
+     *
+     * @return float|null
+     */
+    public function getClickRate()
+    {
+        return $this->container['click_rate'];
+    }
+
+    /**
+     * Sets click_rate
+     *
+     * @param float|null $click_rate click_rate
+     *
+     * @return self
+     */
+    public function setClickRate($click_rate)
+    {
+        if (is_null($click_rate)) {
+            throw new \InvalidArgumentException('non-nullable click_rate cannot be null');
+        }
+        $this->container['click_rate'] = $click_rate;
 
         return $this;
     }

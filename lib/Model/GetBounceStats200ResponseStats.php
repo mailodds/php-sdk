@@ -1,6 +1,6 @@
 <?php
 /**
- * CampaignStats
+ * GetBounceStats200ResponseStats
  *
  * PHP version 8.1
  *
@@ -33,16 +33,16 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * CampaignStats Class Doc Comment
+ * GetBounceStats200ResponseStats Class Doc Comment
  *
  * @category Class
- * @description Delivery and engagement statistics.
+ * @description Bounce statistics with time-series data
  * @package  MailOdds
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class CampaignStats implements ModelInterface, ArrayAccess, \JsonSerializable
+class GetBounceStats200ResponseStats implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -51,7 +51,7 @@ class CampaignStats implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'Campaign_stats';
+    protected static $openAPIModelName = 'getBounceStats_200_response_stats';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -59,15 +59,9 @@ class CampaignStats implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'sent' => 'int',
-        'delivered' => 'int',
-        'opened' => 'int',
-        'clicked' => 'int',
-        'bounced' => 'int',
-        'unsubscribed' => 'int',
-        'suppressed' => 'int',
-        'failed' => 'int',
-        'conversions' => 'int'
+        'period' => 'string',
+        'group_by' => 'string',
+        'data' => 'object[]'
     ];
 
     /**
@@ -78,15 +72,9 @@ class CampaignStats implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'sent' => null,
-        'delivered' => null,
-        'opened' => null,
-        'clicked' => null,
-        'bounced' => null,
-        'unsubscribed' => null,
-        'suppressed' => null,
-        'failed' => null,
-        'conversions' => null
+        'period' => null,
+        'group_by' => null,
+        'data' => null
     ];
 
     /**
@@ -95,15 +83,9 @@ class CampaignStats implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'sent' => false,
-        'delivered' => false,
-        'opened' => false,
-        'clicked' => false,
-        'bounced' => false,
-        'unsubscribed' => false,
-        'suppressed' => false,
-        'failed' => false,
-        'conversions' => false
+        'period' => false,
+        'group_by' => false,
+        'data' => false
     ];
 
     /**
@@ -192,15 +174,9 @@ class CampaignStats implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'sent' => 'sent',
-        'delivered' => 'delivered',
-        'opened' => 'opened',
-        'clicked' => 'clicked',
-        'bounced' => 'bounced',
-        'unsubscribed' => 'unsubscribed',
-        'suppressed' => 'suppressed',
-        'failed' => 'failed',
-        'conversions' => 'conversions'
+        'period' => 'period',
+        'group_by' => 'group_by',
+        'data' => 'data'
     ];
 
     /**
@@ -209,15 +185,9 @@ class CampaignStats implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'sent' => 'setSent',
-        'delivered' => 'setDelivered',
-        'opened' => 'setOpened',
-        'clicked' => 'setClicked',
-        'bounced' => 'setBounced',
-        'unsubscribed' => 'setUnsubscribed',
-        'suppressed' => 'setSuppressed',
-        'failed' => 'setFailed',
-        'conversions' => 'setConversions'
+        'period' => 'setPeriod',
+        'group_by' => 'setGroupBy',
+        'data' => 'setData'
     ];
 
     /**
@@ -226,15 +196,9 @@ class CampaignStats implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'sent' => 'getSent',
-        'delivered' => 'getDelivered',
-        'opened' => 'getOpened',
-        'clicked' => 'getClicked',
-        'bounced' => 'getBounced',
-        'unsubscribed' => 'getUnsubscribed',
-        'suppressed' => 'getSuppressed',
-        'failed' => 'getFailed',
-        'conversions' => 'getConversions'
+        'period' => 'getPeriod',
+        'group_by' => 'getGroupBy',
+        'data' => 'getData'
     ];
 
     /**
@@ -294,15 +258,9 @@ class CampaignStats implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('sent', $data ?? [], null);
-        $this->setIfExists('delivered', $data ?? [], null);
-        $this->setIfExists('opened', $data ?? [], null);
-        $this->setIfExists('clicked', $data ?? [], null);
-        $this->setIfExists('bounced', $data ?? [], null);
-        $this->setIfExists('unsubscribed', $data ?? [], null);
-        $this->setIfExists('suppressed', $data ?? [], null);
-        $this->setIfExists('failed', $data ?? [], null);
-        $this->setIfExists('conversions', $data ?? [], null);
+        $this->setIfExists('period', $data ?? [], null);
+        $this->setIfExists('group_by', $data ?? [], null);
+        $this->setIfExists('data', $data ?? [], null);
     }
 
     /**
@@ -348,244 +306,82 @@ class CampaignStats implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets sent
+     * Gets period
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getSent()
+    public function getPeriod()
     {
-        return $this->container['sent'];
+        return $this->container['period'];
     }
 
     /**
-     * Sets sent
+     * Sets period
      *
-     * @param int|null $sent sent
+     * @param string|null $period period
      *
      * @return self
      */
-    public function setSent($sent)
+    public function setPeriod($period)
     {
-        if (is_null($sent)) {
-            throw new \InvalidArgumentException('non-nullable sent cannot be null');
+        if (is_null($period)) {
+            throw new \InvalidArgumentException('non-nullable period cannot be null');
         }
-        $this->container['sent'] = $sent;
+        $this->container['period'] = $period;
 
         return $this;
     }
 
     /**
-     * Gets delivered
+     * Gets group_by
      *
-     * @return int|null
+     * @return string|null
      */
-    public function getDelivered()
+    public function getGroupBy()
     {
-        return $this->container['delivered'];
+        return $this->container['group_by'];
     }
 
     /**
-     * Sets delivered
+     * Sets group_by
      *
-     * @param int|null $delivered delivered
+     * @param string|null $group_by group_by
      *
      * @return self
      */
-    public function setDelivered($delivered)
+    public function setGroupBy($group_by)
     {
-        if (is_null($delivered)) {
-            throw new \InvalidArgumentException('non-nullable delivered cannot be null');
+        if (is_null($group_by)) {
+            throw new \InvalidArgumentException('non-nullable group_by cannot be null');
         }
-        $this->container['delivered'] = $delivered;
+        $this->container['group_by'] = $group_by;
 
         return $this;
     }
 
     /**
-     * Gets opened
+     * Gets data
      *
-     * @return int|null
+     * @return object[]|null
      */
-    public function getOpened()
+    public function getData()
     {
-        return $this->container['opened'];
+        return $this->container['data'];
     }
 
     /**
-     * Sets opened
+     * Sets data
      *
-     * @param int|null $opened opened
+     * @param object[]|null $data data
      *
      * @return self
      */
-    public function setOpened($opened)
+    public function setData($data)
     {
-        if (is_null($opened)) {
-            throw new \InvalidArgumentException('non-nullable opened cannot be null');
+        if (is_null($data)) {
+            throw new \InvalidArgumentException('non-nullable data cannot be null');
         }
-        $this->container['opened'] = $opened;
-
-        return $this;
-    }
-
-    /**
-     * Gets clicked
-     *
-     * @return int|null
-     */
-    public function getClicked()
-    {
-        return $this->container['clicked'];
-    }
-
-    /**
-     * Sets clicked
-     *
-     * @param int|null $clicked clicked
-     *
-     * @return self
-     */
-    public function setClicked($clicked)
-    {
-        if (is_null($clicked)) {
-            throw new \InvalidArgumentException('non-nullable clicked cannot be null');
-        }
-        $this->container['clicked'] = $clicked;
-
-        return $this;
-    }
-
-    /**
-     * Gets bounced
-     *
-     * @return int|null
-     */
-    public function getBounced()
-    {
-        return $this->container['bounced'];
-    }
-
-    /**
-     * Sets bounced
-     *
-     * @param int|null $bounced bounced
-     *
-     * @return self
-     */
-    public function setBounced($bounced)
-    {
-        if (is_null($bounced)) {
-            throw new \InvalidArgumentException('non-nullable bounced cannot be null');
-        }
-        $this->container['bounced'] = $bounced;
-
-        return $this;
-    }
-
-    /**
-     * Gets unsubscribed
-     *
-     * @return int|null
-     */
-    public function getUnsubscribed()
-    {
-        return $this->container['unsubscribed'];
-    }
-
-    /**
-     * Sets unsubscribed
-     *
-     * @param int|null $unsubscribed unsubscribed
-     *
-     * @return self
-     */
-    public function setUnsubscribed($unsubscribed)
-    {
-        if (is_null($unsubscribed)) {
-            throw new \InvalidArgumentException('non-nullable unsubscribed cannot be null');
-        }
-        $this->container['unsubscribed'] = $unsubscribed;
-
-        return $this;
-    }
-
-    /**
-     * Gets suppressed
-     *
-     * @return int|null
-     */
-    public function getSuppressed()
-    {
-        return $this->container['suppressed'];
-    }
-
-    /**
-     * Sets suppressed
-     *
-     * @param int|null $suppressed suppressed
-     *
-     * @return self
-     */
-    public function setSuppressed($suppressed)
-    {
-        if (is_null($suppressed)) {
-            throw new \InvalidArgumentException('non-nullable suppressed cannot be null');
-        }
-        $this->container['suppressed'] = $suppressed;
-
-        return $this;
-    }
-
-    /**
-     * Gets failed
-     *
-     * @return int|null
-     */
-    public function getFailed()
-    {
-        return $this->container['failed'];
-    }
-
-    /**
-     * Sets failed
-     *
-     * @param int|null $failed failed
-     *
-     * @return self
-     */
-    public function setFailed($failed)
-    {
-        if (is_null($failed)) {
-            throw new \InvalidArgumentException('non-nullable failed cannot be null');
-        }
-        $this->container['failed'] = $failed;
-
-        return $this;
-    }
-
-    /**
-     * Gets conversions
-     *
-     * @return int|null
-     */
-    public function getConversions()
-    {
-        return $this->container['conversions'];
-    }
-
-    /**
-     * Sets conversions
-     *
-     * @param int|null $conversions conversions
-     *
-     * @return self
-     */
-    public function setConversions($conversions)
-    {
-        if (is_null($conversions)) {
-            throw new \InvalidArgumentException('non-nullable conversions cannot be null');
-        }
-        $this->container['conversions'] = $conversions;
+        $this->container['data'] = $data;
 
         return $this;
     }

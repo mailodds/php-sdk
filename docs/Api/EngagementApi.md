@@ -107,7 +107,7 @@ $apiInstance = new MailOdds\Api\EngagementApi(
     new GuzzleHttp\Client(),
     $config
 );
-$email = 'email_example'; // string | Email address
+$email = 'email_example'; // string
 
 try {
     $result = $apiInstance->getEngagementScore($email);
@@ -121,7 +121,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **email** | **string**| Email address | |
+| **email** | **string**|  | |
 
 ### Return type
 

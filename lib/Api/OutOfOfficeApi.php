@@ -202,6 +202,12 @@ class OutOfOfficeApi
                         $request,
                         $response,
                     );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -209,12 +215,6 @@ class OutOfOfficeApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -252,6 +252,14 @@ class OutOfOfficeApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -261,14 +269,6 @@ class OutOfOfficeApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -456,7 +456,7 @@ class OutOfOfficeApi
      *
      * Delete OOO contact
      *
-     * @param  string $email Email address (required)
+     * @param  string $email email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOooContact'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -474,7 +474,7 @@ class OutOfOfficeApi
      *
      * Delete OOO contact
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOooContact'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -515,12 +515,6 @@ class OutOfOfficeApi
                         $request,
                         $response,
                     );
-                case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -528,6 +522,12 @@ class OutOfOfficeApi
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -565,14 +565,6 @@ class OutOfOfficeApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -582,6 +574,14 @@ class OutOfOfficeApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -601,7 +601,7 @@ class OutOfOfficeApi
      *
      * Delete OOO contact
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOooContact'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -622,7 +622,7 @@ class OutOfOfficeApi
      *
      * Delete OOO contact
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOooContact'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -672,7 +672,7 @@ class OutOfOfficeApi
     /**
      * Create request for operation 'deleteOooContact'
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteOooContact'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -770,7 +770,7 @@ class OutOfOfficeApi
      *
      * Get OOO status for email
      *
-     * @param  string $email Email address to check (required)
+     * @param  string $email email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOooStatus'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -788,7 +788,7 @@ class OutOfOfficeApi
      *
      * Get OOO status for email
      *
-     * @param  string $email Email address to check (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOooStatus'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -829,13 +829,13 @@ class OutOfOfficeApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -873,7 +873,7 @@ class OutOfOfficeApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -881,7 +881,7 @@ class OutOfOfficeApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -901,7 +901,7 @@ class OutOfOfficeApi
      *
      * Get OOO status for email
      *
-     * @param  string $email Email address to check (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOooStatus'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -922,7 +922,7 @@ class OutOfOfficeApi
      *
      * Get OOO status for email
      *
-     * @param  string $email Email address to check (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOooStatus'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -972,7 +972,7 @@ class OutOfOfficeApi
     /**
      * Create request for operation 'getOooStatus'
      *
-     * @param  string $email Email address to check (required)
+     * @param  string $email (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getOooStatus'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1133,13 +1133,13 @@ class OutOfOfficeApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1177,7 +1177,7 @@ class OutOfOfficeApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1185,7 +1185,7 @@ class OutOfOfficeApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1401,13 +1401,13 @@ class OutOfOfficeApi
      *
      * Update OOO contact
      *
-     * @param  string $email Email address (required)
+     * @param  string $email email (required)
      * @param  \MailOdds\Model\UpdateOooContactRequest $update_ooo_contact_request update_ooo_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOooContact'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return object|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
+     * @return object|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
      */
     public function updateOooContact($email, $update_ooo_contact_request, string $contentType = self::contentTypes['updateOooContact'][0])
     {
@@ -1420,13 +1420,13 @@ class OutOfOfficeApi
      *
      * Update OOO contact
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  \MailOdds\Model\UpdateOooContactRequest $update_ooo_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOooContact'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of object|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of object|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function updateOooContactWithHttpInfo($email, $update_ooo_contact_request, string $contentType = self::contentTypes['updateOooContact'][0])
     {
@@ -1462,13 +1462,19 @@ class OutOfOfficeApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1506,7 +1512,7 @@ class OutOfOfficeApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1514,7 +1520,15 @@ class OutOfOfficeApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1534,7 +1548,7 @@ class OutOfOfficeApi
      *
      * Update OOO contact
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  \MailOdds\Model\UpdateOooContactRequest $update_ooo_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOooContact'] to see the possible values for this operation
      *
@@ -1556,7 +1570,7 @@ class OutOfOfficeApi
      *
      * Update OOO contact
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  \MailOdds\Model\UpdateOooContactRequest $update_ooo_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOooContact'] to see the possible values for this operation
      *
@@ -1607,7 +1621,7 @@ class OutOfOfficeApi
     /**
      * Create request for operation 'updateOooContact'
      *
-     * @param  string $email Email address (required)
+     * @param  string $email (required)
      * @param  \MailOdds\Model\UpdateOooContactRequest $update_ooo_contact_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateOooContact'] to see the possible values for this operation
      *

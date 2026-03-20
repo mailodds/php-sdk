@@ -1,11 +1,11 @@
-# # GetBounceStats200Response
+# # GetBounceStats200ResponseStats
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**schema_version** | **string** |  | [optional]
-**request_id** | **string** |  | [optional]
-**stats** | [**\MailOdds\Model\GetBounceStats200ResponseStats**](GetBounceStats200ResponseStats.md) |  | [optional]
+**period** | **string** |  | [optional]
+**group_by** | **string** |  | [optional]
+**data** | **object[]** |  | [optional]
 
 [[Back to Model list]](../../README.md#models) [[Back to API list]](../../README.md#endpoints) [[Back to README]](../../README.md)

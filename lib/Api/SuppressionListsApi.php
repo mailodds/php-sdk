@@ -450,7 +450,7 @@ class SuppressionListsApi
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \MailOdds\Model\SuppressionCheckResponse|\MailOdds\Model\ErrorResponse
+     * @return \MailOdds\Model\SuppressionCheckResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
      */
     public function checkSuppression($check_suppression_request, string $contentType = self::contentTypes['checkSuppression'][0])
     {
@@ -468,7 +468,7 @@ class SuppressionListsApi
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \MailOdds\Model\SuppressionCheckResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MailOdds\Model\SuppressionCheckResponse|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function checkSuppressionWithHttpInfo($check_suppression_request, string $contentType = self::contentTypes['checkSuppression'][0])
     {
@@ -501,6 +501,12 @@ class SuppressionListsApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\SuppressionCheckResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
@@ -538,6 +544,14 @@ class SuppressionListsApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\SuppressionCheckResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -1641,7 +1655,7 @@ class SuppressionListsApi
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \MailOdds\Model\RemoveSuppression200Response|\MailOdds\Model\ErrorResponse
+     * @return \MailOdds\Model\RemoveSuppression200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
      */
     public function removeSuppression($remove_suppression_request, string $contentType = self::contentTypes['removeSuppression'][0])
     {
@@ -1659,7 +1673,7 @@ class SuppressionListsApi
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \MailOdds\Model\RemoveSuppression200Response|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MailOdds\Model\RemoveSuppression200Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function removeSuppressionWithHttpInfo($remove_suppression_request, string $contentType = self::contentTypes['removeSuppression'][0])
     {
@@ -1692,6 +1706,12 @@ class SuppressionListsApi
                 case 200:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\RemoveSuppression200Response',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
@@ -1729,6 +1749,14 @@ class SuppressionListsApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\RemoveSuppression200Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);

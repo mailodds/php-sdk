@@ -120,6 +120,7 @@ docs/Model/GetBlacklistHistory200ResponseChecksInner.md
 docs/Model/GetBounceRecords200Response.md
 docs/Model/GetBounceRecords200ResponseRecordsInner.md
 docs/Model/GetBounceStats200Response.md
+docs/Model/GetBounceStats200ResponseStats.md
 docs/Model/GetBounceStatsSummary200Response.md
 docs/Model/GetCampaignABResults200Response.md
 docs/Model/GetCampaignABResults200ResponseVariantsInner.md
@@ -420,6 +421,7 @@ lib/Model/GetBlacklistHistory200ResponseChecksInner.php
 lib/Model/GetBounceRecords200Response.php
 lib/Model/GetBounceRecords200ResponseRecordsInner.php
 lib/Model/GetBounceStats200Response.php
+lib/Model/GetBounceStats200ResponseStats.php
 lib/Model/GetBounceStatsSummary200Response.php
 lib/Model/GetCampaignABResults200Response.php
 lib/Model/GetCampaignABResults200ResponseVariantsInner.php
@@ -599,3 +601,4 @@ lib/Model/ValidationResultSuppression.php
 lib/Model/WebhookEvent.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
+test/Model/GetBounceStats200ResponseStatsTest.php

@@ -60,7 +60,7 @@ class GetBounceStats200Response implements ModelInterface, ArrayAccess, \JsonSer
     protected static $openAPITypes = [
         'schema_version' => 'string',
         'request_id' => 'string',
-        'stats' => 'object[]'
+        'stats' => '\MailOdds\Model\GetBounceStats200ResponseStats'
     ];
 
     /**
@@ -361,7 +361,7 @@ class GetBounceStats200Response implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Gets stats
      *
-     * @return object[]|null
+     * @return \MailOdds\Model\GetBounceStats200ResponseStats|null
      */
     public function getStats()
     {
@@ -371,7 +371,7 @@ class GetBounceStats200Response implements ModelInterface, ArrayAccess, \JsonSer
     /**
      * Sets stats
      *
-     * @param object[]|null $stats stats
+     * @param \MailOdds\Model\GetBounceStats200ResponseStats|null $stats stats
      *
      * @return self
      */

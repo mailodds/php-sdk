@@ -143,10 +143,6 @@ class OAuth20Api
      *
      * Create token
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $grant_type grant_type (required)
      * @param  string|null $code Authorization code (for authorization_code grant) (optional)
      * @param  string|null $redirect_uri Must match the original redirect_uri (optional)
@@ -155,17 +151,15 @@ class OAuth20Api
      * @param  string|null $refresh_token Refresh token (for refresh_token grant) (optional)
      * @param  string|null $scope Space-separated scopes (optional)
      * @param  string|null $code_verifier PKCE code verifier (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createToken'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \MailOdds\Model\CreateToken200Response
      */
-    public function createToken($grant_type, $code = null, $redirect_uri = null, $client_id = null, $client_secret = null, $refresh_token = null, $scope = null, $code_verifier = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createToken'][0])
+    public function createToken($grant_type, $code = null, $redirect_uri = null, $client_id = null, $client_secret = null, $refresh_token = null, $scope = null, $code_verifier = null, string $contentType = self::contentTypes['createToken'][0])
     {
-        list($response) = $this->createTokenWithHttpInfo($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier, $hostIndex, $variables, $contentType);
+        list($response) = $this->createTokenWithHttpInfo($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier, $contentType);
         return $response;
     }
 
@@ -173,10 +167,6 @@ class OAuth20Api
      * Operation createTokenWithHttpInfo
      *
      * Create token
-     *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
      *
      * @param  string $grant_type (required)
      * @param  string|null $code Authorization code (for authorization_code grant) (optional)
@@ -186,17 +176,15 @@ class OAuth20Api
      * @param  string|null $refresh_token Refresh token (for refresh_token grant) (optional)
      * @param  string|null $scope Space-separated scopes (optional)
      * @param  string|null $code_verifier PKCE code verifier (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createToken'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \MailOdds\Model\CreateToken200Response, HTTP status code, HTTP response headers (array of strings)
      */
-    public function createTokenWithHttpInfo($grant_type, $code = null, $redirect_uri = null, $client_id = null, $client_secret = null, $refresh_token = null, $scope = null, $code_verifier = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createToken'][0])
+    public function createTokenWithHttpInfo($grant_type, $code = null, $redirect_uri = null, $client_id = null, $client_secret = null, $refresh_token = null, $scope = null, $code_verifier = null, string $contentType = self::contentTypes['createToken'][0])
     {
-        $request = $this->createTokenRequest($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier, $hostIndex, $variables, $contentType);
+        $request = $this->createTokenRequest($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -272,10 +260,6 @@ class OAuth20Api
      *
      * Create token
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $grant_type (required)
      * @param  string|null $code Authorization code (for authorization_code grant) (optional)
      * @param  string|null $redirect_uri Must match the original redirect_uri (optional)
@@ -284,16 +268,14 @@ class OAuth20Api
      * @param  string|null $refresh_token Refresh token (for refresh_token grant) (optional)
      * @param  string|null $scope Space-separated scopes (optional)
      * @param  string|null $code_verifier PKCE code verifier (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createTokenAsync($grant_type, $code = null, $redirect_uri = null, $client_id = null, $client_secret = null, $refresh_token = null, $scope = null, $code_verifier = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createToken'][0])
+    public function createTokenAsync($grant_type, $code = null, $redirect_uri = null, $client_id = null, $client_secret = null, $refresh_token = null, $scope = null, $code_verifier = null, string $contentType = self::contentTypes['createToken'][0])
     {
-        return $this->createTokenAsyncWithHttpInfo($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier, $hostIndex, $variables, $contentType)
+        return $this->createTokenAsyncWithHttpInfo($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -306,10 +288,6 @@ class OAuth20Api
      *
      * Create token
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $grant_type (required)
      * @param  string|null $code Authorization code (for authorization_code grant) (optional)
      * @param  string|null $redirect_uri Must match the original redirect_uri (optional)
@@ -318,17 +296,15 @@ class OAuth20Api
      * @param  string|null $refresh_token Refresh token (for refresh_token grant) (optional)
      * @param  string|null $scope Space-separated scopes (optional)
      * @param  string|null $code_verifier PKCE code verifier (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function createTokenAsyncWithHttpInfo($grant_type, $code = null, $redirect_uri = null, $client_id = null, $client_secret = null, $refresh_token = null, $scope = null, $code_verifier = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createToken'][0])
+    public function createTokenAsyncWithHttpInfo($grant_type, $code = null, $redirect_uri = null, $client_id = null, $client_secret = null, $refresh_token = null, $scope = null, $code_verifier = null, string $contentType = self::contentTypes['createToken'][0])
     {
         $returnType = '\MailOdds\Model\CreateToken200Response';
-        $request = $this->createTokenRequest($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier, $hostIndex, $variables, $contentType);
+        $request = $this->createTokenRequest($grant_type, $code, $redirect_uri, $client_id, $client_secret, $refresh_token, $scope, $code_verifier, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -369,10 +345,6 @@ class OAuth20Api
     /**
      * Create request for operation 'createToken'
      *
-    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-    * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $grant_type (required)
      * @param  string|null $code Authorization code (for authorization_code grant) (optional)
      * @param  string|null $redirect_uri Must match the original redirect_uri (optional)
@@ -381,14 +353,12 @@ class OAuth20Api
      * @param  string|null $refresh_token Refresh token (for refresh_token grant) (optional)
      * @param  string|null $scope Space-separated scopes (optional)
      * @param  string|null $code_verifier PKCE code verifier (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['createToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function createTokenRequest($grant_type, $code = null, $redirect_uri = null, $client_id = null, $client_secret = null, $refresh_token = null, $scope = null, $code_verifier = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['createToken'][0])
+    public function createTokenRequest($grant_type, $code = null, $redirect_uri = null, $client_id = null, $client_secret = null, $refresh_token = null, $scope = null, $code_verifier = null, string $contentType = self::contentTypes['createToken'][0])
     {
 
         // verify the required parameter 'grant_type' is set
@@ -476,17 +446,7 @@ class OAuth20Api
             $headers
         );
 
-        # Preserve the original behavior of server indexing.
-        if ($hostIndex === null) {
-            $hostIndex = $this->hostIndex;
-        }
-
-        $hostSettings = $this->getHostSettingsForcreateToken();
-
-        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
-            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
-        }
-        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
+        $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
@@ -497,40 +457,19 @@ class OAuth20Api
     }
 
     /**
-     * Returns an array of host settings for Operation createToken
-     *
-     * @return array an array of host settings
-     */
-    protected function getHostSettingsForcreateToken(): array
-    {
-        return [
-            [
-                "url" => "https://api.mailodds.com",
-                "description" => "Server root",
-            ]
-        ];
-    }
-
-    /**
      * Operation getJwks
      *
      * Get JSON Web Key Set
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getJwks'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \MailOdds\Model\JwksResponse
      */
-    public function getJwks(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getJwks'][0])
+    public function getJwks(string $contentType = self::contentTypes['getJwks'][0])
     {
-        list($response) = $this->getJwksWithHttpInfo($hostIndex, $variables, $contentType);
+        list($response) = $this->getJwksWithHttpInfo($contentType);
         return $response;
     }
 
@@ -539,21 +478,15 @@ class OAuth20Api
      *
      * Get JSON Web Key Set
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getJwks'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \MailOdds\Model\JwksResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function getJwksWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getJwks'][0])
+    public function getJwksWithHttpInfo(string $contentType = self::contentTypes['getJwks'][0])
     {
-        $request = $this->getJwksRequest($hostIndex, $variables, $contentType);
+        $request = $this->getJwksRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -629,20 +562,14 @@ class OAuth20Api
      *
      * Get JSON Web Key Set
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getJwks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getJwksAsync(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getJwks'][0])
+    public function getJwksAsync(string $contentType = self::contentTypes['getJwks'][0])
     {
-        return $this->getJwksAsyncWithHttpInfo($hostIndex, $variables, $contentType)
+        return $this->getJwksAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -655,21 +582,15 @@ class OAuth20Api
      *
      * Get JSON Web Key Set
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getJwks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function getJwksAsyncWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getJwks'][0])
+    public function getJwksAsyncWithHttpInfo(string $contentType = self::contentTypes['getJwks'][0])
     {
         $returnType = '\MailOdds\Model\JwksResponse';
-        $request = $this->getJwksRequest($hostIndex, $variables, $contentType);
+        $request = $this->getJwksRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -710,18 +631,12 @@ class OAuth20Api
     /**
      * Create request for operation 'getJwks'
      *
-    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-    * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getJwks'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function getJwksRequest(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['getJwks'][0])
+    public function getJwksRequest(string $contentType = self::contentTypes['getJwks'][0])
     {
 
 
@@ -779,17 +694,7 @@ class OAuth20Api
             $headers
         );
 
-        # Preserve the original behavior of server indexing.
-        if ($hostIndex === null) {
-            $hostIndex = $this->hostIndex;
-        }
-
-        $hostSettings = $this->getHostSettingsForgetJwks();
-
-        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
-            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
-        }
-        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
+        $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
@@ -800,44 +705,23 @@ class OAuth20Api
     }
 
     /**
-     * Returns an array of host settings for Operation getJwks
-     *
-     * @return array an array of host settings
-     */
-    protected function getHostSettingsForgetJwks(): array
-    {
-        return [
-            [
-                "url" => "https://api.mailodds.com",
-                "description" => "Server root",
-            ]
-        ];
-    }
-
-    /**
      * Operation introspectToken
      *
      * Introspect token
-     *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
      *
      * @param  string $token Token to introspect (required)
      * @param  string|null $token_type_hint token_type_hint (optional)
      * @param  string|null $client_id client_id (optional)
      * @param  string|null $client_secret client_secret (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['introspectToken'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \MailOdds\Model\IntrospectToken200Response
+     * @return \MailOdds\Model\IntrospectToken200Response|\MailOdds\Model\ErrorResponse
      */
-    public function introspectToken($token, $token_type_hint = null, $client_id = null, $client_secret = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['introspectToken'][0])
+    public function introspectToken($token, $token_type_hint = null, $client_id = null, $client_secret = null, string $contentType = self::contentTypes['introspectToken'][0])
     {
-        list($response) = $this->introspectTokenWithHttpInfo($token, $token_type_hint, $client_id, $client_secret, $hostIndex, $variables, $contentType);
+        list($response) = $this->introspectTokenWithHttpInfo($token, $token_type_hint, $client_id, $client_secret, $contentType);
         return $response;
     }
 
@@ -846,25 +730,19 @@ class OAuth20Api
      *
      * Introspect token
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $token Token to introspect (required)
      * @param  string|null $token_type_hint (optional)
      * @param  string|null $client_id (optional)
      * @param  string|null $client_secret (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['introspectToken'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \MailOdds\Model\IntrospectToken200Response, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MailOdds\Model\IntrospectToken200Response|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
-    public function introspectTokenWithHttpInfo($token, $token_type_hint = null, $client_id = null, $client_secret = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['introspectToken'][0])
+    public function introspectTokenWithHttpInfo($token, $token_type_hint = null, $client_id = null, $client_secret = null, string $contentType = self::contentTypes['introspectToken'][0])
     {
-        $request = $this->introspectTokenRequest($token, $token_type_hint, $client_id, $client_secret, $hostIndex, $variables, $contentType);
+        $request = $this->introspectTokenRequest($token, $token_type_hint, $client_id, $client_secret, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -893,6 +771,12 @@ class OAuth20Api
                 case 200:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\IntrospectToken200Response',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
@@ -928,6 +812,14 @@ class OAuth20Api
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -940,24 +832,18 @@ class OAuth20Api
      *
      * Introspect token
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $token Token to introspect (required)
      * @param  string|null $token_type_hint (optional)
      * @param  string|null $client_id (optional)
      * @param  string|null $client_secret (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['introspectToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function introspectTokenAsync($token, $token_type_hint = null, $client_id = null, $client_secret = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['introspectToken'][0])
+    public function introspectTokenAsync($token, $token_type_hint = null, $client_id = null, $client_secret = null, string $contentType = self::contentTypes['introspectToken'][0])
     {
-        return $this->introspectTokenAsyncWithHttpInfo($token, $token_type_hint, $client_id, $client_secret, $hostIndex, $variables, $contentType)
+        return $this->introspectTokenAsyncWithHttpInfo($token, $token_type_hint, $client_id, $client_secret, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -970,25 +856,19 @@ class OAuth20Api
      *
      * Introspect token
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $token Token to introspect (required)
      * @param  string|null $token_type_hint (optional)
      * @param  string|null $client_id (optional)
      * @param  string|null $client_secret (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['introspectToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function introspectTokenAsyncWithHttpInfo($token, $token_type_hint = null, $client_id = null, $client_secret = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['introspectToken'][0])
+    public function introspectTokenAsyncWithHttpInfo($token, $token_type_hint = null, $client_id = null, $client_secret = null, string $contentType = self::contentTypes['introspectToken'][0])
     {
         $returnType = '\MailOdds\Model\IntrospectToken200Response';
-        $request = $this->introspectTokenRequest($token, $token_type_hint, $client_id, $client_secret, $hostIndex, $variables, $contentType);
+        $request = $this->introspectTokenRequest($token, $token_type_hint, $client_id, $client_secret, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1029,22 +909,16 @@ class OAuth20Api
     /**
      * Create request for operation 'introspectToken'
      *
-    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-    * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $token Token to introspect (required)
      * @param  string|null $token_type_hint (optional)
      * @param  string|null $client_id (optional)
      * @param  string|null $client_secret (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['introspectToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function introspectTokenRequest($token, $token_type_hint = null, $client_id = null, $client_secret = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['introspectToken'][0])
+    public function introspectTokenRequest($token, $token_type_hint = null, $client_id = null, $client_secret = null, string $contentType = self::contentTypes['introspectToken'][0])
     {
 
         // verify the required parameter 'token' is set
@@ -1124,17 +998,7 @@ class OAuth20Api
             $headers
         );
 
-        # Preserve the original behavior of server indexing.
-        if ($hostIndex === null) {
-            $hostIndex = $this->hostIndex;
-        }
-
-        $hostSettings = $this->getHostSettingsForintrospectToken();
-
-        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
-            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
-        }
-        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
+        $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
@@ -1145,40 +1009,19 @@ class OAuth20Api
     }
 
     /**
-     * Returns an array of host settings for Operation introspectToken
-     *
-     * @return array an array of host settings
-     */
-    protected function getHostSettingsForintrospectToken(): array
-    {
-        return [
-            [
-                "url" => "https://api.mailodds.com",
-                "description" => "Server root",
-            ]
-        ];
-    }
-
-    /**
      * Operation oauthServerMetadata
      *
      * OAuth server metadata
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['oauthServerMetadata'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return \MailOdds\Model\OAuthServerMetadata
      */
-    public function oauthServerMetadata(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['oauthServerMetadata'][0])
+    public function oauthServerMetadata(string $contentType = self::contentTypes['oauthServerMetadata'][0])
     {
-        list($response) = $this->oauthServerMetadataWithHttpInfo($hostIndex, $variables, $contentType);
+        list($response) = $this->oauthServerMetadataWithHttpInfo($contentType);
         return $response;
     }
 
@@ -1187,21 +1030,15 @@ class OAuth20Api
      *
      * OAuth server metadata
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['oauthServerMetadata'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of \MailOdds\Model\OAuthServerMetadata, HTTP status code, HTTP response headers (array of strings)
      */
-    public function oauthServerMetadataWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['oauthServerMetadata'][0])
+    public function oauthServerMetadataWithHttpInfo(string $contentType = self::contentTypes['oauthServerMetadata'][0])
     {
-        $request = $this->oauthServerMetadataRequest($hostIndex, $variables, $contentType);
+        $request = $this->oauthServerMetadataRequest($contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1277,20 +1114,14 @@ class OAuth20Api
      *
      * OAuth server metadata
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['oauthServerMetadata'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function oauthServerMetadataAsync(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['oauthServerMetadata'][0])
+    public function oauthServerMetadataAsync(string $contentType = self::contentTypes['oauthServerMetadata'][0])
     {
-        return $this->oauthServerMetadataAsyncWithHttpInfo($hostIndex, $variables, $contentType)
+        return $this->oauthServerMetadataAsyncWithHttpInfo($contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1303,21 +1134,15 @@ class OAuth20Api
      *
      * OAuth server metadata
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['oauthServerMetadata'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function oauthServerMetadataAsyncWithHttpInfo(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['oauthServerMetadata'][0])
+    public function oauthServerMetadataAsyncWithHttpInfo(string $contentType = self::contentTypes['oauthServerMetadata'][0])
     {
         $returnType = '\MailOdds\Model\OAuthServerMetadata';
-        $request = $this->oauthServerMetadataRequest($hostIndex, $variables, $contentType);
+        $request = $this->oauthServerMetadataRequest($contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1358,18 +1183,12 @@ class OAuth20Api
     /**
      * Create request for operation 'oauthServerMetadata'
      *
-    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-    * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['oauthServerMetadata'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function oauthServerMetadataRequest(?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['oauthServerMetadata'][0])
+    public function oauthServerMetadataRequest(string $contentType = self::contentTypes['oauthServerMetadata'][0])
     {
 
 
@@ -1427,17 +1246,7 @@ class OAuth20Api
             $headers
         );
 
-        # Preserve the original behavior of server indexing.
-        if ($hostIndex === null) {
-            $hostIndex = $this->hostIndex;
-        }
-
-        $hostSettings = $this->getHostSettingsForoauthServerMetadata();
-
-        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
-            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
-        }
-        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
+        $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'GET',
@@ -1448,44 +1257,23 @@ class OAuth20Api
     }
 
     /**
-     * Returns an array of host settings for Operation oauthServerMetadata
-     *
-     * @return array an array of host settings
-     */
-    protected function getHostSettingsForoauthServerMetadata(): array
-    {
-        return [
-            [
-                "url" => "https://api.mailodds.com",
-                "description" => "Server root",
-            ]
-        ];
-    }
-
-    /**
      * Operation revokeToken
      *
      * Revoke token
-     *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
      *
      * @param  string $token Token to revoke (required)
      * @param  string|null $token_type_hint token_type_hint (optional)
      * @param  string|null $client_id client_id (optional)
      * @param  string|null $client_secret client_secret (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['revokeToken'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return void
      */
-    public function revokeToken($token, $token_type_hint = null, $client_id = null, $client_secret = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['revokeToken'][0])
+    public function revokeToken($token, $token_type_hint = null, $client_id = null, $client_secret = null, string $contentType = self::contentTypes['revokeToken'][0])
     {
-        $this->revokeTokenWithHttpInfo($token, $token_type_hint, $client_id, $client_secret, $hostIndex, $variables, $contentType);
+        $this->revokeTokenWithHttpInfo($token, $token_type_hint, $client_id, $client_secret, $contentType);
     }
 
     /**
@@ -1493,25 +1281,19 @@ class OAuth20Api
      *
      * Revoke token
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $token Token to revoke (required)
      * @param  string|null $token_type_hint (optional)
      * @param  string|null $client_id (optional)
      * @param  string|null $client_secret (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['revokeToken'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
      * @return array of null, HTTP status code, HTTP response headers (array of strings)
      */
-    public function revokeTokenWithHttpInfo($token, $token_type_hint = null, $client_id = null, $client_secret = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['revokeToken'][0])
+    public function revokeTokenWithHttpInfo($token, $token_type_hint = null, $client_id = null, $client_secret = null, string $contentType = self::contentTypes['revokeToken'][0])
     {
-        $request = $this->revokeTokenRequest($token, $token_type_hint, $client_id, $client_secret, $hostIndex, $variables, $contentType);
+        $request = $this->revokeTokenRequest($token, $token_type_hint, $client_id, $client_secret, $contentType);
 
         try {
             $options = $this->createHttpClientOption();
@@ -1539,6 +1321,14 @@ class OAuth20Api
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
             }
         
 
@@ -1551,24 +1341,18 @@ class OAuth20Api
      *
      * Revoke token
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $token Token to revoke (required)
      * @param  string|null $token_type_hint (optional)
      * @param  string|null $client_id (optional)
      * @param  string|null $client_secret (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['revokeToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function revokeTokenAsync($token, $token_type_hint = null, $client_id = null, $client_secret = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['revokeToken'][0])
+    public function revokeTokenAsync($token, $token_type_hint = null, $client_id = null, $client_secret = null, string $contentType = self::contentTypes['revokeToken'][0])
     {
-        return $this->revokeTokenAsyncWithHttpInfo($token, $token_type_hint, $client_id, $client_secret, $hostIndex, $variables, $contentType)
+        return $this->revokeTokenAsyncWithHttpInfo($token, $token_type_hint, $client_id, $client_secret, $contentType)
             ->then(
                 function ($response) {
                     return $response[0];
@@ -1581,25 +1365,19 @@ class OAuth20Api
      *
      * Revoke token
      *
-     * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-     * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $token Token to revoke (required)
      * @param  string|null $token_type_hint (optional)
      * @param  string|null $client_id (optional)
      * @param  string|null $client_secret (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['revokeToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Promise\PromiseInterface
      */
-    public function revokeTokenAsyncWithHttpInfo($token, $token_type_hint = null, $client_id = null, $client_secret = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['revokeToken'][0])
+    public function revokeTokenAsyncWithHttpInfo($token, $token_type_hint = null, $client_id = null, $client_secret = null, string $contentType = self::contentTypes['revokeToken'][0])
     {
         $returnType = '';
-        $request = $this->revokeTokenRequest($token, $token_type_hint, $client_id, $client_secret, $hostIndex, $variables, $contentType);
+        $request = $this->revokeTokenRequest($token, $token_type_hint, $client_id, $client_secret, $contentType);
 
         return $this->client
             ->sendAsync($request, $this->createHttpClientOption())
@@ -1627,22 +1405,16 @@ class OAuth20Api
     /**
      * Create request for operation 'revokeToken'
      *
-    * This operation contains host(s) defined in the OpenAPI spec. Use 'hostIndex' to select the host.
-    * if needed, use the 'variables' parameter to pass variables to the host.
-     * URL: https://api.mailodds.com
-     *
      * @param  string $token Token to revoke (required)
      * @param  string|null $token_type_hint (optional)
      * @param  string|null $client_id (optional)
      * @param  string|null $client_secret (optional)
-     * @param  null|int $hostIndex Host index. Defaults to null. If null, then the library will use $this->hostIndex instead
-     * @param  array $variables Associative array of variables to pass to the host. Defaults to empty array.
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['revokeToken'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
      * @return \GuzzleHttp\Psr7\Request
      */
-    public function revokeTokenRequest($token, $token_type_hint = null, $client_id = null, $client_secret = null, ?int $hostIndex = null, array $variables = [], string $contentType = self::contentTypes['revokeToken'][0])
+    public function revokeTokenRequest($token, $token_type_hint = null, $client_id = null, $client_secret = null, string $contentType = self::contentTypes['revokeToken'][0])
     {
 
         // verify the required parameter 'token' is set
@@ -1680,7 +1452,7 @@ class OAuth20Api
         $multipart = $formDataProcessor->has_file;
 
         $headers = $this->headerSelector->selectHeaders(
-            [],
+            ['application/json', ],
             $contentType,
             $multipart
         );
@@ -1722,17 +1494,7 @@ class OAuth20Api
             $headers
         );
 
-        # Preserve the original behavior of server indexing.
-        if ($hostIndex === null) {
-            $hostIndex = $this->hostIndex;
-        }
-
-        $hostSettings = $this->getHostSettingsForrevokeToken();
-
-        if ($hostIndex < 0 || $hostIndex >= count($hostSettings)) {
-            throw new \InvalidArgumentException("Invalid index {$hostIndex} when selecting the host. Must be less than ".count($hostSettings));
-        }
-        $operationHost = Configuration::getHostString($hostSettings, $hostIndex, $variables);
+        $operationHost = $this->config->getHost();
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request(
             'POST',
@@ -1740,21 +1502,6 @@ class OAuth20Api
             $headers,
             $httpBody
         );
-    }
-
-    /**
-     * Returns an array of host settings for Operation revokeToken
-     *
-     * @return array an array of host settings
-     */
-    protected function getHostSettingsForrevokeToken(): array
-    {
-        return [
-            [
-                "url" => "https://api.mailodds.com",
-                "description" => "Server root",
-            ]
-        ];
     }
 
     /**

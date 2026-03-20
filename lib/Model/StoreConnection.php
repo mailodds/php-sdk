@@ -311,6 +311,7 @@ class StoreConnection implements ModelInterface, ArrayAccess, \JsonSerializable
     public const PLATFORM_PRESTASHOP = 'prestashop';
     public const PLATFORM_SHOPIFY = 'shopify';
     public const PLATFORM_FEED = 'feed';
+    public const PLATFORM_CUSTOM = 'custom';
     public const STATUS_PENDING = 'pending';
     public const STATUS_CONNECTED = 'connected';
     public const STATUS_ACTIVE = 'active';
@@ -334,6 +335,7 @@ class StoreConnection implements ModelInterface, ArrayAccess, \JsonSerializable
             self::PLATFORM_PRESTASHOP,
             self::PLATFORM_SHOPIFY,
             self::PLATFORM_FEED,
+            self::PLATFORM_CUSTOM,
         ];
     }
 

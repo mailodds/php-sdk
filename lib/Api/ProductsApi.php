@@ -140,7 +140,7 @@ class ProductsApi
      *
      * Batch push products
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id store_id (required)
      * @param  \MailOdds\Model\BatchProductsRequest $batch_products_request batch_products_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['batchProducts'] to see the possible values for this operation
      *
@@ -159,7 +159,7 @@ class ProductsApi
      *
      * Batch push products
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  \MailOdds\Model\BatchProductsRequest $batch_products_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['batchProducts'] to see the possible values for this operation
      *
@@ -201,6 +201,12 @@ class ProductsApi
                         $request,
                         $response,
                     );
+                case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -208,12 +214,6 @@ class ProductsApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -251,6 +251,14 @@ class ProductsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -260,14 +268,6 @@ class ProductsApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -287,7 +287,7 @@ class ProductsApi
      *
      * Batch push products
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  \MailOdds\Model\BatchProductsRequest $batch_products_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['batchProducts'] to see the possible values for this operation
      *
@@ -309,7 +309,7 @@ class ProductsApi
      *
      * Batch push products
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  \MailOdds\Model\BatchProductsRequest $batch_products_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['batchProducts'] to see the possible values for this operation
      *
@@ -360,7 +360,7 @@ class ProductsApi
     /**
      * Create request for operation 'batchProducts'
      *
-     * @param  string $store_id Store connection UUID (required)
+     * @param  string $store_id (required)
      * @param  \MailOdds\Model\BatchProductsRequest $batch_products_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['batchProducts'] to see the possible values for this operation
      *
@@ -772,7 +772,7 @@ class ProductsApi
      *
      * Get a product
      *
-     * @param  string $product_id Product UUID (required)
+     * @param  string $product_id product_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProduct'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -790,7 +790,7 @@ class ProductsApi
      *
      * Get a product
      *
-     * @param  string $product_id Product UUID (required)
+     * @param  string $product_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProduct'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -831,13 +831,13 @@ class ProductsApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -875,7 +875,7 @@ class ProductsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -883,7 +883,7 @@ class ProductsApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -903,7 +903,7 @@ class ProductsApi
      *
      * Get a product
      *
-     * @param  string $product_id Product UUID (required)
+     * @param  string $product_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProduct'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -924,7 +924,7 @@ class ProductsApi
      *
      * Get a product
      *
-     * @param  string $product_id Product UUID (required)
+     * @param  string $product_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProduct'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -974,7 +974,7 @@ class ProductsApi
     /**
      * Create request for operation 'getProduct'
      *
-     * @param  string $product_id Product UUID (required)
+     * @param  string $product_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getProduct'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException

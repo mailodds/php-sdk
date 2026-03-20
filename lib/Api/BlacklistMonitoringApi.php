@@ -442,7 +442,7 @@ class BlacklistMonitoringApi
      *
      * Delete a blacklist monitor
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id monitor_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBlacklistMonitor'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -460,7 +460,7 @@ class BlacklistMonitoringApi
      *
      * Delete a blacklist monitor
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBlacklistMonitor'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -501,13 +501,13 @@ class BlacklistMonitoringApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -545,7 +545,7 @@ class BlacklistMonitoringApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -553,7 +553,7 @@ class BlacklistMonitoringApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -573,7 +573,7 @@ class BlacklistMonitoringApi
      *
      * Delete a blacklist monitor
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBlacklistMonitor'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -594,7 +594,7 @@ class BlacklistMonitoringApi
      *
      * Delete a blacklist monitor
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBlacklistMonitor'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -644,7 +644,7 @@ class BlacklistMonitoringApi
     /**
      * Create request for operation 'deleteBlacklistMonitor'
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteBlacklistMonitor'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -742,7 +742,7 @@ class BlacklistMonitoringApi
      *
      * Get blacklist check history
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id monitor_id (required)
      * @param  int|null $page page (optional, default to 1)
      * @param  int|null $per_page per_page (optional, default to 20)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBlacklistHistory'] to see the possible values for this operation
@@ -762,7 +762,7 @@ class BlacklistMonitoringApi
      *
      * Get blacklist check history
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 20)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBlacklistHistory'] to see the possible values for this operation
@@ -805,13 +805,13 @@ class BlacklistMonitoringApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -849,7 +849,7 @@ class BlacklistMonitoringApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -857,7 +857,7 @@ class BlacklistMonitoringApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -877,7 +877,7 @@ class BlacklistMonitoringApi
      *
      * Get blacklist check history
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 20)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBlacklistHistory'] to see the possible values for this operation
@@ -900,7 +900,7 @@ class BlacklistMonitoringApi
      *
      * Get blacklist check history
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 20)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBlacklistHistory'] to see the possible values for this operation
@@ -952,7 +952,7 @@ class BlacklistMonitoringApi
     /**
      * Create request for operation 'getBlacklistHistory'
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  int|null $page (optional, default to 1)
      * @param  int|null $per_page (optional, default to 20)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getBlacklistHistory'] to see the possible values for this operation
@@ -1341,7 +1341,7 @@ class BlacklistMonitoringApi
      *
      * Run blacklist check
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id monitor_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['runBlacklistCheck'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1359,7 +1359,7 @@ class BlacklistMonitoringApi
      *
      * Run blacklist check
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['runBlacklistCheck'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1400,13 +1400,13 @@ class BlacklistMonitoringApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1444,7 +1444,7 @@ class BlacklistMonitoringApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1452,7 +1452,7 @@ class BlacklistMonitoringApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1472,7 +1472,7 @@ class BlacklistMonitoringApi
      *
      * Run blacklist check
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['runBlacklistCheck'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1493,7 +1493,7 @@ class BlacklistMonitoringApi
      *
      * Run blacklist check
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['runBlacklistCheck'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1543,7 +1543,7 @@ class BlacklistMonitoringApi
     /**
      * Create request for operation 'runBlacklistCheck'
      *
-     * @param  string $monitor_id Monitor UUID (required)
+     * @param  string $monitor_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['runBlacklistCheck'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException

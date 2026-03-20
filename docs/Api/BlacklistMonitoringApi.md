@@ -100,7 +100,7 @@ $apiInstance = new MailOdds\Api\BlacklistMonitoringApi(
     new GuzzleHttp\Client(),
     $config
 );
-$monitor_id = 'monitor_id_example'; // string | Monitor UUID
+$monitor_id = 'monitor_id_example'; // string
 
 try {
     $result = $apiInstance->deleteBlacklistMonitor($monitor_id);
@@ -114,7 +114,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **monitor_id** | **string**| Monitor UUID | |
+| **monitor_id** | **string**|  | |
 
 ### Return type
 
@@ -160,7 +160,7 @@ $apiInstance = new MailOdds\Api\BlacklistMonitoringApi(
     new GuzzleHttp\Client(),
     $config
 );
-$monitor_id = 'monitor_id_example'; // string | Monitor UUID
+$monitor_id = 'monitor_id_example'; // string
 $page = 1; // int
 $per_page = 20; // int
 
@@ -176,7 +176,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **monitor_id** | **string**| Monitor UUID | |
+| **monitor_id** | **string**|  | |
 | **page** | **int**|  | [optional] [default to 1] |
 | **per_page** | **int**|  | [optional] [default to 20] |
 
@@ -281,7 +281,7 @@ $apiInstance = new MailOdds\Api\BlacklistMonitoringApi(
     new GuzzleHttp\Client(),
     $config
 );
-$monitor_id = 'monitor_id_example'; // string | Monitor UUID
+$monitor_id = 'monitor_id_example'; // string
 
 try {
     $result = $apiInstance->runBlacklistCheck($monitor_id);
@@ -295,7 +295,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **monitor_id** | **string**| Monitor UUID | |
+| **monitor_id** | **string**|  | |
 
 ### Return type
 

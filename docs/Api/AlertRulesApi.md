@@ -100,7 +100,7 @@ $apiInstance = new MailOdds\Api\AlertRulesApi(
     new GuzzleHttp\Client(),
     $config
 );
-$rule_id = 'rule_id_example'; // string | Alert rule ID
+$rule_id = 'rule_id_example'; // string
 
 try {
     $result = $apiInstance->deleteAlertRule($rule_id);
@@ -114,7 +114,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **rule_id** | **string**| Alert rule ID | |
+| **rule_id** | **string**|  | |
 
 ### Return type
 
@@ -160,7 +160,7 @@ $apiInstance = new MailOdds\Api\AlertRulesApi(
     new GuzzleHttp\Client(),
     $config
 );
-$rule_id = 'rule_id_example'; // string | Alert rule ID
+$rule_id = 'rule_id_example'; // string
 
 try {
     $result = $apiInstance->getAlertRule($rule_id);
@@ -174,7 +174,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **rule_id** | **string**| Alert rule ID | |
+| **rule_id** | **string**|  | |
 
 ### Return type
 
@@ -277,7 +277,7 @@ $apiInstance = new MailOdds\Api\AlertRulesApi(
     new GuzzleHttp\Client(),
     $config
 );
-$rule_id = 'rule_id_example'; // string | Alert rule ID
+$rule_id = 'rule_id_example'; // string
 $update_alert_rule_request = new \MailOdds\Model\UpdateAlertRuleRequest(); // \MailOdds\Model\UpdateAlertRuleRequest
 
 try {
@@ -292,7 +292,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **rule_id** | **string**| Alert rule ID | |
+| **rule_id** | **string**|  | |
 | **update_alert_rule_request** | [**\MailOdds\Model\UpdateAlertRuleRequest**](../Model/UpdateAlertRuleRequest.md)|  | |
 
 ### Return type

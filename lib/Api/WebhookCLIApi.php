@@ -145,7 +145,7 @@ class WebhookCLIApi
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return \MailOdds\Model\CreateWebhookCliSession201Response|\MailOdds\Model\ErrorResponse
+     * @return \MailOdds\Model\CreateWebhookCliSession201Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse
      */
     public function createWebhookCliSession($create_webhook_cli_session_request = null, string $contentType = self::contentTypes['createWebhookCliSession'][0])
     {
@@ -163,7 +163,7 @@ class WebhookCLIApi
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
      * @throws \InvalidArgumentException
-     * @return array of \MailOdds\Model\CreateWebhookCliSession201Response|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
+     * @return array of \MailOdds\Model\CreateWebhookCliSession201Response|\MailOdds\Model\ErrorResponse|\MailOdds\Model\ErrorResponse, HTTP status code, HTTP response headers (array of strings)
      */
     public function createWebhookCliSessionWithHttpInfo($create_webhook_cli_session_request = null, string $contentType = self::contentTypes['createWebhookCliSession'][0])
     {
@@ -196,6 +196,12 @@ class WebhookCLIApi
                 case 201:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\CreateWebhookCliSession201Response',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
@@ -233,6 +239,14 @@ class WebhookCLIApi
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\CreateWebhookCliSession201Response',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
                         $e->getResponseHeaders()
                     );
                     $e->setResponseObject($data);
@@ -419,7 +433,7 @@ class WebhookCLIApi
      *
      * Close CLI session
      *
-     * @param  string $session_id Session ID (required)
+     * @param  string $session_id session_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteWebhookCliSession'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -437,7 +451,7 @@ class WebhookCLIApi
      *
      * Close CLI session
      *
-     * @param  string $session_id Session ID (required)
+     * @param  string $session_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteWebhookCliSession'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -478,13 +492,13 @@ class WebhookCLIApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -522,7 +536,7 @@ class WebhookCLIApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -530,7 +544,7 @@ class WebhookCLIApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -550,7 +564,7 @@ class WebhookCLIApi
      *
      * Close CLI session
      *
-     * @param  string $session_id Session ID (required)
+     * @param  string $session_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteWebhookCliSession'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -571,7 +585,7 @@ class WebhookCLIApi
      *
      * Close CLI session
      *
-     * @param  string $session_id Session ID (required)
+     * @param  string $session_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteWebhookCliSession'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -621,7 +635,7 @@ class WebhookCLIApi
     /**
      * Create request for operation 'deleteWebhookCliSession'
      *
-     * @param  string $session_id Session ID (required)
+     * @param  string $session_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteWebhookCliSession'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1003,7 +1017,7 @@ class WebhookCLIApi
      *
      * Replay webhook delivery
      *
-     * @param  int $delivery_id Delivery ID (required)
+     * @param  int $delivery_id delivery_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['replayWebhookDelivery'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1021,7 +1035,7 @@ class WebhookCLIApi
      *
      * Replay webhook delivery
      *
-     * @param  int $delivery_id Delivery ID (required)
+     * @param  int $delivery_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['replayWebhookDelivery'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -1062,13 +1076,13 @@ class WebhookCLIApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 404:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 404:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1106,7 +1120,7 @@ class WebhookCLIApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 404:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1114,7 +1128,7 @@ class WebhookCLIApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 404:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1134,7 +1148,7 @@ class WebhookCLIApi
      *
      * Replay webhook delivery
      *
-     * @param  int $delivery_id Delivery ID (required)
+     * @param  int $delivery_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['replayWebhookDelivery'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1155,7 +1169,7 @@ class WebhookCLIApi
      *
      * Replay webhook delivery
      *
-     * @param  int $delivery_id Delivery ID (required)
+     * @param  int $delivery_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['replayWebhookDelivery'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1205,7 +1219,7 @@ class WebhookCLIApi
     /**
      * Create request for operation 'replayWebhookDelivery'
      *
-     * @param  int $delivery_id Delivery ID (required)
+     * @param  int $delivery_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['replayWebhookDelivery'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException

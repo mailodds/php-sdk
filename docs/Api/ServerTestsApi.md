@@ -38,7 +38,7 @@ $apiInstance = new MailOdds\Api\ServerTestsApi(
     new GuzzleHttp\Client(),
     $config
 );
-$test_id = 'test_id_example'; // string | Server test UUID
+$test_id = 'test_id_example'; // string
 
 try {
     $result = $apiInstance->getServerTest($test_id);
@@ -52,7 +52,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **test_id** | **string**| Server test UUID | |
+| **test_id** | **string**|  | |
 
 ### Return type
 

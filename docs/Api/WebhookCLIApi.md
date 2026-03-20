@@ -99,7 +99,7 @@ $apiInstance = new MailOdds\Api\WebhookCLIApi(
     new GuzzleHttp\Client(),
     $config
 );
-$session_id = 'session_id_example'; // string | Session ID
+$session_id = 'session_id_example'; // string
 
 try {
     $result = $apiInstance->deleteWebhookCliSession($session_id);
@@ -113,7 +113,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **session_id** | **string**| Session ID | |
+| **session_id** | **string**|  | |
 
 ### Return type
 
@@ -219,7 +219,7 @@ $apiInstance = new MailOdds\Api\WebhookCLIApi(
     new GuzzleHttp\Client(),
     $config
 );
-$delivery_id = 56; // int | Delivery ID
+$delivery_id = 56; // int
 
 try {
     $result = $apiInstance->replayWebhookDelivery($delivery_id);
@@ -233,7 +233,7 @@ try {
 
 | Name | Type | Description  | Notes |
 | ------------- | ------------- | ------------- | ------------- |
-| **delivery_id** | **int**| Delivery ID | |
+| **delivery_id** | **int**|  | |
 
 ### Return type
 

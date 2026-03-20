@@ -202,6 +202,12 @@ class AlertRulesApi
                         $request,
                         $response,
                     );
+                case 403:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
                 case 400:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -209,12 +215,6 @@ class AlertRulesApi
                         $response,
                     );
                 case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -252,6 +252,14 @@ class AlertRulesApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
+                case 403:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
                 case 400:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -261,14 +269,6 @@ class AlertRulesApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -456,7 +456,7 @@ class AlertRulesApi
      *
      * Delete alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id rule_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAlertRule'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -474,7 +474,7 @@ class AlertRulesApi
      *
      * Delete alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAlertRule'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -515,12 +515,6 @@ class AlertRulesApi
                         $request,
                         $response,
                     );
-                case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -528,6 +522,12 @@ class AlertRulesApi
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -565,14 +565,6 @@ class AlertRulesApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -582,6 +574,14 @@ class AlertRulesApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -601,7 +601,7 @@ class AlertRulesApi
      *
      * Delete alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAlertRule'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -622,7 +622,7 @@ class AlertRulesApi
      *
      * Delete alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAlertRule'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -672,7 +672,7 @@ class AlertRulesApi
     /**
      * Create request for operation 'deleteAlertRule'
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['deleteAlertRule'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -770,7 +770,7 @@ class AlertRulesApi
      *
      * Get alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id rule_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAlertRule'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -788,7 +788,7 @@ class AlertRulesApi
      *
      * Get alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAlertRule'] to see the possible values for this operation
      *
      * @throws \MailOdds\ApiException on non-2xx response or if the response body is not in the expected format
@@ -829,12 +829,6 @@ class AlertRulesApi
                         $request,
                         $response,
                     );
-                case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -842,6 +836,12 @@ class AlertRulesApi
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -879,14 +879,6 @@ class AlertRulesApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -896,6 +888,14 @@ class AlertRulesApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -915,7 +915,7 @@ class AlertRulesApi
      *
      * Get alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAlertRule'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -936,7 +936,7 @@ class AlertRulesApi
      *
      * Get alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAlertRule'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -986,7 +986,7 @@ class AlertRulesApi
     /**
      * Create request for operation 'getAlertRule'
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['getAlertRule'] to see the possible values for this operation
      *
      * @throws \InvalidArgumentException
@@ -1141,13 +1141,13 @@ class AlertRulesApi
                         $request,
                         $response,
                     );
-                case 401:
+                case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
                         $response,
                     );
-                case 403:
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1185,7 +1185,7 @@ class AlertRulesApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 401:
+                case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1193,7 +1193,7 @@ class AlertRulesApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 403:
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1364,7 +1364,7 @@ class AlertRulesApi
      *
      * Update alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id rule_id (required)
      * @param  \MailOdds\Model\UpdateAlertRuleRequest $update_alert_rule_request update_alert_rule_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateAlertRule'] to see the possible values for this operation
      *
@@ -1383,7 +1383,7 @@ class AlertRulesApi
      *
      * Update alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  \MailOdds\Model\UpdateAlertRuleRequest $update_alert_rule_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateAlertRule'] to see the possible values for this operation
      *
@@ -1425,18 +1425,6 @@ class AlertRulesApi
                         $request,
                         $response,
                     );
-                case 400:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
-                case 401:
-                    return $this->handleResponseWithDataType(
-                        '\MailOdds\Model\ErrorResponse',
-                        $request,
-                        $response,
-                    );
                 case 403:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
@@ -1444,6 +1432,18 @@ class AlertRulesApi
                         $response,
                     );
                 case 404:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 400:
+                    return $this->handleResponseWithDataType(
+                        '\MailOdds\Model\ErrorResponse',
+                        $request,
+                        $response,
+                    );
+                case 401:
                     return $this->handleResponseWithDataType(
                         '\MailOdds\Model\ErrorResponse',
                         $request,
@@ -1481,22 +1481,6 @@ class AlertRulesApi
                     );
                     $e->setResponseObject($data);
                     throw $e;
-                case 400:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
-                case 401:
-                    $data = ObjectSerializer::deserialize(
-                        $e->getResponseBody(),
-                        '\MailOdds\Model\ErrorResponse',
-                        $e->getResponseHeaders()
-                    );
-                    $e->setResponseObject($data);
-                    throw $e;
                 case 403:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
@@ -1506,6 +1490,22 @@ class AlertRulesApi
                     $e->setResponseObject($data);
                     throw $e;
                 case 404:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 400:
+                    $data = ObjectSerializer::deserialize(
+                        $e->getResponseBody(),
+                        '\MailOdds\Model\ErrorResponse',
+                        $e->getResponseHeaders()
+                    );
+                    $e->setResponseObject($data);
+                    throw $e;
+                case 401:
                     $data = ObjectSerializer::deserialize(
                         $e->getResponseBody(),
                         '\MailOdds\Model\ErrorResponse',
@@ -1525,7 +1525,7 @@ class AlertRulesApi
      *
      * Update alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  \MailOdds\Model\UpdateAlertRuleRequest $update_alert_rule_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateAlertRule'] to see the possible values for this operation
      *
@@ -1547,7 +1547,7 @@ class AlertRulesApi
      *
      * Update alert rule
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  \MailOdds\Model\UpdateAlertRuleRequest $update_alert_rule_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateAlertRule'] to see the possible values for this operation
      *
@@ -1598,7 +1598,7 @@ class AlertRulesApi
     /**
      * Create request for operation 'updateAlertRule'
      *
-     * @param  string $rule_id Alert rule ID (required)
+     * @param  string $rule_id (required)
      * @param  \MailOdds\Model\UpdateAlertRuleRequest $update_alert_rule_request (required)
      * @param  string $contentType The value for the Content-Type header. Check self::contentTypes['updateAlertRule'] to see the possible values for this operation
      *
