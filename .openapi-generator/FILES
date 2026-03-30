@@ -603,4 +603,3 @@ lib/Model/ValidationResultSuppression.php
 lib/Model/WebhookEvent.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
-test/Model/OAuthClientRegistrationTest.php

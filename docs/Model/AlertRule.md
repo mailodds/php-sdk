@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **metric** | **string** | Monitored metric name | [optional]
 **threshold** | **float** | Alert threshold value (0-1) | [optional]
 **channel** | **string** | Notification channel | [optional]
-**window_minutes** | **int** | Evaluation window in minutes | [optional]
+**window_minutes** | **int** | Evaluation window in minutes (15, 60, 1440, or 2880) | [optional]
 **enabled** | **bool** |  | [optional]
 **created_at** | **\DateTime** |  | [optional]
 **updated_at** | **\DateTime** |  | [optional]
