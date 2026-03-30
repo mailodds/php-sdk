@@ -58,6 +58,7 @@ class DeleteWebhookCliSession200Response implements ModelInterface, ArrayAccess,
       * @var string[]
       */
     protected static $openAPITypes = [
+        'deleted' => 'bool',
         'status' => 'string'
     ];
 
@@ -69,6 +70,7 @@ class DeleteWebhookCliSession200Response implements ModelInterface, ArrayAccess,
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
+        'deleted' => null,
         'status' => null
     ];
 
@@ -78,6 +80,7 @@ class DeleteWebhookCliSession200Response implements ModelInterface, ArrayAccess,
       * @var boolean[]
       */
     protected static array $openAPINullables = [
+        'deleted' => false,
         'status' => false
     ];
 
@@ -167,6 +170,7 @@ class DeleteWebhookCliSession200Response implements ModelInterface, ArrayAccess,
      * @var string[]
      */
     protected static $attributeMap = [
+        'deleted' => 'deleted',
         'status' => 'status'
     ];
 
@@ -176,6 +180,7 @@ class DeleteWebhookCliSession200Response implements ModelInterface, ArrayAccess,
      * @var string[]
      */
     protected static $setters = [
+        'deleted' => 'setDeleted',
         'status' => 'setStatus'
     ];
 
@@ -185,6 +190,7 @@ class DeleteWebhookCliSession200Response implements ModelInterface, ArrayAccess,
      * @var string[]
      */
     protected static $getters = [
+        'deleted' => 'getDeleted',
         'status' => 'getStatus'
     ];
 
@@ -245,6 +251,7 @@ class DeleteWebhookCliSession200Response implements ModelInterface, ArrayAccess,
      */
     public function __construct(?array $data = null)
     {
+        $this->setIfExists('deleted', $data ?? [], null);
         $this->setIfExists('status', $data ?? [], null);
     }
 
@@ -289,6 +296,33 @@ class DeleteWebhookCliSession200Response implements ModelInterface, ArrayAccess,
         return count($this->listInvalidProperties()) === 0;
     }
 
+
+    /**
+     * Gets deleted
+     *
+     * @return bool|null
+     */
+    public function getDeleted()
+    {
+        return $this->container['deleted'];
+    }
+
+    /**
+     * Sets deleted
+     *
+     * @param bool|null $deleted deleted
+     *
+     * @return self
+     */
+    public function setDeleted($deleted)
+    {
+        if (is_null($deleted)) {
+            throw new \InvalidArgumentException('non-nullable deleted cannot be null');
+        }
+        $this->container['deleted'] = $deleted;
+
+        return $this;
+    }
 
     /**
      * Gets status

@@ -30,7 +30,6 @@ docs/Api/OAuth20Api.md
 docs/Api/OutOfOfficeApi.md
 docs/Api/PipelineSimulationApi.md
 docs/Api/PixelSettingsApi.md
-docs/Api/ProductsApi.md
 docs/Api/ReputationApi.md
 docs/Api/ReputationPoliciesApi.md
 docs/Api/SenderHealthApi.md
@@ -38,7 +37,6 @@ docs/Api/SendingDelegationsApi.md
 docs/Api/SendingDomainsApi.md
 docs/Api/ServerTestsApi.md
 docs/Api/SpamChecksApi.md
-docs/Api/StoreConnectionsApi.md
 docs/Api/SubscriberListsApi.md
 docs/Api/SuppressionListsApi.md
 docs/Api/SystemApi.md
@@ -76,8 +74,6 @@ docs/Model/BounceAnalysisResponse.md
 docs/Model/BounceAnalysisResponseAnalysis.md
 docs/Model/BounceAnalysisResponseAnalysisCategories.md
 docs/Model/BounceAnalysisResponseAnalysisTopDomainsInner.md
-docs/Model/BulkUpdateProducts200Response.md
-docs/Model/BulkUpdateProductsRequest.md
 docs/Model/Campaign.md
 docs/Model/CampaignResponse.md
 docs/Model/CampaignStats.md
@@ -104,7 +100,6 @@ docs/Model/CreatePolicyFromPresetRequest.md
 docs/Model/CreatePolicyRequest.md
 docs/Model/CreateSendingDomain201Response.md
 docs/Model/CreateSendingDomainRequest.md
-docs/Model/CreateStore201Response.md
 docs/Model/CreateStoreRequest.md
 docs/Model/CreateToken200Response.md
 docs/Model/CreateVariantRequest.md
@@ -124,7 +119,6 @@ docs/Model/DeliverRequestStructuredData.md
 docs/Model/DeliverRequestToInner.md
 docs/Model/DeliverResponse.md
 docs/Model/DeliverResponseDelivery.md
-docs/Model/DisconnectStore200Response.md
 docs/Model/DmarcDomain.md
 docs/Model/ErrorResponse.md
 docs/Model/GetBlacklistHistory200Response.md
@@ -177,7 +171,6 @@ docs/Model/GetMessageEvents200ResponseSummary.md
 docs/Model/GetOooStatus200Response.md
 docs/Model/GetPixelSettings200Response.md
 docs/Model/GetPresignedUploadRequest.md
-docs/Model/GetProduct200Response.md
 docs/Model/GetReplyForwarding200Response.md
 docs/Model/GetReputation200Response.md
 docs/Model/GetReputationTimeline200Response.md
@@ -193,7 +186,6 @@ docs/Model/GetSendingDomainIdentityScore200Response.md
 docs/Model/GetSendingStats200Response.md
 docs/Model/GetSendingStats200ResponseStats.md
 docs/Model/GetSubscribers200Response.md
-docs/Model/GetSyncJobErrors200Response.md
 docs/Model/HealthCheck200Response.md
 docs/Model/IdentityScoreCheck.md
 docs/Model/ImportContactList200Response.md
@@ -215,13 +207,12 @@ docs/Model/ListOooContacts200Response.md
 docs/Model/ListSendingDomains200Response.md
 docs/Model/ListServerTests200Response.md
 docs/Model/ListSpamChecks200Response.md
-docs/Model/ListStores200Response.md
-docs/Model/ListSyncJobs200Response.md
 docs/Model/ListWebhookDeliveries200Response.md
 docs/Model/ListWebhookDeliveries200ResponseDeliveriesInner.md
 docs/Model/McpCapabilities.md
 docs/Model/McpCapabilitiesPillarsInner.md
 docs/Model/McpCapabilitiesPillarsInnerToolsInner.md
+docs/Model/OAuthClientRegistration.md
 docs/Model/OAuthServerMetadata.md
 docs/Model/Pagination.md
 docs/Model/Policy.md
@@ -243,7 +234,6 @@ docs/Model/QueryContactList200Response.md
 docs/Model/QueryContactList200ResponseEmailsInner.md
 docs/Model/QueryContactListRequest.md
 docs/Model/QueryContactListRequestFiltersInner.md
-docs/Model/QueryProducts200Response.md
 docs/Model/RemoveSuppression200Response.md
 docs/Model/RemoveSuppressionRequest.md
 docs/Model/ReplayWebhookDelivery200Response.md
@@ -298,7 +288,6 @@ docs/Model/UpdateOooContactRequest.md
 docs/Model/UpdatePixelSettingsRequest.md
 docs/Model/UpdatePolicyRequest.md
 docs/Model/UpdateReplyForwardingRequest.md
-docs/Model/UpdateStoreRequest.md
 docs/Model/ValidateBatch200Response.md
 docs/Model/ValidateBatch200ResponseSummary.md
 docs/Model/ValidateBatchRequest.md
@@ -339,7 +328,6 @@ lib/Api/OAuth20Api.php
 lib/Api/OutOfOfficeApi.php
 lib/Api/PipelineSimulationApi.php
 lib/Api/PixelSettingsApi.php
-lib/Api/ProductsApi.php
 lib/Api/ReputationApi.php
 lib/Api/ReputationPoliciesApi.php
 lib/Api/SenderHealthApi.php
@@ -347,7 +335,6 @@ lib/Api/SendingDelegationsApi.php
 lib/Api/SendingDomainsApi.php
 lib/Api/ServerTestsApi.php
 lib/Api/SpamChecksApi.php
-lib/Api/StoreConnectionsApi.php
 lib/Api/SubscriberListsApi.php
 lib/Api/SuppressionListsApi.php
 lib/Api/SystemApi.php
@@ -389,8 +376,6 @@ lib/Model/BounceAnalysisResponse.php
 lib/Model/BounceAnalysisResponseAnalysis.php
 lib/Model/BounceAnalysisResponseAnalysisCategories.php
 lib/Model/BounceAnalysisResponseAnalysisTopDomainsInner.php
-lib/Model/BulkUpdateProducts200Response.php
-lib/Model/BulkUpdateProductsRequest.php
 lib/Model/Campaign.php
 lib/Model/CampaignResponse.php
 lib/Model/CampaignStats.php
@@ -417,7 +402,6 @@ lib/Model/CreatePolicyFromPresetRequest.php
 lib/Model/CreatePolicyRequest.php
 lib/Model/CreateSendingDomain201Response.php
 lib/Model/CreateSendingDomainRequest.php
-lib/Model/CreateStore201Response.php
 lib/Model/CreateStoreRequest.php
 lib/Model/CreateToken200Response.php
 lib/Model/CreateVariantRequest.php
@@ -437,7 +421,6 @@ lib/Model/DeliverRequestStructuredData.php
 lib/Model/DeliverRequestToInner.php
 lib/Model/DeliverResponse.php
 lib/Model/DeliverResponseDelivery.php
-lib/Model/DisconnectStore200Response.php
 lib/Model/DmarcDomain.php
 lib/Model/ErrorResponse.php
 lib/Model/GetBlacklistHistory200Response.php
@@ -490,7 +473,6 @@ lib/Model/GetMessageEvents200ResponseSummary.php
 lib/Model/GetOooStatus200Response.php
 lib/Model/GetPixelSettings200Response.php
 lib/Model/GetPresignedUploadRequest.php
-lib/Model/GetProduct200Response.php
 lib/Model/GetReplyForwarding200Response.php
 lib/Model/GetReputation200Response.php
 lib/Model/GetReputationTimeline200Response.php
@@ -506,7 +488,6 @@ lib/Model/GetSendingDomainIdentityScore200Response.php
 lib/Model/GetSendingStats200Response.php
 lib/Model/GetSendingStats200ResponseStats.php
 lib/Model/GetSubscribers200Response.php
-lib/Model/GetSyncJobErrors200Response.php
 lib/Model/HealthCheck200Response.php
 lib/Model/IdentityScoreCheck.php
 lib/Model/ImportContactList200Response.php
@@ -528,14 +509,13 @@ lib/Model/ListOooContacts200Response.php
 lib/Model/ListSendingDomains200Response.php
 lib/Model/ListServerTests200Response.php
 lib/Model/ListSpamChecks200Response.php
-lib/Model/ListStores200Response.php
-lib/Model/ListSyncJobs200Response.php
 lib/Model/ListWebhookDeliveries200Response.php
 lib/Model/ListWebhookDeliveries200ResponseDeliveriesInner.php
 lib/Model/McpCapabilities.php
 lib/Model/McpCapabilitiesPillarsInner.php
 lib/Model/McpCapabilitiesPillarsInnerToolsInner.php
 lib/Model/ModelInterface.php
+lib/Model/OAuthClientRegistration.php
 lib/Model/OAuthServerMetadata.php
 lib/Model/Pagination.php
 lib/Model/Policy.php
@@ -557,7 +537,6 @@ lib/Model/QueryContactList200Response.php
 lib/Model/QueryContactList200ResponseEmailsInner.php
 lib/Model/QueryContactListRequest.php
 lib/Model/QueryContactListRequestFiltersInner.php
-lib/Model/QueryProducts200Response.php
 lib/Model/RemoveSuppression200Response.php
 lib/Model/RemoveSuppressionRequest.php
 lib/Model/ReplayWebhookDelivery200Response.php
@@ -612,7 +591,6 @@ lib/Model/UpdateOooContactRequest.php
 lib/Model/UpdatePixelSettingsRequest.php
 lib/Model/UpdatePolicyRequest.php
 lib/Model/UpdateReplyForwardingRequest.php
-lib/Model/UpdateStoreRequest.php
 lib/Model/ValidateBatch200Response.php
 lib/Model/ValidateBatch200ResponseSummary.php
 lib/Model/ValidateBatchRequest.php
@@ -625,3 +603,4 @@ lib/Model/ValidationResultSuppression.php
 lib/Model/WebhookEvent.php
 lib/ObjectSerializer.php
 phpunit.xml.dist
+test/Model/OAuthClientRegistrationTest.php

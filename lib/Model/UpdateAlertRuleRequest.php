@@ -253,6 +253,25 @@ class UpdateAlertRuleRequest implements ModelInterface, ArrayAccess, \JsonSerial
         return self::$openAPIModelName;
     }
 
+    public const WINDOW_MINUTES_NUMBER_15 = 15;
+    public const WINDOW_MINUTES_NUMBER_60 = 60;
+    public const WINDOW_MINUTES_NUMBER_1440 = 1440;
+    public const WINDOW_MINUTES_NUMBER_2880 = 2880;
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getWindowMinutesAllowableValues()
+    {
+        return [
+            self::WINDOW_MINUTES_NUMBER_15,
+            self::WINDOW_MINUTES_NUMBER_60,
+            self::WINDOW_MINUTES_NUMBER_1440,
+            self::WINDOW_MINUTES_NUMBER_2880,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -302,6 +321,23 @@ class UpdateAlertRuleRequest implements ModelInterface, ArrayAccess, \JsonSerial
     public function listInvalidProperties()
     {
         $invalidProperties = [];
+
+        if (!is_null($this->container['threshold']) && ($this->container['threshold'] > 1)) {
+            $invalidProperties[] = "invalid value for 'threshold', must be smaller than or equal to 1.";
+        }
+
+        if (!is_null($this->container['threshold']) && ($this->container['threshold'] <= 0)) {
+            $invalidProperties[] = "invalid value for 'threshold', must be bigger than 0.";
+        }
+
+        $allowedValues = $this->getWindowMinutesAllowableValues();
+        if (!is_null($this->container['window_minutes']) && !in_array($this->container['window_minutes'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'window_minutes', must be one of '%s'",
+                $this->container['window_minutes'],
+                implode("', '", $allowedValues)
+            );
+        }
 
         return $invalidProperties;
     }
@@ -367,6 +403,14 @@ class UpdateAlertRuleRequest implements ModelInterface, ArrayAccess, \JsonSerial
         if (is_null($threshold)) {
             throw new \InvalidArgumentException('non-nullable threshold cannot be null');
         }
+
+        if (($threshold > 1)) {
+            throw new \InvalidArgumentException('invalid value for $threshold when calling UpdateAlertRuleRequest., must be smaller than or equal to 1.');
+        }
+        if (($threshold <= 0)) {
+            throw new \InvalidArgumentException('invalid value for $threshold when calling UpdateAlertRuleRequest., must be bigger than 0.');
+        }
+
         $this->container['threshold'] = $threshold;
 
         return $this;
@@ -420,6 +464,16 @@ class UpdateAlertRuleRequest implements ModelInterface, ArrayAccess, \JsonSerial
     {
         if (is_null($window_minutes)) {
             throw new \InvalidArgumentException('non-nullable window_minutes cannot be null');
+        }
+        $allowedValues = $this->getWindowMinutesAllowableValues();
+        if (!in_array($window_minutes, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'window_minutes', must be one of '%s'",
+                    $window_minutes,
+                    implode("', '", $allowedValues)
+                )
+            );
         }
         $this->container['window_minutes'] = $window_minutes;
 

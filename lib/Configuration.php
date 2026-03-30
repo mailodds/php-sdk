@@ -94,7 +94,7 @@ class Configuration
      *
      * @var string
      */
-    protected $host = 'https://api.mailodds.com/v1';
+    protected $host = 'https://api.mailodds.com';
 
     /**
      * User agent of the HTTP request, set to "OpenAPI-Generator/{version}/PHP" by default
@@ -530,12 +530,8 @@ class Configuration
     {
         return [
             [
-                "url" => "https://api.mailodds.com/v1",
-                "description" => "Production server (API v1 endpoints)",
-            ],
-            [
                 "url" => "https://api.mailodds.com",
-                "description" => "Production server (OAuth and discovery endpoints)",
+                "description" => "Production server",
             ]
         ];
     }

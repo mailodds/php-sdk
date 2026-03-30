@@ -2,13 +2,14 @@
 
 
 
-All URIs are relative to https://api.mailodds.com/v1, except if the operation defines another base path.
+All URIs are relative to https://api.mailodds.com, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
 | [**createToken()**](OAuth20Api.md#createToken) | **POST** /oauth/token | Create token |
 | [**getJwks()**](OAuth20Api.md#getJwks) | **GET** /.well-known/jwks.json | Get JSON Web Key Set |
 | [**introspectToken()**](OAuth20Api.md#introspectToken) | **POST** /oauth/introspect | Introspect token |
+| [**oauthRegisterClient()**](OAuth20Api.md#oauthRegisterClient) | **POST** /oauth/register | Register OAuth client |
 | [**oauthServerMetadata()**](OAuth20Api.md#oauthServerMetadata) | **GET** /.well-known/oauth-authorization-server | OAuth server metadata |
 | [**revokeToken()**](OAuth20Api.md#revokeToken) | **POST** /oauth/revoke | Revoke token |
 
@@ -192,6 +193,59 @@ No authorization required
 ### HTTP request headers
 
 - **Content-Type**: `application/x-www-form-urlencoded`
+- **Accept**: `application/json`
+
+[[Back to top]](#) [[Back to API list]](../../README.md#endpoints)
+[[Back to Model list]](../../README.md#models)
+[[Back to README]](../../README.md)
+
+## `oauthRegisterClient()`
+
+```php
+oauthRegisterClient(): \MailOdds\Model\OAuthClientRegistration
+```
+
+Register OAuth client
+
+Dynamic Client Registration (RFC 7591). Allows MCP clients to auto-register without user interaction.
+
+### Example
+
+```php
+<?php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+
+
+$apiInstance = new MailOdds\Api\OAuth20Api(
+    // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
+    // This is optional, `GuzzleHttp\Client` will be used as default.
+    new GuzzleHttp\Client()
+);
+
+try {
+    $result = $apiInstance->oauthRegisterClient();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling OAuth20Api->oauthRegisterClient: ', $e->getMessage(), PHP_EOL;
+}
+```
+
+### Parameters
+
+This endpoint does not need any parameter.
+
+### Return type
+
+[**\MailOdds\Model\OAuthClientRegistration**](../Model/OAuthClientRegistration.md)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+- **Content-Type**: Not defined
 - **Accept**: `application/json`
 
 [[Back to top]](#) [[Back to API list]](../../README.md#endpoints)

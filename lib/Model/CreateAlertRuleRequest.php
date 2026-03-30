@@ -253,6 +253,25 @@ class CreateAlertRuleRequest implements ModelInterface, ArrayAccess, \JsonSerial
         return self::$openAPIModelName;
     }
 
+    public const WINDOW_MINUTES_NUMBER_15 = 15;
+    public const WINDOW_MINUTES_NUMBER_60 = 60;
+    public const WINDOW_MINUTES_NUMBER_1440 = 1440;
+    public const WINDOW_MINUTES_NUMBER_2880 = 2880;
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getWindowMinutesAllowableValues()
+    {
+        return [
+            self::WINDOW_MINUTES_NUMBER_15,
+            self::WINDOW_MINUTES_NUMBER_60,
+            self::WINDOW_MINUTES_NUMBER_1440,
+            self::WINDOW_MINUTES_NUMBER_2880,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -272,7 +291,7 @@ class CreateAlertRuleRequest implements ModelInterface, ArrayAccess, \JsonSerial
         $this->setIfExists('metric', $data ?? [], null);
         $this->setIfExists('threshold', $data ?? [], null);
         $this->setIfExists('channel', $data ?? [], null);
-        $this->setIfExists('window_minutes', $data ?? [], 60);
+        $this->setIfExists('window_minutes', $data ?? [], self::WINDOW_MINUTES_NUMBER_60);
         $this->setIfExists('enabled', $data ?? [], true);
     }
 
@@ -309,9 +328,26 @@ class CreateAlertRuleRequest implements ModelInterface, ArrayAccess, \JsonSerial
         if ($this->container['threshold'] === null) {
             $invalidProperties[] = "'threshold' can't be null";
         }
+        if (($this->container['threshold'] > 1)) {
+            $invalidProperties[] = "invalid value for 'threshold', must be smaller than or equal to 1.";
+        }
+
+        if (($this->container['threshold'] <= 0)) {
+            $invalidProperties[] = "invalid value for 'threshold', must be bigger than 0.";
+        }
+
         if ($this->container['channel'] === null) {
             $invalidProperties[] = "'channel' can't be null";
         }
+        $allowedValues = $this->getWindowMinutesAllowableValues();
+        if (!is_null($this->container['window_minutes']) && !in_array($this->container['window_minutes'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'window_minutes', must be one of '%s'",
+                $this->container['window_minutes'],
+                implode("', '", $allowedValues)
+            );
+        }
+
         return $invalidProperties;
     }
 
@@ -367,7 +403,7 @@ class CreateAlertRuleRequest implements ModelInterface, ArrayAccess, \JsonSerial
     /**
      * Sets threshold
      *
-     * @param float $threshold Threshold value to trigger alert
+     * @param float $threshold Threshold value (0-1, e.g. 0.02 for 2%)
      *
      * @return self
      */
@@ -376,6 +412,14 @@ class CreateAlertRuleRequest implements ModelInterface, ArrayAccess, \JsonSerial
         if (is_null($threshold)) {
             throw new \InvalidArgumentException('non-nullable threshold cannot be null');
         }
+
+        if (($threshold > 1)) {
+            throw new \InvalidArgumentException('invalid value for $threshold when calling CreateAlertRuleRequest., must be smaller than or equal to 1.');
+        }
+        if (($threshold <= 0)) {
+            throw new \InvalidArgumentException('invalid value for $threshold when calling CreateAlertRuleRequest., must be bigger than 0.');
+        }
+
         $this->container['threshold'] = $threshold;
 
         return $this;
@@ -429,6 +473,16 @@ class CreateAlertRuleRequest implements ModelInterface, ArrayAccess, \JsonSerial
     {
         if (is_null($window_minutes)) {
             throw new \InvalidArgumentException('non-nullable window_minutes cannot be null');
+        }
+        $allowedValues = $this->getWindowMinutesAllowableValues();
+        if (!in_array($window_minutes, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'window_minutes', must be one of '%s'",
+                    $window_minutes,
+                    implode("', '", $allowedValues)
+                )
+            );
         }
         $this->container['window_minutes'] = $window_minutes;
 

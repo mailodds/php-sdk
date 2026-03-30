@@ -1,6 +1,6 @@
 <?php
 /**
- * AlertRule
+ * OAuthClientRegistration
  *
  * PHP version 8.1
  *
@@ -33,7 +33,7 @@ use \ArrayAccess;
 use \MailOdds\ObjectSerializer;
 
 /**
- * AlertRule Class Doc Comment
+ * OAuthClientRegistration Class Doc Comment
  *
  * @category Class
  * @package  MailOdds
@@ -41,7 +41,7 @@ use \MailOdds\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
+class OAuthClientRegistration implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -50,7 +50,7 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'AlertRule';
+    protected static $openAPIModelName = 'OAuthClientRegistration';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -58,14 +58,16 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'id' => 'string',
-        'metric' => 'string',
-        'threshold' => 'float',
-        'channel' => 'string',
-        'window_minutes' => 'int',
-        'enabled' => 'bool',
-        'created_at' => '\DateTime',
-        'updated_at' => '\DateTime'
+        'client_id' => 'string',
+        'client_name' => 'string',
+        'redirect_uris' => 'string[]',
+        'grant_types' => 'string[]',
+        'response_types' => 'string[]',
+        'token_endpoint_auth_method' => 'string',
+        'scope' => 'string',
+        'client_id_issued_at' => 'int',
+        'client_secret' => 'string',
+        'client_secret_expires_at' => 'int'
     ];
 
     /**
@@ -76,14 +78,16 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'id' => null,
-        'metric' => null,
-        'threshold' => null,
-        'channel' => null,
-        'window_minutes' => null,
-        'enabled' => null,
-        'created_at' => 'date-time',
-        'updated_at' => 'date-time'
+        'client_id' => null,
+        'client_name' => null,
+        'redirect_uris' => null,
+        'grant_types' => null,
+        'response_types' => null,
+        'token_endpoint_auth_method' => null,
+        'scope' => null,
+        'client_id_issued_at' => null,
+        'client_secret' => null,
+        'client_secret_expires_at' => null
     ];
 
     /**
@@ -92,14 +96,16 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'id' => false,
-        'metric' => false,
-        'threshold' => false,
-        'channel' => false,
-        'window_minutes' => false,
-        'enabled' => false,
-        'created_at' => false,
-        'updated_at' => false
+        'client_id' => false,
+        'client_name' => false,
+        'redirect_uris' => false,
+        'grant_types' => false,
+        'response_types' => false,
+        'token_endpoint_auth_method' => false,
+        'scope' => false,
+        'client_id_issued_at' => false,
+        'client_secret' => false,
+        'client_secret_expires_at' => false
     ];
 
     /**
@@ -188,14 +194,16 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'id' => 'id',
-        'metric' => 'metric',
-        'threshold' => 'threshold',
-        'channel' => 'channel',
-        'window_minutes' => 'window_minutes',
-        'enabled' => 'enabled',
-        'created_at' => 'created_at',
-        'updated_at' => 'updated_at'
+        'client_id' => 'client_id',
+        'client_name' => 'client_name',
+        'redirect_uris' => 'redirect_uris',
+        'grant_types' => 'grant_types',
+        'response_types' => 'response_types',
+        'token_endpoint_auth_method' => 'token_endpoint_auth_method',
+        'scope' => 'scope',
+        'client_id_issued_at' => 'client_id_issued_at',
+        'client_secret' => 'client_secret',
+        'client_secret_expires_at' => 'client_secret_expires_at'
     ];
 
     /**
@@ -204,14 +212,16 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'id' => 'setId',
-        'metric' => 'setMetric',
-        'threshold' => 'setThreshold',
-        'channel' => 'setChannel',
-        'window_minutes' => 'setWindowMinutes',
-        'enabled' => 'setEnabled',
-        'created_at' => 'setCreatedAt',
-        'updated_at' => 'setUpdatedAt'
+        'client_id' => 'setClientId',
+        'client_name' => 'setClientName',
+        'redirect_uris' => 'setRedirectUris',
+        'grant_types' => 'setGrantTypes',
+        'response_types' => 'setResponseTypes',
+        'token_endpoint_auth_method' => 'setTokenEndpointAuthMethod',
+        'scope' => 'setScope',
+        'client_id_issued_at' => 'setClientIdIssuedAt',
+        'client_secret' => 'setClientSecret',
+        'client_secret_expires_at' => 'setClientSecretExpiresAt'
     ];
 
     /**
@@ -220,14 +230,16 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'id' => 'getId',
-        'metric' => 'getMetric',
-        'threshold' => 'getThreshold',
-        'channel' => 'getChannel',
-        'window_minutes' => 'getWindowMinutes',
-        'enabled' => 'getEnabled',
-        'created_at' => 'getCreatedAt',
-        'updated_at' => 'getUpdatedAt'
+        'client_id' => 'getClientId',
+        'client_name' => 'getClientName',
+        'redirect_uris' => 'getRedirectUris',
+        'grant_types' => 'getGrantTypes',
+        'response_types' => 'getResponseTypes',
+        'token_endpoint_auth_method' => 'getTokenEndpointAuthMethod',
+        'scope' => 'getScope',
+        'client_id_issued_at' => 'getClientIdIssuedAt',
+        'client_secret' => 'getClientSecret',
+        'client_secret_expires_at' => 'getClientSecretExpiresAt'
     ];
 
     /**
@@ -271,25 +283,6 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
-    public const WINDOW_MINUTES_NUMBER_15 = 15;
-    public const WINDOW_MINUTES_NUMBER_60 = 60;
-    public const WINDOW_MINUTES_NUMBER_1440 = 1440;
-    public const WINDOW_MINUTES_NUMBER_2880 = 2880;
-
-    /**
-     * Gets allowable values of the enum
-     *
-     * @return string[]
-     */
-    public function getWindowMinutesAllowableValues()
-    {
-        return [
-            self::WINDOW_MINUTES_NUMBER_15,
-            self::WINDOW_MINUTES_NUMBER_60,
-            self::WINDOW_MINUTES_NUMBER_1440,
-            self::WINDOW_MINUTES_NUMBER_2880,
-        ];
-    }
 
     /**
      * Associative array for storing property values
@@ -306,14 +299,16 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('id', $data ?? [], null);
-        $this->setIfExists('metric', $data ?? [], null);
-        $this->setIfExists('threshold', $data ?? [], null);
-        $this->setIfExists('channel', $data ?? [], null);
-        $this->setIfExists('window_minutes', $data ?? [], null);
-        $this->setIfExists('enabled', $data ?? [], null);
-        $this->setIfExists('created_at', $data ?? [], null);
-        $this->setIfExists('updated_at', $data ?? [], null);
+        $this->setIfExists('client_id', $data ?? [], null);
+        $this->setIfExists('client_name', $data ?? [], null);
+        $this->setIfExists('redirect_uris', $data ?? [], null);
+        $this->setIfExists('grant_types', $data ?? [], null);
+        $this->setIfExists('response_types', $data ?? [], null);
+        $this->setIfExists('token_endpoint_auth_method', $data ?? [], null);
+        $this->setIfExists('scope', $data ?? [], null);
+        $this->setIfExists('client_id_issued_at', $data ?? [], null);
+        $this->setIfExists('client_secret', $data ?? [], null);
+        $this->setIfExists('client_secret_expires_at', $data ?? [], null);
     }
 
     /**
@@ -343,23 +338,27 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if (!is_null($this->container['threshold']) && ($this->container['threshold'] > 1)) {
-            $invalidProperties[] = "invalid value for 'threshold', must be smaller than or equal to 1.";
+        if ($this->container['client_id'] === null) {
+            $invalidProperties[] = "'client_id' can't be null";
         }
-
-        if (!is_null($this->container['threshold']) && ($this->container['threshold'] <= 0)) {
-            $invalidProperties[] = "invalid value for 'threshold', must be bigger than 0.";
+        if ($this->container['client_name'] === null) {
+            $invalidProperties[] = "'client_name' can't be null";
         }
-
-        $allowedValues = $this->getWindowMinutesAllowableValues();
-        if (!is_null($this->container['window_minutes']) && !in_array($this->container['window_minutes'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'window_minutes', must be one of '%s'",
-                $this->container['window_minutes'],
-                implode("', '", $allowedValues)
-            );
+        if ($this->container['redirect_uris'] === null) {
+            $invalidProperties[] = "'redirect_uris' can't be null";
         }
-
+        if ($this->container['grant_types'] === null) {
+            $invalidProperties[] = "'grant_types' can't be null";
+        }
+        if ($this->container['response_types'] === null) {
+            $invalidProperties[] = "'response_types' can't be null";
+        }
+        if ($this->container['token_endpoint_auth_method'] === null) {
+            $invalidProperties[] = "'token_endpoint_auth_method' can't be null";
+        }
+        if ($this->container['client_id_issued_at'] === null) {
+            $invalidProperties[] = "'client_id_issued_at' can't be null";
+        }
         return $invalidProperties;
     }
 
@@ -376,235 +375,271 @@ class AlertRule implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets id
+     * Gets client_id
+     *
+     * @return string
+     */
+    public function getClientId()
+    {
+        return $this->container['client_id'];
+    }
+
+    /**
+     * Sets client_id
+     *
+     * @param string $client_id Issued client identifier
+     *
+     * @return self
+     */
+    public function setClientId($client_id)
+    {
+        if (is_null($client_id)) {
+            throw new \InvalidArgumentException('non-nullable client_id cannot be null');
+        }
+        $this->container['client_id'] = $client_id;
+
+        return $this;
+    }
+
+    /**
+     * Gets client_name
+     *
+     * @return string
+     */
+    public function getClientName()
+    {
+        return $this->container['client_name'];
+    }
+
+    /**
+     * Sets client_name
+     *
+     * @param string $client_name Human-readable client name
+     *
+     * @return self
+     */
+    public function setClientName($client_name)
+    {
+        if (is_null($client_name)) {
+            throw new \InvalidArgumentException('non-nullable client_name cannot be null');
+        }
+        $this->container['client_name'] = $client_name;
+
+        return $this;
+    }
+
+    /**
+     * Gets redirect_uris
+     *
+     * @return string[]
+     */
+    public function getRedirectUris()
+    {
+        return $this->container['redirect_uris'];
+    }
+
+    /**
+     * Sets redirect_uris
+     *
+     * @param string[] $redirect_uris Registered redirect URIs
+     *
+     * @return self
+     */
+    public function setRedirectUris($redirect_uris)
+    {
+        if (is_null($redirect_uris)) {
+            throw new \InvalidArgumentException('non-nullable redirect_uris cannot be null');
+        }
+        $this->container['redirect_uris'] = $redirect_uris;
+
+        return $this;
+    }
+
+    /**
+     * Gets grant_types
+     *
+     * @return string[]
+     */
+    public function getGrantTypes()
+    {
+        return $this->container['grant_types'];
+    }
+
+    /**
+     * Sets grant_types
+     *
+     * @param string[] $grant_types Allowed grant types
+     *
+     * @return self
+     */
+    public function setGrantTypes($grant_types)
+    {
+        if (is_null($grant_types)) {
+            throw new \InvalidArgumentException('non-nullable grant_types cannot be null');
+        }
+        $this->container['grant_types'] = $grant_types;
+
+        return $this;
+    }
+
+    /**
+     * Gets response_types
+     *
+     * @return string[]
+     */
+    public function getResponseTypes()
+    {
+        return $this->container['response_types'];
+    }
+
+    /**
+     * Sets response_types
+     *
+     * @param string[] $response_types Allowed response types
+     *
+     * @return self
+     */
+    public function setResponseTypes($response_types)
+    {
+        if (is_null($response_types)) {
+            throw new \InvalidArgumentException('non-nullable response_types cannot be null');
+        }
+        $this->container['response_types'] = $response_types;
+
+        return $this;
+    }
+
+    /**
+     * Gets token_endpoint_auth_method
+     *
+     * @return string
+     */
+    public function getTokenEndpointAuthMethod()
+    {
+        return $this->container['token_endpoint_auth_method'];
+    }
+
+    /**
+     * Sets token_endpoint_auth_method
+     *
+     * @param string $token_endpoint_auth_method Token endpoint auth method
+     *
+     * @return self
+     */
+    public function setTokenEndpointAuthMethod($token_endpoint_auth_method)
+    {
+        if (is_null($token_endpoint_auth_method)) {
+            throw new \InvalidArgumentException('non-nullable token_endpoint_auth_method cannot be null');
+        }
+        $this->container['token_endpoint_auth_method'] = $token_endpoint_auth_method;
+
+        return $this;
+    }
+
+    /**
+     * Gets scope
      *
      * @return string|null
      */
-    public function getId()
+    public function getScope()
     {
-        return $this->container['id'];
+        return $this->container['scope'];
     }
 
     /**
-     * Sets id
+     * Sets scope
      *
-     * @param string|null $id id
+     * @param string|null $scope Allowed scope
      *
      * @return self
      */
-    public function setId($id)
+    public function setScope($scope)
     {
-        if (is_null($id)) {
-            throw new \InvalidArgumentException('non-nullable id cannot be null');
+        if (is_null($scope)) {
+            throw new \InvalidArgumentException('non-nullable scope cannot be null');
         }
-        $this->container['id'] = $id;
+        $this->container['scope'] = $scope;
 
         return $this;
     }
 
     /**
-     * Gets metric
+     * Gets client_id_issued_at
+     *
+     * @return int
+     */
+    public function getClientIdIssuedAt()
+    {
+        return $this->container['client_id_issued_at'];
+    }
+
+    /**
+     * Sets client_id_issued_at
+     *
+     * @param int $client_id_issued_at Unix timestamp of client registration
+     *
+     * @return self
+     */
+    public function setClientIdIssuedAt($client_id_issued_at)
+    {
+        if (is_null($client_id_issued_at)) {
+            throw new \InvalidArgumentException('non-nullable client_id_issued_at cannot be null');
+        }
+        $this->container['client_id_issued_at'] = $client_id_issued_at;
+
+        return $this;
+    }
+
+    /**
+     * Gets client_secret
      *
      * @return string|null
      */
-    public function getMetric()
+    public function getClientSecret()
     {
-        return $this->container['metric'];
+        return $this->container['client_secret'];
     }
 
     /**
-     * Sets metric
+     * Sets client_secret
      *
-     * @param string|null $metric Monitored metric name
+     * @param string|null $client_secret Client secret (only for confidential clients, shown once)
      *
      * @return self
      */
-    public function setMetric($metric)
+    public function setClientSecret($client_secret)
     {
-        if (is_null($metric)) {
-            throw new \InvalidArgumentException('non-nullable metric cannot be null');
+        if (is_null($client_secret)) {
+            throw new \InvalidArgumentException('non-nullable client_secret cannot be null');
         }
-        $this->container['metric'] = $metric;
+        $this->container['client_secret'] = $client_secret;
 
         return $this;
     }
 
     /**
-     * Gets threshold
-     *
-     * @return float|null
-     */
-    public function getThreshold()
-    {
-        return $this->container['threshold'];
-    }
-
-    /**
-     * Sets threshold
-     *
-     * @param float|null $threshold Alert threshold value (0-1)
-     *
-     * @return self
-     */
-    public function setThreshold($threshold)
-    {
-        if (is_null($threshold)) {
-            throw new \InvalidArgumentException('non-nullable threshold cannot be null');
-        }
-
-        if (($threshold > 1)) {
-            throw new \InvalidArgumentException('invalid value for $threshold when calling AlertRule., must be smaller than or equal to 1.');
-        }
-        if (($threshold <= 0)) {
-            throw new \InvalidArgumentException('invalid value for $threshold when calling AlertRule., must be bigger than 0.');
-        }
-
-        $this->container['threshold'] = $threshold;
-
-        return $this;
-    }
-
-    /**
-     * Gets channel
-     *
-     * @return string|null
-     */
-    public function getChannel()
-    {
-        return $this->container['channel'];
-    }
-
-    /**
-     * Sets channel
-     *
-     * @param string|null $channel Notification channel
-     *
-     * @return self
-     */
-    public function setChannel($channel)
-    {
-        if (is_null($channel)) {
-            throw new \InvalidArgumentException('non-nullable channel cannot be null');
-        }
-        $this->container['channel'] = $channel;
-
-        return $this;
-    }
-
-    /**
-     * Gets window_minutes
+     * Gets client_secret_expires_at
      *
      * @return int|null
      */
-    public function getWindowMinutes()
+    public function getClientSecretExpiresAt()
     {
-        return $this->container['window_minutes'];
+        return $this->container['client_secret_expires_at'];
     }
 
     /**
-     * Sets window_minutes
+     * Sets client_secret_expires_at
      *
-     * @param int|null $window_minutes Evaluation window in minutes
+     * @param int|null $client_secret_expires_at Secret expiry (0 = never)
      *
      * @return self
      */
-    public function setWindowMinutes($window_minutes)
+    public function setClientSecretExpiresAt($client_secret_expires_at)
     {
-        if (is_null($window_minutes)) {
-            throw new \InvalidArgumentException('non-nullable window_minutes cannot be null');
+        if (is_null($client_secret_expires_at)) {
+            throw new \InvalidArgumentException('non-nullable client_secret_expires_at cannot be null');
         }
-        $allowedValues = $this->getWindowMinutesAllowableValues();
-        if (!in_array($window_minutes, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'window_minutes', must be one of '%s'",
-                    $window_minutes,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        $this->container['window_minutes'] = $window_minutes;
-
-        return $this;
-    }
-
-    /**
-     * Gets enabled
-     *
-     * @return bool|null
-     */
-    public function getEnabled()
-    {
-        return $this->container['enabled'];
-    }
-
-    /**
-     * Sets enabled
-     *
-     * @param bool|null $enabled enabled
-     *
-     * @return self
-     */
-    public function setEnabled($enabled)
-    {
-        if (is_null($enabled)) {
-            throw new \InvalidArgumentException('non-nullable enabled cannot be null');
-        }
-        $this->container['enabled'] = $enabled;
-
-        return $this;
-    }
-
-    /**
-     * Gets created_at
-     *
-     * @return \DateTime|null
-     */
-    public function getCreatedAt()
-    {
-        return $this->container['created_at'];
-    }
-
-    /**
-     * Sets created_at
-     *
-     * @param \DateTime|null $created_at created_at
-     *
-     * @return self
-     */
-    public function setCreatedAt($created_at)
-    {
-        if (is_null($created_at)) {
-            throw new \InvalidArgumentException('non-nullable created_at cannot be null');
-        }
-        $this->container['created_at'] = $created_at;
-
-        return $this;
-    }
-
-    /**
-     * Gets updated_at
-     *
-     * @return \DateTime|null
-     */
-    public function getUpdatedAt()
-    {
-        return $this->container['updated_at'];
-    }
-
-    /**
-     * Sets updated_at
-     *
-     * @param \DateTime|null $updated_at updated_at
-     *
-     * @return self
-     */
-    public function setUpdatedAt($updated_at)
-    {
-        if (is_null($updated_at)) {
-            throw new \InvalidArgumentException('non-nullable updated_at cannot be null');
-        }
-        $this->container['updated_at'] = $updated_at;
+        $this->container['client_secret_expires_at'] = $client_secret_expires_at;
 
         return $this;
     }

@@ -2,7 +2,7 @@
 
 Create and send email campaigns with A/B testing
 
-All URIs are relative to https://api.mailodds.com/v1, except if the operation defines another base path.
+All URIs are relative to https://api.mailodds.com, except if the operation defines another base path.
 
 | Method | HTTP request | Description |
 | ------------- | ------------- | ------------- |
